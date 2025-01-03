@@ -1,15 +1,13 @@
 package com.example.nagoyameshi.entity;
 
-import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -22,9 +20,9 @@ public class Store {
 	@Column(name = "id")
 	private Integer id;
 	
-	// 連携できてない
-	@ManyToOne
-	@JoinColumn(name = "category_id")
+	/* categoryテーブル（エンティティ）と連携する
+	 * ManyToOneとJoinColumnにする　*/	
+	@Column(name = "category_id")
 	private Integer category;
 	
 	@Column(name = "name")
@@ -37,10 +35,10 @@ public class Store {
 	private String description;
 	
 	@Column(name = "start_time")
-	private Time startTime;
+	private LocalTime startTime;
 	
 	@Column(name = "end_time")
-	private Time endTime;
+	private LocalTime endTime;
 	
 	@Column(name = "price_min")
 	private Integer priceMin;
@@ -58,7 +56,7 @@ public class Store {
 	private String holidays;
 	
 	@Column(name = "capacity")
-	private String capacity;
+	private Integer capacity;
 	
 	@Column(name = "created_at", insertable = false, updatable = false)
 	private Timestamp createdAt;

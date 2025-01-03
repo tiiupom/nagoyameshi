@@ -1,7 +1,7 @@
 // 認証用のエンティティ
 package com.example.nagoyameshi.entity;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

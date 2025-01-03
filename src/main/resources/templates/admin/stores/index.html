@@ -17,17 +17,17 @@
 					<div class="row justify-content-center">
 						 <div class="col-xxl-9 col-xl-10 col-lg-11">
 							 
-							 <h1 class="mb-5 text-center">店舗一覧</h1>
+							 <h1 class="mb-5 text-center">店舗情報一覧</h1>
 							 
 							<div class="d-flex justify-content-between align-items-end flex-wrap">
-								<from method="get" th:action="@{/admin/stores}" class="mb-3">
+								<form method="get" th:action="@{/admin/stores}" class="mb-3">
 									<div class="input-group">
 										<!-- input要素にth:value属性を使い、コントローラから渡された変数keywordの値を初期値として設定 -->
 										<input type="text" class="from-control" name="keyword" th:value="${keyword}" placeholder="店舗名">
 										<button type="submit" class="btn text-white nagoyameshi-btn">検索</button>
 									</div>
-								</from>
-                               <a href="#" class="btn text-white shadow-sm mb-3 samuraitravel-btn">登録</a>
+								</form>
+                               <a th:href="@{/admin/stores/register}" class="btn text-white shadow-sm mb-3 nagoyameshi-btn">登録</a>
                             </div>
                             
                             <div th:if="${errorMessage}" class="alert alert-danger">
@@ -50,21 +50,21 @@
 										<td th:text="${store.name}"></td>
 										<td th:text="${store.address}"></td>
 										<td th:text="${store.phoneNumber}"></td>
-										<td><a th:href="${/admin/stores/__${store.id}__}">詳細</a></td>
+										<td><a th:href="@{/admin/stores/__${store.id}__}">詳細</a></td>
 									</tr>
 								</tbody>
                             </table>
                             
                             <!-- ページネーション 
                             	a要素の中のth:href属性にkeywordパラメータを追加し、ページ移動時も検索結果が保持されるようにする -->
-                            <div th:if="${storePage.getTotalPages() >1}" class="d-flex justify-content-center">
+                            <div th:if="${storePage.getTotalPages() > 1}" class="d-flex justify-content-center">
 								<nav aria-label="店舗一覧ページ">
-									<ul class="paginatiion">
+									<ul class="pagination">
 										<li class="page-item">
 											<span th:if="${storePage.isFirst()}" class="page-link disabled">前</span>
-											<a th:unless="${storePage.isFirst()}" th:href="@{/admin/stores(page = ${storePage.getNumber() -1}, keyword = ${keyword})}" class="page-link nagoyameshi-page-link">前</a>
+											<a th:unless="${storePage.isFirst()}" th:href="@{/admin/stores(page = ${storePage.getNumber() - 1}, keyword = ${keyword})}" class="page-link nagoyameshi-page-link">前</a>
 										</li>
-										<li th:each="i : ${numbers.sequence(0, storePage.getTotalPages() -1)}" class="page-item">
+										<li th:each="i : ${numbers.sequence(0, storePage.getTotalPages() - 1)}" class="page-item">
 											<span th:if="${i == storePage.getNumber()}" class="page-link active nagoyameshi-active" th:text="${i + 1}"></span>
 											<a th:unless="${i == storePage.getNumber()}" th:href="@{/admin/stores(page = ${i}, keyword = ${keyword})}" class="page-link nagoyameshi-page-link" th:text="${i + 1}"></a>
 										</li>

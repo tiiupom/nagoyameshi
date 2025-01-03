@@ -8,4 +8,6 @@ import com.example.nagoyameshi.entity.Store;
 
 public interface StoreRepository extends JpaRepository<Store, Integer> {
 	public Page<Store> findByNameLike(String keyword, Pageable pageable);
+	// idカラムの値で降順に並べ替え最初の１件を取得する
+	public Store findFirstByOrderByIdDesc();
 }
