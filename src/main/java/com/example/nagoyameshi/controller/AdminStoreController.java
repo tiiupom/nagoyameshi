@@ -27,7 +27,7 @@ import com.example.nagoyameshi.service.StoreService;
  * 		required リクエストパラメータが必須か
  * 		dafultValue リクエストパラメータが未指定または空の場合のデフォルト値
  * if文　keywordパラメータが存在する場合は部分一致検索を行い、そうでなければ前件のデータを取得
- */
+ */ 
 @Controller
 @RequestMapping("/admin/stores")
 public class AdminStoreController {

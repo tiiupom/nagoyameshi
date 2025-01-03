@@ -13,7 +13,7 @@ import lombok.Data;
 public class StoreRegisterForm {
 	@NotBlank(message = "店舗名を入力してください")
 	private String name;
-	
+	 
 	private MultipartFile imageFile;
 	
 	@NotBlank(message = "店舗説明を入力してください")

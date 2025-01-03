@@ -24,7 +24,7 @@ public class StoreService {
 	public StoreService(StoreRepository storeRepository) {
 		this.storeRepository = storeRepository;
 	}
-	
+	 
 	// 全ての民宿をページングされた状態で取得
 	public Page<Store> findAllStores(Pageable pageable) {
 		return storeRepository.findAll(pageable);
