@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -86,7 +87,7 @@ public class AdminStoreController {
 	/* if文　フォーム入力内容に対しバリデーションを行いエラーであれば管理者用の店舗登録ページを再度表示する
 	 * 		エラーがなければサービスクラスに定義したcreateStore()を実行し店舗データをstoresテーブルに保存
 	 * 		追加後、フラッシュメッセージを渡し管理者用の店舗一覧ページにリダイレクト */
-	@GetMapping("/create")
+	@PostMapping("/create")
 	public String create(@ModelAttribute @Validated StoreRegisterForm storeRegisterForm,
 						 BindingResult bindingResult,
 						 RedirectAttributes redirectAttributes,

@@ -27,11 +27,15 @@
 										<button type="submit" class="btn text-white nagoyameshi-btn">検索</button>
 									</div>
 								</form>
-                               <a th:href="@{/admin/stores/register}" class="btn text-white shadow-sm mb-3 nagoyameshi-btn">登録</a>
+                               <a th:href="@{/admin/stores/register}" class="btn text-white shadow-sm mb-3 nagoyameshi-btn">新規登録</a>
                             </div>
                             
+                            <div th:if="${successMessage}" class="alert alert-info">
+                                 <span th:text="${successMessage}"></span>
+                             </div>                            
+
                             <div th:if="${errorMessage}" class="alert alert-danger">
-								<span th:text="${errorMessage}"></span>
+                                <span th:text="${errorMessage}"></span>
                             </div>
                             
                             <table class="table">
