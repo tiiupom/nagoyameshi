@@ -25,15 +25,15 @@
 							 
 							 <h1 class="mb-4 text-center">店舗登録</h1>
 							 
-							 <form method="post" th:action="@{/admin/stores/create}" th:object="${storeRegosterForm}" enctype="multipart/form-data">
+							 <form method="post" th:action="@{/admin/stores/create}" th:object="${storeRegisterForm}" enctype="multipart/form-data">
 								<!-- 店舗名入力フォーム -->
 								<div class="form-group row mb-3">
 									<div class="col-md-4">
 										<label for="name" class="col-form-label text-md-left fw-bold">店舗名</label>
 									</div>
 									<div class="col-md-8">
-										<div th:if="${fields.hasErrors('name')}" class="text-danger small mb-2" th:errors="*{name}"></div>
-										<input type="text" class="form-control" th:field="*{name}" autofocus>
+										<div th:if="${#fields.hasErrors('name')}" class="text-danger small mb-2" th:errors="*{name}"></div>
+                                        <input type="text" class="form-control" th:field="*{name}" autofocus>
 									</div>
 								</div>
 								
@@ -43,7 +43,7 @@
 										<label for="imageFile" class="col-form-label text-md-left fw-bold">店舗画像</label>
 									</div>
 									<div class="col-md-8">
-										<div th:if="${fields.hasErrors('imageFile')}" class="text-danger small mb-2" th:errors="*{imageFile}"></div>
+										<div th:if="${#fields.hasErrors('imageFile')}" class="text-danger small mb-2" th:errors="*{imageFile}"></div>
 										<input type="file" class="form-control" th:field="*{imageFile}">
 									</div>
 								</div>
@@ -56,7 +56,7 @@
 										<label for="description" class="col-form-label text-md-left fw-bold">店舗説明</label>
 									</div>
 									<div class="col-md-8">
-										<div th:if="${fields.hasErrors('description')}" class="text-danger small mb-2" th:errors="*{description}"></div>
+										<div th:if="${#fields.hasErrors('description')}" class="text-danger small mb-2" th:errors="*{description}"></div>
 										<textarea class="form-control" th:field="*{description}" cols="30" rows="5"></textarea>
 									</div>
 								</div>
@@ -69,7 +69,7 @@
 										<div th:if="${#fields.hasErrors('startTime')}" class="text-danger small mb-2" th:errors="*{startTime}"></div>
 										<select class="form-control form-select" th:field="*{startTime}">
 											<option value="" hidden>選択してください</option>
-                                               <th:block th:with="startTime=${T(java.time.Time).MIDNIGHT}">
+                                               <th:block th:with="startTime=${T(java.time.LocalTime).MIDNIGHT}">
 												<th:block th:each="i : ${#numbers.sequence(0, 47)}">
 													<th:block th:with="startTime=${startTime.plusMinutes(i * 30).toString()}">
 														<option th:value="${startTime}" th:selected="${startTime == storeRegisterForm.startTime}" th:text="${startTime}"></option>
@@ -88,7 +88,7 @@
 										<div th:if="${#fields.hasErrors('endTime')}" class="text-danger small mb-2" th:errors="*{endTime}"></div>
 										<select class="form-control form-select" th:field="*{endTime}">
 											<option value="" hidden>選択してください</option>
-                                               <th:block th:with="startTime=${T(java.time.Time).MIDNIGHT}">
+                                               <th:block th:with="startTime=${T(java.time.LocalTime).MIDNIGHT}">
 												<th:block th:each="i : ${#numbers.sequence(0, 47)}">
 													<th:block th:with="endTime=${startTime.plusMinutes(i * 30).toString()}">
 														<option th:value="${endTime}" th:selected="${endTime == storeRegisterForm.endTime}" th:text="${endTime}"></option>
