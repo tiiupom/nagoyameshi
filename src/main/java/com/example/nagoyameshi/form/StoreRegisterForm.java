@@ -1,6 +1,6 @@
 package com.example.nagoyameshi.form;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,10 +20,10 @@ public class StoreRegisterForm {
 	private String description;
 	
 	@NotNull(message = "開店時間")
-	private Time startTime;
+	private LocalTime startTime;
 	
 	@NotNull(message = "閉店時間")
-	private Time endTime;
+	private LocalTime endTime;
 	
 	@NotNull(message = "最低価格")
 	private Integer priceMin;

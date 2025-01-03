@@ -47,7 +47,7 @@ public class StoreService {
 	}
 	
 	// idが最も大きい店舗を取得
-	public Store findFirstStoreByOrderByIdDesC() {
+	public Store findFirstStoreByOrderByIdDesc() {
 		return storeRepository.findFirstByOrderByIdDesc();
 	}
 	
@@ -62,7 +62,7 @@ public class StoreService {
 	public void createStore(StoreRegisterForm storeRegisterForm) {
 		Store store = new Store();
 		MultipartFile imageFile = storeRegisterForm.getImageFile();
-		
+		System.out.println(store);
 		if (!imageFile.isEmpty()) {
 			String imageName = imageFile.getOriginalFilename();
 			String hashedImageName = generateNewFileName(imageName);
@@ -79,9 +79,8 @@ public class StoreService {
 		store.setPriceMax(storeRegisterForm.getPriceMax());
 		store.setAddress(storeRegisterForm.getAddress());
 		store.setPhoneNumber(storeRegisterForm.getPhoneNumber());
-		store.setHolidays(storeRegisterForm.getHolidays());
 		store.setCapacity(storeRegisterForm.getCapacity());
-		
+		System.out.println(store);
 		storeRepository.save(store);
 	}
 	
