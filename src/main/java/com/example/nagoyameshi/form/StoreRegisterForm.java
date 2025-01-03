@@ -1,6 +1,6 @@
 package com.example.nagoyameshi.form;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,36 +11,32 @@ import lombok.Data;
 
 @Data
 public class StoreRegisterForm {
-	@NotBlank(message = "店舗名")
+	@NotBlank(message = "店舗名を入力してください")
 	private String name;
 	
 	private MultipartFile imageFile;
 	
-	@NotBlank(message = "店舗説明")
+	@NotBlank(message = "店舗説明を入力してください")
 	private String description;
 	
-	@NotNull(message = "開店時間")
-	private Time startTime;
+	@NotNull(message = "開店時間を選択してください")
+	private LocalTime startTime;
 	
-	@NotNull(message = "閉店時間")
-	private Time endTime;
+	@NotNull(message = "閉店時間を選択してください")
+	private LocalTime endTime;
 	
-	@NotNull(message = "最低価格")
+	@NotNull(message = "最低価格を選択してください")
 	private Integer priceMin;
 	
-	@NotNull(message = "最高価格")
+	@NotNull(message = "最高価格を選択してください")
 	private Integer priceMax;
 	
-	@NotBlank(message = "住所")
+	@NotBlank(message = "住所を入力してください")
 	private String address;
 	
-	@NotBlank(message = "電話番号")
+	@NotBlank(message = "電話番号を入力してください")
 	private String phoneNumber;
 	
-	@NotBlank(message = "定休日")
-	private String holidays;
-	
-	@NotNull(message = "最大利用人数")
 	@Min(value = 1, message = "最大利用人数は1人以上に設定してください。")
 	private Integer capacity;
 }

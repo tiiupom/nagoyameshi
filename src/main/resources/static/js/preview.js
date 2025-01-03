@@ -1,4 +1,4 @@
-const imageInput = document.getElementById('imageFile');
+ const imageInput = document.getElementById('imageFile');
  const imagePreview = document.getElementById('imagePreview');
  
  imageInput.addEventListener('change', () => {
@@ -12,6 +12,7 @@ const imageInput = document.getElementById('imageFile');
      imagePreview.innerHTML = '';
    }
  })
+
  
 /*
 1.idにimageFileが指定されているHTML要素(input要素)の値が変更されるたびイベント処理が実行

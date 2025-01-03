@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.nagoyameshi.entity.Store;
 import com.example.nagoyameshi.service.StoreService;
 
 @SpringBootTest
@@ -184,7 +185,7 @@ public class AdminStoreControllerTest {
 	@WithUserDetails("saburo.sato@example.com")
 	@Transactional
 	public void 管理者としてログイン済の場合は店舗登録後店舗一覧ページにリダイレクト() throws Exception {
-		// テスト前のレコード数を取得
+				// テスト前のレコード数を取得
 				long countBefore = storeService.countStores();
 				
 				// テスト後の画像ファイルデータを準備
@@ -223,14 +224,14 @@ public class AdminStoreControllerTest {
 				
 				Store store = storeService.findFirstStoreByOrderByIdDesc();
 				assertThat(store.getName()).isEqualTo("テスト店舗");
-				assertThat(store.getDescription().isEqualTo("テスト説明");
-				assertThat(store.getStartTime()).isequalTo("09:00");
-				assertThat(store.getEndTime()).isequalTo("19:00");
-				assertThat(store.getPriceMin()).isequalTo(1000);
-				assertThat(store.getPriceMax()).isequalTo(2500);
-				assertThat(store.getAddress()).isequalTo("テスト住所");
-				assertThat(store.getPhoneNumber()).isequalTo("000-000-000");
-				assertThat(store.getHolidays()).isequalTo("月");
-				assertThat(store.getCapacity()).isequalTo(30);
+				assertThat(store.getDescription()).isEqualTo("テスト説明");
+				assertThat(store.getStartTime()).isEqualTo("09:00");
+				assertThat(store.getEndTime()).isEqualTo("19:00");
+				assertThat(store.getPriceMin()).isEqualTo(1000);
+				assertThat(store.getPriceMax()).isEqualTo(2500);
+				assertThat(store.getAddress()).isEqualTo("テスト住所");
+				assertThat(store.getPhoneNumber()).isEqualTo("000-000-000");
+				assertThat(store.getHolidays()).isEqualTo("月");
+				assertThat(store.getCapacity()).isEqualTo(30);
 	}
 }
