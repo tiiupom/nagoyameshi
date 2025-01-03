@@ -1,6 +1,6 @@
 package com.example.nagoyameshi.security;
 
-import java.util.ArrayList;
+ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -13,28 +13,31 @@ import org.springframework.stereotype.Service;
 import com.example.nagoyameshi.entity.User;
 import com.example.nagoyameshi.repository.UserRepository;
 
-@Service
-public class UserDetailsServiceImpl implements UserDetailsService {
-	private final UserRepository userRepository;
-	
-	public UserDetailsServiceImpl(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
-	
-	@Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-			System.out.println(email);
-        
-            User user = userRepository.findByEmail(email);
-            System.out.println(user);
-      try {
-            String userRoleName = user.getRole().getName();
-            Collection<GrantedAuthority> authorities = new ArrayList<>();
-            authorities.add(new SimpleGrantedAuthority(userRoleName));
-            return new UserDetailsImpl(user, authorities);
-        } catch (Exception e) {
-        	System.out.println("bbb");
-            throw new UsernameNotFoundException("ユーザーが見つかりませんでした。");
-        }
-    }
+ @Service
+ public class UserDetailsServiceImpl implements UserDetailsService {
+     private final UserRepository userRepository;
+ 
+     public UserDetailsServiceImpl(UserRepository userRepository) {
+         this.userRepository = userRepository;
+     }
+ 
+     @Override
+     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        System.out.println(email);
+    	 try {
+             User user = userRepository.findByEmail(email);
+             String userRoleName = user.getRole().getName();
+             
+             System.out.println(userRoleName);
+             
+             Collection<GrantedAuthority> authorities = new ArrayList<>();
+             authorities.add(new SimpleGrantedAuthority(userRoleName));
+             return new UserDetailsImpl(user, authorities);
+         } catch (Exception e) {
+        	 
+        	 System.out.println("aaa");
+             
+        	 throw new UsernameNotFoundException("ユーザーが見つかりませんでした。");
+         }
+     }
 }

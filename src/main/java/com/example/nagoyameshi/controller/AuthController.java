@@ -94,7 +94,7 @@ public class AuthController {
 		signupEventPublisher.publishSignupEvent(createdUser, requestUrl);	// ユーザーの会員登録が完了するとイベント発行
 		redirectAttributes.addFlashAttribute("successMessage", "ご入力いただいたメールアドレスに認証メールを送信しました。メールに記載されているリンクをクリックし、会員登録を完了してください。");
 		
-		return "redirect:user/mypage";	// マイページにリダイレクトする
+		return "redirect:/";	// マイページにリダイレクトする
 	}
 	
 	/* @RequestParam　リクエストパラメータ（HTTPリクエストに含まれるデータ）を引数にバインドする
