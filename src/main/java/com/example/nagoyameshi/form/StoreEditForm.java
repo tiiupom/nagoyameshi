@@ -12,7 +12,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class StoreRegisterForm {
+public class StoreEditForm {
 	@NotBlank(message = "店舗名を入力してください")
 	private String name;
 	 
@@ -45,3 +45,4 @@ public class StoreRegisterForm {
 	@Min(value = 1, message = "最大利用人数は1人以上に設定してください。")
 	private Integer capacity;
 }
+

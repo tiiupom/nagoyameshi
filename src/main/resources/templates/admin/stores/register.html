@@ -50,6 +50,20 @@
 								
 								<div class="row" id="imagePreview"></div>
 								
+								<!-- カテゴリー選択フォーム -->
+								<div class="form-group row mb-3">
+									<div class="col-md-4">
+										<label for="description" class="col-form-label text-md-left fw-bold">カテゴリ</label>
+									</div>
+										<select class="form-control" name="category">
+											<option value="">選択なし</option>
+											<div th:each="category : ${categories}" th:inline="text">
+												<option th:value="${category.id}" th:field="*{Id}"></option>
+											</div>
+										</select>
+									</div>
+								</div>
+								
 								<!-- 店舗説明入力フォーム -->
 								<div class="form-group row mb-3">
 									<div class="col-md-4">

@@ -27,7 +27,7 @@
 							 
 							 <div class="d-flex justify-content-end align-items-end mb-3">
 								 <div>
-									 <a href="#">編集</a>
+									 <a th:href="@{/admin/stores/__${store.id}__/edit">編集</a>
 								 </div>
 							 </div>
 							 
@@ -45,6 +45,16 @@
 									 
 									 <div class="col">
 										 <span th:text="${store.name}"></span>
+									 </div>
+								 </div>
+								 
+								 <div class="row pb-2 mb-2 border-bottom">
+									 <div class="col-4">
+										 <span class="fw-bold">カテゴリ</span>
+									 </div>
+									 
+									 <div class="col">
+										 <span th:text="${category.name}"></span>
 									 </div>
 								 </div>
 								 
