@@ -46,6 +46,7 @@
 										<th scope="col">住所</th>
 										<th scope="col">電話番号</th>
 										<th scope="col"></th>
+										<th scope="col"></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -55,6 +56,24 @@
 										<td th:text="${store.address}"></td>
 										<td th:text="${store.phoneNumber}"></td>
 										<td><a th:href="@{/admin/stores/__${store.id}__}">詳細</a></td>
+										<td><a href="#" class="nagoyameshi-link-danger" data-bs-toggle="modal" th:data-bs-target="${'#deleteStoreModal' + store.id}">削除</a></td>
+										
+										<!-- 削除用モーダル -->
+										<div class="modal fade" th:id="${'deleteStoreModal' + store.id}" tabindex="-1" th:aria-labelledby="${'deleteStoreModalLabel' + store.id}">
+											<div class="modal-dialog">
+                                                 <div class="modal-content">
+                                                     <div class="modal-header">
+														 <h5 class="modal-title" th:id="${'deleteStoreModal' + store.id}" th:text="${house.name + 'を削除してもよろしいですか？'}"></h5>
+														 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+                                                     </div>
+                                                     <div class="modal-footer">
+														 <form method="post" th:action="@{/admin/stores/__${store.id}__/delete}">
+															 <button type="submit" class="btn text-white nagoyameshi-btn">削除</button>
+														 </form>
+                                                     </div>
+                                                 </div>
+											</div>
+										</div>
 									</tr>
 								</tbody>
                             </table>

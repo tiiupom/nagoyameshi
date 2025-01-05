@@ -1,5 +1,6 @@
 package com.example.nagoyameshi.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -18,9 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.nagoyameshi.entity.Category;
 import com.example.nagoyameshi.entity.Store;
+import com.example.nagoyameshi.form.StoreEditForm;
 import com.example.nagoyameshi.form.StoreRegisterForm;
+import com.example.nagoyameshi.service.CategoryService;
 import com.example.nagoyameshi.service.StoreService;
+
 
 /* @RequestParam リクエストパラメータの値を引数にバインドする
  * 		name 取得するリクエストパラメータ名
@@ -79,7 +84,9 @@ public class AdminStoreController {
 	
 	@GetMapping("/register")
 	public String register(Model model) {
+		List<Category> categories = CategoryService.findAllCategories();
 		model.addAttribute("storeRegisterForm", new StoreRegisterForm());
+		model.addAttribute("categories", categories);
 		
 		return "admin/stores/register";
 	}
@@ -94,7 +101,9 @@ public class AdminStoreController {
 						 Model model)
 	{
 		if (bindingResult.hasErrors()) {
+			List<Category> categories = CategoryService.findAllCategories();
 			model.addAttribute("storeRegisterForm", storeRegisterForm);
+			model.addAttribute("categories", categories);
 			
 			return "admin/stores/register";
 		}
@@ -104,4 +113,74 @@ public class AdminStoreController {
 		
 		return "redirect:/admin/stores";
 	}
+	
+	@GetMapping("/{id}/edit")
+	public String edit(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes, Model model) {
+		Optional<Store> optionalStore = storeService.findStoreById(id);
+		
+		if (optionalStore.isEmpty()) {
+			redirectAttributes.addFlashAttribute("errorMessage", "店舗が存在しません");
+			
+			return "redirect:/admin/stores";
+		}
+		
+		Store store = optionalStore.get();
+		// フォームクラスをインスタンス化
+		StoreEditForm storeEditForm = new StoreEditForm(store.getName(), null, store.getCategory(), store.getDescription(), store.getStartTime(), store.getEndTime(), store.getPriceMin(), store.getPriceMax(), store.getAddress(), store.getPhoneNumber(), store.getCapacity());
+		
+		model.addAttribute("store", store);
+		// インスタンスをビューに返す
+		model.addAttribute("storeEditForm", storeEditForm);
+		
+		return "admin/stores/edit";
+	}
+	
+	@PostMapping("/{id}/update")
+	public String update(@ModelAttribute @Validated StoreEditForm storeEditForm,
+						 BindingResult bindingResult,
+						 @PathVariable(name = "id") Integer id,
+						 RedirectAttributes redirectAttributes,
+						 Model model)
+	{
+		Optional<Store> optionalStore = storeService.findStoreById(id);
+		
+		if (optionalStore.isEmpty()) {
+			redirectAttributes.addFlashAttribute("errorMessage", "店舗が存在しません");
+			
+			return "redirect:/admin/stores";
+		}
+		
+		Store store = optionalStore.get();
+		
+		if (bindingResult.hasErrors()) {
+			List<Category> categories = CategoryService.findAllCategories();
+			model.addAttribute("store", store);
+			model.addAttribute("storeEditForm", storeEditForm);
+			
+			return "admin/stores/edit";
+		}
+		
+		storeService.updateStore(storeEditForm, store);
+		redirectAttributes.addFlashAttribute("successMessage", "店舗情報の編集内容を更新しました");
+		
+		return "redirect:/admin/stores";
+	}
+	
+	@PostMapping("/{id}/delete")
+	public String delete(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes) {
+		Optional<Store> optionalStore = storeService.findStoreById(id);
+		
+		if (optionalStore.isEmpty()) {
+			redirectAttributes.addFlashAttribute("errorMessage", "店舗が存在しません");
+			
+			return "redirect:/admin/stores";
+		}
+			
+		Store store = optionalStore.get();
+		storeService.deleteStore(store);
+		redirectAttributes.addFlashAttribute("successMessage", "店舗を削除しました");
+			
+		return "redirect:/admin/stores";
+	}
+	
 }
