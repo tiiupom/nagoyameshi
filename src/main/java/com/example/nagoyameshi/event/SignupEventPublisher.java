@@ -1,5 +1,5 @@
 package com.example.nagoyameshi.event;
-
+ 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 

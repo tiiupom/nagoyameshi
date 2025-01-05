@@ -1,6 +1,6 @@
 // rolesテーブルとやり取りする認可用のリポジトリ
 package com.example.nagoyameshi.repository;
-
+ 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.nagoyameshi.entity.Role;

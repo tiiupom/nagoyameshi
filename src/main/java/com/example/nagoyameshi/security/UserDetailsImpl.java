@@ -1,5 +1,5 @@
 package com.example.nagoyameshi.security;
-
+ 
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;

@@ -1,5 +1,5 @@
 package com.example.nagoyameshi.entity;
-
+ 
 import java.sql.Timestamp;
 import java.time.LocalTime;
 
@@ -23,7 +23,7 @@ public class Store {
 	private Integer id;
 	 
 	@ManyToOne
-	@JoinColumn(name = "category_id")
+	@JoinColumn(name = "category")
 	private Category category;
 	
 	@Column(name = "name")

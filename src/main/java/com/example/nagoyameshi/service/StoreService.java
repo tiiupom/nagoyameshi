@@ -89,27 +89,27 @@ public class StoreService {
 	@Transactional
 	public void updateStore(StoreEditForm storeEditForm, Store store) {
 		MultipartFile imageFile = storeEditForm.getImageFile();
-		
+		//System.out.println(store);
 		if (!imageFile.isEmpty()) {
 			String imageName = imageFile.getOriginalFilename();
 			String hashedImageName = generateNewFileName(imageName);
-			Path filePath = Paths.get("src/main/resources/static/storage" + hashedImageName);
+			Path filePath = Paths.get("src/main/resources/static/storage/" + hashedImageName);
 			copyImageFile(imageFile, filePath);
 			store.setImageName(hashedImageName);
-			
-			store.setName(storeEditForm.getName());
-			store.setCategory(storeEditForm.getCategory());
-			store.setDescription(storeEditForm.getDescription());
-			store.setStartTime(storeEditForm.getStartTime());
-			store.setEndTime(storeEditForm.getEndTime());
-			store.setPriceMin(storeEditForm.getPriceMin());
-			store.setPriceMax(storeEditForm.getPriceMax());
-			store.setAddress(storeEditForm.getAddress());
-			store.setPhoneNumber(storeEditForm.getPhoneNumber());
-			store.setCapacity(storeEditForm.getCapacity());
-			
-			storeRepository.save(store);
 		}
+		
+		store.setName(storeEditForm.getName());
+		store.setCategory(storeEditForm.getCategory());
+		store.setDescription(storeEditForm.getDescription());
+		store.setStartTime(storeEditForm.getStartTime());
+		store.setEndTime(storeEditForm.getEndTime());
+		store.setPriceMin(storeEditForm.getPriceMin());
+		store.setPriceMax(storeEditForm.getPriceMax());
+		store.setAddress(storeEditForm.getAddress());
+		store.setPhoneNumber(storeEditForm.getPhoneNumber());
+		store.setCapacity(storeEditForm.getCapacity());
+		//System.out.println(store);
+		storeRepository.save(store);
 	}
 	
 	@Transactional
