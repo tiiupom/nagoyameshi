@@ -22,9 +22,11 @@ public class Store {
 	@Column(name = "id")
 	private Integer id;
 	 
+	/* categoryテーブル（エンティティ）と連携する
+	 * ManyToOneとJoinColumnにする　*/	
 	@ManyToOne
 	@JoinColumn(name = "category_id")
-	private Category category;
+	private Integer category;
 	
 	@Column(name = "name")
 	private String name;
