@@ -9,15 +9,17 @@ import com.example.nagoyameshi.entity.Category;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class StoreEditForm {
 	@NotBlank(message = "店舗名を入力してください")
 	private String name;
 	 
 	private MultipartFile imageFile;
-	
+		
 	@NotBlank(message = "カテゴリーを選択してください")
 	private Category category;
 	

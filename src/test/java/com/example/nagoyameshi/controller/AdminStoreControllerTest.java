@@ -370,7 +370,7 @@ public class AdminStoreControllerTest {
 	}
 	
 	@Test
-	public void 未ログインの場合は民宿を削除せずログインページにリダイレクト() throws Exception {
+	public void 未ログインの場合は店舗を削除せずログインページにリダイレクト() throws Exception {
 		mockMvc.perform(get("/admin/stores"))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(redirectedUrl("http://localhost/login"));
@@ -382,7 +382,7 @@ public class AdminStoreControllerTest {
 	@Test
 	@WithUserDetails("taro.tanaka@example.com")
 	@Transactional
-	public void 管理者以外でログイン済の場合は民宿を削除せず403エラー() throws Exception {
+	public void 管理者以外でログイン済の場合は店舗を削除せず403エラー() throws Exception {
 		mockMvc.perform(post("/admin/stores/1/delete").with(csrf()))
 				.andExpect(status().isForbidden());
 		
@@ -399,6 +399,6 @@ public class AdminStoreControllerTest {
 		 		.andExpect(redirectedUrl("/admin/stores"));
 		
 		Optional<Store> optionalStore = storeService.findStoreById(1);
-		assertThat(optionalStore).isPresent();
+		assertThat(optionalStore).isEmpty();
 	}
 }
