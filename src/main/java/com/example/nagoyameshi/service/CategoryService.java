@@ -1,5 +1,5 @@
 package com.example.nagoyameshi.service;
-
+ 
 import java.util.List;
 
 import org.springframework.stereotype.Service;

@@ -1,5 +1,5 @@
 package com.example.nagoyameshi.service;
- 
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,7 +17,7 @@ import com.example.nagoyameshi.entity.Store;
 import com.example.nagoyameshi.form.StoreEditForm;
 import com.example.nagoyameshi.form.StoreRegisterForm;
 import com.example.nagoyameshi.repository.StoreRepository;
-
+ 
 @Service
 public class StoreService {
 	private final StoreRepository storeRepository;
