@@ -1,5 +1,5 @@
 package com.example.nagoyameshi.event;
-
+ 
 import org.springframework.context.ApplicationEvent;
 
 import com.example.nagoyameshi.entity.User;

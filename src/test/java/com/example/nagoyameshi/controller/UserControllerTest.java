@@ -1,4 +1,4 @@
-package com.example.nagoyameshi.controller;
+package com.example.nagoyameshi.controller; 
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;

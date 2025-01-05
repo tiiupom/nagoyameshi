@@ -1,5 +1,5 @@
 package com.example.nagoyameshi.repository;
-
+ 
 import java.util.List;
 import java.util.Optional;
 
