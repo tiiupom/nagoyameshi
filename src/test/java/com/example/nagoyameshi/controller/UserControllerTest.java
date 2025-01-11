@@ -34,10 +34,32 @@ public class UserControllerTest {
     }
 	
 	@Test
+    public void 未ログインの場合は会員情報ページからログインページにリダイレクトする() throws Exception {
+        mockMvc.perform(get("/user/info"))
+               .andExpect(status().is3xxRedirection())
+               .andExpect(redirectedUrl("http://localhost/login"));
+    }
+	
+	@Test
     @WithUserDetails("goro.inoue@example.com")
     public void ログイン済みの場合は会員の会員詳細ページが正しく表示() throws Exception {
-        mockMvc.perform(get("/user"))
+        mockMvc.perform(get("/user/info"))
                .andExpect(status().isOk())
                .andExpect(view().name("user/info"));
+    }
+	
+	@Test
+    public void 未ログインの場合は会員情報編集ページからログインページにリダイレクトする() throws Exception {
+        mockMvc.perform(get("/user/edit"))
+               .andExpect(status().is3xxRedirection())
+               .andExpect(redirectedUrl("http://localhost/login"));
+    }
+	
+	@Test
+    @WithUserDetails("goro.inoue@example.com")
+    public void ログイン済みの場合は会員情報編集ページが正しく表示() throws Exception {
+        mockMvc.perform(get("/user/edit"))
+               .andExpect(status().isOk())
+               .andExpect(view().name("user/edit"));
     }
 }
