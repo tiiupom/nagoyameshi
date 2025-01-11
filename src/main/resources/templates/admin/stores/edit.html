@@ -59,7 +59,7 @@
 										<select class="form-control" name="category">
 											<option value="">選択なし</option>
 											<div th:each="category : ${categories}" th:inline="text">
-												<option th:value="${category.id}" th:field="*{Id}"></option>
+												<option th:value="${category.id}" th:field="*{id}"></option>
 											</div>
 										</select>
 									</div>
