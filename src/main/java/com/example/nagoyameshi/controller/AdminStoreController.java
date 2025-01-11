@@ -48,7 +48,7 @@ public class AdminStoreController {
 						@PageableDefault(page = 0, size = 10, sort = "id", direction = Direction.ASC) Pageable pageable,
 						Model model)
 	{
-		System.out.println("aaa");
+		//System.out.println("aaa");
 		
 		Page<Store> storePage;
 		

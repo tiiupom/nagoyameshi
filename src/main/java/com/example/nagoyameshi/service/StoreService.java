@@ -17,7 +17,7 @@ import com.example.nagoyameshi.entity.Store;
 import com.example.nagoyameshi.form.StoreEditForm;
 import com.example.nagoyameshi.form.StoreRegisterForm;
 import com.example.nagoyameshi.repository.StoreRepository;
-
+ 
 @Service
 public class StoreService {
 	private final StoreRepository storeRepository;

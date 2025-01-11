@@ -19,7 +19,7 @@ public class UserControllerTest {
 	private MockMvc mockMvc;
 	
 	@Test
-    public void 未ログインの場合は会員用の会員詳細ページからログインページにリダイレクトする() throws Exception {
+    public void 未ログインの場合は会員用のマイページからログインページにリダイレクトする() throws Exception {
         mockMvc.perform(get("/user"))
                .andExpect(status().is3xxRedirection())
                .andExpect(redirectedUrl("http://localhost/login"));
@@ -31,5 +31,13 @@ public class UserControllerTest {
         mockMvc.perform(get("/user"))
                .andExpect(status().isOk())
                .andExpect(view().name("user/index"));
+    }
+	
+	@Test
+    @WithUserDetails("goro.inoue@example.com")
+    public void ログイン済みの場合は会員の会員詳細ページが正しく表示() throws Exception {
+        mockMvc.perform(get("/user"))
+               .andExpect(status().isOk())
+               .andExpect(view().name("user/info"));
     }
 }

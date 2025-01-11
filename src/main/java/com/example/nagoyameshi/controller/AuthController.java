@@ -23,7 +23,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 
 /* @Controller	: クラスがコントローラーとして機能する
- * @GetMappnt	：　サーバーから情報を取得 */
+ * @GetMapping	：　サーバーから情報を取得 */
 @Controller
 public class AuthController {
 	private final UserService userService;

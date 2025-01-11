@@ -5,7 +5,7 @@
  
          <div th:replace="~{fragment :: styles}"></div>
          
-         <title>店舗詳細</title>
+         <title>マイページ</title>
      </head>
      
       <body>
@@ -24,10 +24,35 @@
 							 
 							 <h1 class="mb-5 text-center">マイページ</h1>
 							 
-							 <!-- 会員情報 -->
+							 <div class="container mb-4">
+								 
+								 <div class="pb-3">
+									 <div class="row pb-2 shadow-sm text-center border">
+										 <a th:href="@{/user/info}" class="p-3 nagoyameshi-info">会員情報</a>
+									 </div>
+								 </div>
+								 
+								 <div class="pb-3">
+									 <div class="row pb-2 shadow-sm text-center border">
+										 <a href="#" class="p-3 nagoyameshi-info">予約一覧</a>
+									 </div>
+								 </div>
+								 
+								 <div class="pb-3">
+									 <div class="row pb-2 shadow-sm text-center border">
+										 <a href="#" class="p-3 nagoyameshi-info">お気に入り店舗</a>
+									 </div>
+								 </div>
 							 
-							 <!--  -->
-							 
-							 <!--  -->
-							 
-							 <!--  -->
+							 </div>
+						 </div>
+					 </div>
+				  </div>
+		 	 </main>
+		 	 
+		 	 <div th:replace="~{fragment :: footer}"></div>
+		 </div>
+		 
+		 <div th:replace="~{fragment :: scripts}"></div>
+	</body>
+ </html>

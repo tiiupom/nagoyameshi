@@ -74,6 +74,10 @@ footer {
 	opacity: 0.8;
 }
 
+.nagoyameshi-info {
+	color:black;
+}
+
  @media screen and (min-width: 1400px) {
    .nagoyameshi-container {
      max-width: 1200px;
