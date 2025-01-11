@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.nagoyameshi.entity.User;
 import com.example.nagoyameshi.security.UserDetailsImpl;
 
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -19,5 +20,14 @@ public class UserController {
 		model.addAttribute("user", user);
 		
 		return "user/index";
+	}
+	
+	@GetMapping("/info")
+	public String info(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, Model model) {
+		User user = userDetailsImpl.getUser();
+		
+		model.addAttribute("user", user);
+		
+		return "user/info";
 	}
 }
