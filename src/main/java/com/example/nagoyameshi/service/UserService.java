@@ -1,5 +1,9 @@
 package com.example.nagoyameshi.service;
 
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -89,5 +93,20 @@ public class UserService {
 	// 指定したメールアドレスを持つユーザーを取得
 	public User findUserByEmail(String email) {
 		return userRepository.findByEmail(email);
+	}
+	
+	// 全てのユーザーをページングされた状態で取得
+	public Page<User> findAllUsers(Pageable pageable) {
+		return userRepository.findAll(pageable);
+	}
+	
+	// 指定されたキーワードを氏名orフリガナに含むユーザーをページングされた状態で取得
+	public Page<User> findUserByNameLikeOrFuriganaLike(String nameKeyword, String furiganaKeyword, Pageable pageable) {
+		return userRepository.findByNameLikeOrFuriganaLike("%" + nameKeyword + "%", "%" + furiganaKeyword + "%", pageable);
+	}
+	
+	// 指定されたIDを持つユーザーを取得
+	public Optional<User> findUserById(Integer id) {
+		return userRepository.findById(id);
 	}
 }
