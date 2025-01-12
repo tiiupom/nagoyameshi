@@ -52,6 +52,16 @@ public class StoreService {
 		return storeRepository.findFirstByOrderByIdDesc();
 	}
 	
+	// 指定されたキーワードを店舗名に含む店舗をページングされた状態で取得
+	public Page<Store> findStoreByNameLikeOrAddressLike(String nameKeyword, String addressKeyword, Pageable pageable) {
+		return storeRepository.findByNameLikeOrAddressLike("%" + nameKeyword + "%", "%" + addressKeyword + "%", pageable);
+	}
+	
+	// 指定されたカテゴリを含む店舗をページングされた状態で取得
+	public Page<Store> findStoreByCategoryLike(String category, Pageable pageable) {
+		return storeRepository.findByCategoryLike(category, pageable);
+	}
+	
 	/* 送信された画像ファイルをstorageフォルダに保存
 	 *  UUIDを使って生成したファイル名を返す
 	 * generateNewFileName()
