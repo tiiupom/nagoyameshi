@@ -1,5 +1,5 @@
 package com.example.nagoyameshi.controller;
- 
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,15 +10,16 @@ import com.example.nagoyameshi.entity.User;
 import com.example.nagoyameshi.security.UserDetailsImpl;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
-	// マイページ
+@RequestMapping("/admin")
+public class AdminController {
+	
+	// 管理ページ
 	@GetMapping
 	public String index(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, Model model) {
-		User user = userDetailsImpl.getUser();
-		
-		model.addAttribute("user", user);
-		
-		return "user/index";
+	User user = userDetailsImpl.getUser();
+	
+	model.addAttribute("user", user);
+	
+	return "admin/index";
 	}
 }
