@@ -18,7 +18,7 @@ public class WebSecurityConfig {
 		System.out.println(http);
 		http
 			.authorizeHttpRequests((requests) -> requests
-					.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**").permitAll()
+					.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**", "/stores/**").permitAll()
 					.requestMatchers("/admin/**").hasRole("ADMIN")	// 管理者のみアクセス
 					.anyRequest().authenticated()	// 上記以外はログイン必須
 			)
