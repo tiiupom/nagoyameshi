@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -73,6 +74,7 @@ public class StoreService {
 	public void createStore(StoreRegisterForm storeRegisterForm) {
 		Store store = new Store();
 		MultipartFile imageFile = storeRegisterForm.getImageFile();
+		List<Integer> categoryId = storeRegisterForm.getCategoryId();
 		//System.out.println(store);
 		if (!imageFile.isEmpty()) {
 			String imageName = imageFile.getOriginalFilename();
@@ -83,7 +85,6 @@ public class StoreService {
 		}
 		
 		store.setName(storeRegisterForm.getName());
-		store.setCategory(storeRegisterForm.getCategory());
 		store.setDescription(storeRegisterForm.getDescription());
 		store.setStartTime(storeRegisterForm.getStartTime());
 		store.setEndTime(storeRegisterForm.getEndTime());
@@ -94,6 +95,10 @@ public class StoreService {
 		store.setCapacity(storeRegisterForm.getCapacity());
 		//System.out.println(store);
 		storeRepository.save(store);
+		
+		if (categoryId != null) {
+			
+		}
 	}
 	
 	@Transactional

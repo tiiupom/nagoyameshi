@@ -1,10 +1,9 @@
 package com.example.nagoyameshi.form;
  
 import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
-
-import com.example.nagoyameshi.entity.Category;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -19,7 +18,7 @@ public class StoreRegisterForm {
 	private MultipartFile imageFile;
 	
 	@NotBlank(message = "カテゴリーを選択してください")
-	private Category category;
+	private List<Integer> categoryId;
 	
 	@NotBlank(message = "店舗説明を入力してください")
 	private String description;

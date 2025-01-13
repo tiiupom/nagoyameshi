@@ -18,5 +18,7 @@ public class CategoryService {
 	// 全てのカテゴリをリスト形式で取得
 	public List<Category> findAllCategories() {
         return categoryRepository.findAll();
-    } 
+    }
+	
+	
 }

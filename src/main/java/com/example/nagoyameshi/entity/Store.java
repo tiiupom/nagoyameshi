@@ -23,7 +23,7 @@ public class Store {
 	private Integer id;
 	 
 	@ManyToOne
-	@JoinColumn(name = "category")
+	@JoinColumn(name = "category_id")
 	private Category category;
 	
 	@Column(name = "name")
