@@ -28,6 +28,15 @@
                      
                      <!-- トップページメイン画像 -->
                      
+                     <div class="d-flex justify-content-center">
+                        <form method="get" th:action="@{/stores}" class="mb-5 nagoyameshi-search-form">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="店舗名">
+                                <button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">検索</button>
+                            </div>
+                        </form>
+                    </div>
+                     
                      <!-- レビュー高い順5件表示 -->
                      
                  </div>

@@ -1,9 +1,15 @@
 package com.example.nagoyameshi.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -108,5 +114,29 @@ public class UserService {
 	// 指定されたIDを持つユーザーを取得
 	public Optional<User> findUserById(Integer id) {
 		return userRepository.findById(id);
+	}
+	
+	@Transactional
+	public void saveStripeCustomerId(User user, String stripeCustomerId) {
+		user.setStripeCustomerId(stripeCustomerId);
+		userRepository.save(user);
+	}
+	
+	@Transactional
+	public void updateRole(User user, String roleName) {
+		Role role = roleRepository.findByName(roleName);
+		user.setRole(role);
+		userRepository.save(user);
+	}
+	
+	// 認証情報のロールを更新
+	public void refreshAuthenticationByRole(String newRole) {
+		Authentication currentAuthentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+		simpleGrantedAuthorities.add(new SimpleGrantedAuthority(newRole));
+		Authentication newAuthentication = new UsernamePasswordAuthenticationToken(currentAuthentication.getPrincipal(), currentAuthentication.getCredentials(), simpleGrantedAuthorities);
+		
+		SecurityContextHolder.getContext().setAuthentication(newAuthentication);
 	}
 }

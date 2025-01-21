@@ -32,4 +32,19 @@ public class StoreControllerTest {
                .andExpect(status().isOk())
                .andExpect(view().name("stores/index"));
     }
+    
+    @Test
+    public void 未ログインの場合は会員用の店舗詳細ページが正しく表示される() throws Exception {
+    	mockMvc.perform(get("/stores/1"))
+    			.andExpect(status().isOk())
+    			.andExpect(view().name("stores/show"));
+    }
+    
+    @Test
+    @WithUserDetails("goro.inoue@example.com")
+    public void ログイン済の場合は会員用の店舗詳細ページが正しく表示される() throws Exception {
+    	mockMvc.perform(get("stores/1"))
+    			.andExpect(status().isOk())
+    			.andExpect(view().name("stores/show"));
+    }
 }

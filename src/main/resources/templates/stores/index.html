@@ -26,7 +26,7 @@
 							<div class="col-xl-3 col-lg-4 col-md-12">
 								<form method="get" th:action="@{/houses}" class="w-100 mb-3">
 									<div class="input-group">
-										<input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="民宿名・目的地">
+										<input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="店舗名">
 										<button type="submit" class="btn text-white shadow-sm samuraitravel-btn">検索</button>
 									</div>
 								</form>
@@ -60,13 +60,17 @@
 								</div>
 								
 								<div class="col">
+									<div th:if="${errorMessage}" class="alert alert-danger">
+										<span th:text="${errorMessage}"></span>
+									</div> 
+									
 									<div class="d-flex justify-content-between flex-wrap">
 										<p th:if="${storePage.getTotalPages() > 1}" class="fs-5 mb-3" th:text="${'検索結果：' + storePage.getTotalElements() + '件' + '(' + (storePage.getNumber() + 1) + '/' + storePage.getTotalPages() + 'ページ'}"></p>
 										<p th:unless="${storePage.getTotalPages() > 1}" class="fs-5 mb-3" th:text="${'検索結果:' + storePage.getTotalElements() + '件'}"></p>
 									</div>
 									
 									<div class="mb-3" th:each="store : ${storePage}">
-										<a href="#" class="link-dark nagoyameshi-card-link">
+										<a th:href="@{/stores/__${store.id}__}" class="link-dark nagoyameshi-card-link">
 											<div class="card h-100">
 												<div class="row g-0">
 													<div class="col-md-4">
@@ -125,7 +129,7 @@
 		 	 </main>
 		 	 
 		 	 <div th:replace="~{fragment :: footer}"></div>
-		 </div>
+		 	 </div>
 		 
 		 <div th:replace="~{fragment :: scripts}"></div>
      </body>
