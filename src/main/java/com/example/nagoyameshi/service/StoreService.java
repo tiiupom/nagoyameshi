@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.nagoyameshi.entity.Category;
 import com.example.nagoyameshi.entity.Store;
 import com.example.nagoyameshi.form.StoreEditForm;
 import com.example.nagoyameshi.form.StoreRegisterForm;
@@ -53,14 +53,34 @@ public class StoreService {
 		return storeRepository.findFirstByOrderByIdDesc();
 	}
 	
+	// すべての店舗を作成日時が新しい順に並べ替え、ページングされた状態で取得する
+    public Page<Store> findAllStoresByOrderByCreatedAtDesc(Pageable pageable) {
+        return storeRepository.findAllByOrderByCreatedAtDesc(pageable);
+    }
+	
+	// すべての店舗を平均評価が高い順に並べ替え、ページングされた状態で取得する
+	public Page<Store> findAllStoresByOrderByAverageScoreDesc(Pageable pageable) {
+		return storeRepository.findAllByOrderByAverageScoreDesc(pageable);
+    }
+	
 	// 指定されたキーワードを店舗名に含む店舗をページングされた状態で取得
 	public Page<Store> findStoreByNameLikeOrAddressLike(String nameKeyword, String addressKeyword, Pageable pageable) {
 		return storeRepository.findByNameLikeOrAddressLike("%" + nameKeyword + "%", "%" + addressKeyword + "%", pageable);
 	}
 	
+	// 指定されたキーワードを店舗名または住所またはカテゴリ名に含む店舗を平均評価が高い順に並べ替え、ページングされた状態で取得する
+	public Page<Store> findStoreByNameLikeOrAddressLikeOrCategoryNameLikeOrderByAverageScoreDesc(String nameKeyword, String addressKeyword, String categoryNameKeyword, Pageable pageable) {
+    	return storeRepository.findByNameLikeOrAddressLikeOrCategoryNameLikeOrderByAverageScoreDesc(nameKeyword, addressKeyword, categoryNameKeyword, pageable);
+    }
+	
 	// 指定されたカテゴリを含む店舗をページングされた状態で取得
 	public Page<Store> findStoreByCategoryLike(String category, Pageable pageable) {
 		return storeRepository.findByCategoryLike(category, pageable);
+	}
+	
+	// 指定されたidのカテゴリが設定された店舗を平均評価が高い順に並べ替え、ページングされた状態で取得する
+	public Page<Store> findStoreByCategoryIdOrderByAverageScoreDesc(Integer categoryId, Pageable pageable) {
+		return storeRepository.findByCategoryIdOrderByAverageScoreDesc(categoryId, pageable);
 	}
 	
 	/* 送信された画像ファイルをstorageフォルダに保存
@@ -74,7 +94,7 @@ public class StoreService {
 	public void createStore(StoreRegisterForm storeRegisterForm) {
 		Store store = new Store();
 		MultipartFile imageFile = storeRegisterForm.getImageFile();
-		List<Integer> categoryId = storeRegisterForm.getCategoryId();
+		Category category = storeRegisterForm.getCategory();
 		//System.out.println(store);
 		if (!imageFile.isEmpty()) {
 			String imageName = imageFile.getOriginalFilename();
@@ -96,9 +116,9 @@ public class StoreService {
 		//System.out.println(store);
 		storeRepository.save(store);
 		
-		if (categoryId != null) {
-			
-		}
+		//if (category != null) {
+			//CategoryService.
+		//}
 	}
 	
 	@Transactional

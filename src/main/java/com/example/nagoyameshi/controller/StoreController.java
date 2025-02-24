@@ -36,6 +36,7 @@ public class StoreController {
 	{
 		Page<Store> storePage;
 		
+		
 		if (keyword != null && !keyword.isEmpty()) {
 			storePage = storeService.findStoreByNameLikeOrAddressLike(keyword, keyword, pageable);
 		} else if (category != null && !category.isEmpty()) {
@@ -63,6 +64,7 @@ public class StoreController {
 			
 			Store store = optionalStore.get();
 			model.addAttribute("store", store);
+			// カテゴリをIDからカテゴリ名を取得する処理をつくる
 			model.addAttribute("reservationInputForm", new ReservationInputForm());
 			
 			return "stores/show";

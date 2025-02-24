@@ -15,13 +15,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Data;
 import lombok.ToString;
 
 @Entity
 @Table(name = "stores")
 @Data
-@ToString(exclude = "reservations")
+@ToString(exclude = {"reservations", "reviews"})
 public class Store {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,4 +74,18 @@ public class Store {
 	
 	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade =CascadeType.REMOVE)
 	private List<Reservation> reservations;
+	
+	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private List<Review> reviews;
+	
+	// 平均評価を取得する
+    @Transient
+    public Double getAverageScore() {
+    	Double averageScore = reviews.stream()
+    								 .mapToInt(Review::getScore)
+    								 .average()
+    								 .orElse(0.0);
+    	
+    	return averageScore;
+    }
 }

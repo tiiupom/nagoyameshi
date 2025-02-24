@@ -30,3 +30,6 @@ INSERT IGNORE INTO stores (id, category_id, name, image_name, description, start
 
 /* reservationsテーブル */
 INSERT IGNORE INTO reservations (id, store_id, user_id, reserved_datetime, number_of_people) VALUES (1, 1, 1, '2025-03-01 12:00:00', 3);
+
+/* reviewsテーブル */
+INSERT IGNORE INTO reviews (id, content, score, store_id, user_id) VALUES (1, 'ちょっとリッチに和食コースで利用しました。畳の個室でゆっくりと食事を楽しめます。', 3, 1, 4);

@@ -63,7 +63,7 @@ public class ReservationControllerTest {
 
    @Test
    public void 未ログインの場合は予約ページからログインページにリダイレクトする() throws Exception {
-       mockMvc.perform(get("/restaurant/1/reservations/register"))
+       mockMvc.perform(get("/store/1/reservations/register"))
               .andExpect(status().is3xxRedirection())
               .andExpect(redirectedUrl("http://localhost/login"));
    }
@@ -71,7 +71,7 @@ public class ReservationControllerTest {
    @Test
    @WithUserDetails("goro.inoue@example.com")
    public void 無料会員としてログイン済みの場合は予約ページから有料プラン登録ページにリダイレクトする() throws Exception {
-       mockMvc.perform(get("/restaurants/1/reservations/register"))
+       mockMvc.perform(get("/store/1/reservations/register"))
               .andExpect(status().is3xxRedirection())
               .andExpect(redirectedUrl("/subscription/register"));
    }
@@ -79,7 +79,7 @@ public class ReservationControllerTest {
    @Test
    @WithUserDetails("@example.com")
    public void 有料会員としてログイン済みの場合は予約ページが正しく表示される() throws Exception {
-       mockMvc.perform(get("/restaurants/1/reservations/register"))
+       mockMvc.perform(get("/store/1/reservations/register"))
               .andExpect(status().isOk())
               .andExpect(view().name("reservations/register"));
    }
@@ -87,7 +87,7 @@ public class ReservationControllerTest {
    @Test
    @WithUserDetails("hanako.samurai@example.com")
    public void 管理者としてログイン済みの場合は予約ページが表示されずに403エラーが発生する() throws Exception {
-       mockMvc.perform(get("/restaurants/1/reservations/register"))
+       mockMvc.perform(get("/store/1/reservations/register"))
               .andExpect(status().isForbidden());
    }
 
@@ -97,7 +97,7 @@ public class ReservationControllerTest {
        // テスト前のレコード数を取得する
        long countBefore = reservationService.countReservations();
 
-       mockMvc.perform(post("/restaurants/1/reservations/create").with(csrf())
+       mockMvc.perform(post("/store/1/reservations/create").with(csrf())
                .param("reservationDate", "2050-01-01")
                .param("reservationTime", "00:00:00")
                .param("numberOfPeople", "10"))
@@ -118,7 +118,7 @@ public class ReservationControllerTest {
        // テスト前のレコード数を取得する
        long countBefore = reservationService.countReservations();
 
-       mockMvc.perform(post("/restaurants/1/reservations/create").with(csrf())
+       mockMvc.perform(post("/store/1/reservations/create").with(csrf())
                .param("reservationDate", "2050-01-01")
                .param("reservationTime", "00:00:00")
                .param("numberOfPeople", "10"))
@@ -139,7 +139,7 @@ public class ReservationControllerTest {
        // テスト前のレコード数を取得する
        long countBefore = reservationService.countReservations();
 
-       mockMvc.perform(post("/restaurants/1/reservations/create").with(csrf())
+       mockMvc.perform(post("/store/1/reservations/create").with(csrf())
                .param("reservationDate", "2050-01-01")
                .param("reservationTime", "00:00:00")
                .param("numberOfPeople", "10"))
@@ -164,7 +164,7 @@ public class ReservationControllerTest {
        // テスト前のレコード数を取得する
        long countBefore = reservationService.countReservations();
 
-       mockMvc.perform(post("/restaurants/1/reservations/create").with(csrf())
+       mockMvc.perform(post("/store/1/reservations/create").with(csrf())
                .param("reservationDate", "2050-01-01")
                .param("reservationTime", "00:00:00")
                .param("numberOfPeople", "10"))
