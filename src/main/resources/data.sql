@@ -1,4 +1,4 @@
-/* rolesテーブル 
+/* rolesテーブル  
 	1 : 無料会員
 	2 : 有料会員
 	3 : 管理者*/
@@ -27,3 +27,9 @@ INSERT IGNORE INTO stores (id, category_id, name, image_name, description, start
 INSERT IGNORE INTO stores (id, category_id, name, image_name, description, start_time, end_time, price_min, price_max, address, phone_number, holidays, capacity) VALUES (2, 2, 'NAGOYA WEST', 'yosyoku.jpg', '西洋風料理専門店です。おススメは赤牛のヒレステーキ。', '10:00:00', '22:00:00', 4000, 6000, '名古屋市瑞穂区XX-XX', '052-002-002', '月', 30);
 INSERT IGNORE INTO stores (id, category_id, name, image_name, description, start_time, end_time, price_min, price_max, address, phone_number, holidays, capacity) VALUES (3, 3, '中華料理屋シェンロン','chuka.jpg', '本場で修行を重ねた店主が腕によりをかけ本場に近い味をお届けします。', '15:00:00', '23:00:00', 2500,5000, '名古屋市豊山町XX-XX', '052-003-003', '木', 100);
 INSERT IGNORE INTO stores (id, category_id, name, image_name, description, start_time, end_time, price_min, price_max, address, phone_number, holidays, capacity) VALUES (4, 4, '魚劉-gyoryu-', 'kaisen.jpg', '初代直伝秘伝のタレで新鮮なお刺身をご堪能ください。', '10:00:00', '21:00:00', 3000, 5000, '港区XX-XX', '052-004-004', '月', 15);
+
+/* reservationsテーブル */
+INSERT IGNORE INTO reservations (id, store_id, user_id, reserved_datetime, number_of_people) VALUES (1, 1, 1, '2025-03-01 12:00:00', 3);
+
+/* reviewsテーブル */
+INSERT IGNORE INTO reviews (id, content, score, store_id, user_id) VALUES (1, 'ちょっとリッチに和食コースで利用しました。畳の個室でゆっくりと食事を楽しめます。', 3, 1, 4);

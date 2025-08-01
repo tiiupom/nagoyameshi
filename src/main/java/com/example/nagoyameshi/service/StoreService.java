@@ -13,10 +13,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.nagoyameshi.entity.Category;
 import com.example.nagoyameshi.entity.Store;
+import com.example.nagoyameshi.form.StoreEditForm;
 import com.example.nagoyameshi.form.StoreRegisterForm;
 import com.example.nagoyameshi.repository.StoreRepository;
-
+ 
 @Service
 public class StoreService {
 	private final StoreRepository storeRepository;
@@ -51,6 +53,36 @@ public class StoreService {
 		return storeRepository.findFirstByOrderByIdDesc();
 	}
 	
+	// すべての店舗を作成日時が新しい順に並べ替え、ページングされた状態で取得する
+    public Page<Store> findAllStoresByOrderByCreatedAtDesc(Pageable pageable) {
+        return storeRepository.findAllByOrderByCreatedAtDesc(pageable);
+    }
+	
+	// すべての店舗を平均評価が高い順に並べ替え、ページングされた状態で取得する
+	public Page<Store> findAllStoresByOrderByAverageScoreDesc(Pageable pageable) {
+		return storeRepository.findAllByOrderByAverageScoreDesc(pageable);
+    }
+	
+	// 指定されたキーワードを店舗名に含む店舗をページングされた状態で取得
+	public Page<Store> findStoreByNameLikeOrAddressLike(String nameKeyword, String addressKeyword, Pageable pageable) {
+		return storeRepository.findByNameLikeOrAddressLike("%" + nameKeyword + "%", "%" + addressKeyword + "%", pageable);
+	}
+	
+	// 指定されたキーワードを店舗名または住所またはカテゴリ名に含む店舗を平均評価が高い順に並べ替え、ページングされた状態で取得する
+	public Page<Store> findStoreByNameLikeOrAddressLikeOrCategoryNameLikeOrderByAverageScoreDesc(String nameKeyword, String addressKeyword, String categoryNameKeyword, Pageable pageable) {
+    	return storeRepository.findByNameLikeOrAddressLikeOrCategoryNameLikeOrderByAverageScoreDesc(nameKeyword, addressKeyword, categoryNameKeyword, pageable);
+    }
+	
+	// 指定されたカテゴリを含む店舗をページングされた状態で取得
+	public Page<Store> findStoreByCategoryLike(String category, Pageable pageable) {
+		return storeRepository.findByCategoryLike(category, pageable);
+	}
+	
+	// 指定されたidのカテゴリが設定された店舗を平均評価が高い順に並べ替え、ページングされた状態で取得する
+	public Page<Store> findStoreByCategoryIdOrderByAverageScoreDesc(Integer categoryId, Pageable pageable) {
+		return storeRepository.findByCategoryIdOrderByAverageScoreDesc(categoryId, pageable);
+	}
+	
 	/* 送信された画像ファイルをstorageフォルダに保存
 	 *  UUIDを使って生成したファイル名を返す
 	 * generateNewFileName()
@@ -62,7 +94,8 @@ public class StoreService {
 	public void createStore(StoreRegisterForm storeRegisterForm) {
 		Store store = new Store();
 		MultipartFile imageFile = storeRegisterForm.getImageFile();
-		System.out.println(store);
+		Category category = storeRegisterForm.getCategory();
+		//System.out.println(store);
 		if (!imageFile.isEmpty()) {
 			String imageName = imageFile.getOriginalFilename();
 			String hashedImageName = generateNewFileName(imageName);
@@ -80,10 +113,46 @@ public class StoreService {
 		store.setAddress(storeRegisterForm.getAddress());
 		store.setPhoneNumber(storeRegisterForm.getPhoneNumber());
 		store.setCapacity(storeRegisterForm.getCapacity());
-		System.out.println(store);
+		//System.out.println(store);
+		storeRepository.save(store);
+		
+		//if (category != null) {
+			//CategoryService.
+		//}
+	}
+	
+	@Transactional
+	public void updateStore(StoreEditForm storeEditForm, Store store) {
+		MultipartFile imageFile = storeEditForm.getImageFile();
+		//System.out.println(store);
+		if (!imageFile.isEmpty()) {
+			String imageName = imageFile.getOriginalFilename();
+			String hashedImageName = generateNewFileName(imageName);
+			Path filePath = Paths.get("src/main/resources/static/storage/" + hashedImageName);
+			copyImageFile(imageFile, filePath);
+			store.setImageName(hashedImageName);
+		}
+		
+		store.setName(storeEditForm.getName());
+		store.setCategory(storeEditForm.getCategory());
+		store.setDescription(storeEditForm.getDescription());
+		store.setStartTime(storeEditForm.getStartTime());
+		store.setEndTime(storeEditForm.getEndTime());
+		store.setPriceMin(storeEditForm.getPriceMin());
+		store.setPriceMax(storeEditForm.getPriceMax());
+		store.setAddress(storeEditForm.getAddress());
+		store.setPhoneNumber(storeEditForm.getPhoneNumber());
+		store.setCapacity(storeEditForm.getCapacity());
+		//System.out.println(store);
 		storeRepository.save(store);
 	}
 	
+	@Transactional
+	public void deleteStore(Store store) {
+		storeRepository.delete(store);
+	}
+	
+	// UUIDを使って生成したファイル名を返す
 	public String generateNewFileName(String fileName) {
 		String[] fileNames = fileName.split("\\.");
 		

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
      <head>
          <div th:replace="~{fragment :: meta}"></div>
@@ -27,6 +27,15 @@
                      </div>
                      
                      <!-- トップページメイン画像 -->
+                     
+                     <div class="d-flex justify-content-center">
+                        <form method="get" th:action="@{/stores}" class="mb-5 nagoyameshi-search-form">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="店舗名">
+                                <button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">検索</button>
+                            </div>
+                        </form>
+                    </div>
                      
                      <!-- レビュー高い順5件表示 -->
                      

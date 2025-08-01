@@ -1,6 +1,6 @@
 // 認証用のエンティティ
 package com.example.nagoyameshi.entity;
-
+ 
 import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
@@ -63,4 +63,7 @@ public class User {
 	
 	@Column(name = "updated_at", insertable = false, updatable = false)
 	private Timestamp updatedAt;
+	
+	@Column(name = "stripe_customer_id")
+	private String stripeCustomerId;
 }

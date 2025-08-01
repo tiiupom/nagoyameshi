@@ -1,5 +1,15 @@
 package com.example.nagoyameshi.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.nagoyameshi.entity.Role;
 import com.example.nagoyameshi.entity.User;
 import com.example.nagoyameshi.form.SignupForm;
+import com.example.nagoyameshi.form.UserEditForm;
 import com.example.nagoyameshi.repository.RoleRepository;
 import com.example.nagoyameshi.repository.UserRepository;
 
@@ -47,6 +58,17 @@ public class UserService {
 		return userRepository.save(user);
 	}
 	
+	// 会員情報の編集内容を取得し保存
+	@Transactional
+	public void updateUser(UserEditForm userEditForm, User user) {
+		user.setName(userEditForm.getName());
+		user.setFurigana(userEditForm.getFurigana());
+		user.setPhoneNumber(userEditForm.getPhoneNumber());
+		user.setEmail(userEditForm.getEmail());
+		
+		userRepository.save(user);
+	}
+	
 	/* メールアドレスが登録済みかチェック
 	   登録していなければfalseを返す */
 	public boolean isEmailRegistered(String email) {
@@ -67,5 +89,54 @@ public class UserService {
 	public void enableUser(User user) {
 		user.setEnabled(true);
 		userRepository.save(user);
+	}
+	
+	// メールアドレスが変更されたかチェック
+	public boolean isEmailChanged(UserEditForm userEditForm, User user) {
+		return !userEditForm.getEmail().equals(user.getEmail());
+	}
+	
+	// 指定したメールアドレスを持つユーザーを取得
+	public User findUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+	
+	// 全てのユーザーをページングされた状態で取得
+	public Page<User> findAllUsers(Pageable pageable) {
+		return userRepository.findAll(pageable);
+	}
+	
+	// 指定されたキーワードを氏名orフリガナに含むユーザーをページングされた状態で取得
+	public Page<User> findUserByNameLikeOrFuriganaLike(String nameKeyword, String furiganaKeyword, Pageable pageable) {
+		return userRepository.findByNameLikeOrFuriganaLike("%" + nameKeyword + "%", "%" + furiganaKeyword + "%", pageable);
+	}
+	
+	// 指定されたIDを持つユーザーを取得
+	public Optional<User> findUserById(Integer id) {
+		return userRepository.findById(id);
+	}
+	
+	@Transactional
+	public void saveStripeCustomerId(User user, String stripeCustomerId) {
+		user.setStripeCustomerId(stripeCustomerId);
+		userRepository.save(user);
+	}
+	
+	@Transactional
+	public void updateRole(User user, String roleName) {
+		Role role = roleRepository.findByName(roleName);
+		user.setRole(role);
+		userRepository.save(user);
+	}
+	
+	// 認証情報のロールを更新
+	public void refreshAuthenticationByRole(String newRole) {
+		Authentication currentAuthentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+		simpleGrantedAuthorities.add(new SimpleGrantedAuthority(newRole));
+		Authentication newAuthentication = new UsernamePasswordAuthenticationToken(currentAuthentication.getPrincipal(), currentAuthentication.getCredentials(), simpleGrantedAuthorities);
+		
+		SecurityContextHolder.getContext().setAuthentication(newAuthentication);
 	}
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html xmlns:th="https://www.thymeleaf.org">
      <head>
 		 <div th:fragment="meta" th:remove="tag">
@@ -21,7 +21,7 @@
      </head>
      
      <body>
-		 <div class="nagoyameshi-wrapper">
+		 <div th:fragment="header" th:remove="tag">
 			 <header>
 				 <nav class="navbar navbar-expand-md navbar-warning bg-warning nagoyameshi-navbar">
 					 <div class="container nagoyameshi-container">
@@ -31,7 +31,7 @@
 					 
 					 	<ul class="navbar-nav ms-auto">
 							<li class="nav-item px-2">
-								<a class="nav-link" href="#">店舗一覧</a>
+								<a class="nav-link" th:href="@{/stores}">店舗一覧</a>
 							</li>
 							<li class="nav-item px-2" sec:authorize="isAnonymous()">
 								<a class="nav-link" th:href="@{/login}">ログイン</a>
@@ -42,12 +42,12 @@
 							
 							<!-- ログイン済の無料会員であれば表示 -->
 							<li class="nav-item px-2 dropdown" sec:authorize="hasRole('ROLE_GENERAL')">
-								<a id="navbarDropdownGeneral" class="nav-link dropdown-toggle" th:href="@{/mypage}" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<a id="navbarDropdownGeneral" class="nav-link dropdown-toggle" th:href="@{/user}" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<span sec:authentication="principal.user.name"></span>
 								</a>
 								
 								<div class="dropdown-menu" aria-labelledby="navbarDropdownGeneral">
-									<a class="dropdown-item nagoyameshi-dropdown-item" href="#">会員情報</a>
+									<a class="dropdown-item nagoyameshi-dropdown-item" th:href="@{/user/info}">会員情報</a>
 																		
 									<div class="dropdown-driver"></div>
 									
@@ -60,14 +60,13 @@
 							
 							<!-- ログイン済の有料会員であれば表示 -->
 							<li class="nav-item px-2 dropdown" sec:authorize="hasRole('ROLE_SUBSCRIBER')">
-								<a id="navbarDropdownGeneral" class="nav-link dropdown-toggle" th:href="@{/mypage}" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<a id="navbarDropdownGeneral" class="nav-link dropdown-toggle" th:href="@{/user}" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<span sec:authentication="principal.user.name"></span>
 								</a>
 								
 								<div class="dropdown-menu" aria-labelledby="navbarDropdownGeneral">
-									<a class="dropdown-item nagoyameshi-dropdown-item" href="#">会員情報</a>
-									<a class="dropdown-item nagoyameshi-dropdown-item" href="#">マイページ</a>
-									<a class="dropdown-item nagoyameshi-dropdown-item" href="#">予約一覧</a>
+									<a class="dropdown-item nagoyameshi-dropdown-item" th:href="@{/user/info}">会員情報</a>
+									<a class="dropdown-item nagoyameshi-dropdown-item" th:href="@{/reservations}">予約一覧</a>
 									<a class="dropdown-item nagoyameshi-dropdown-item" href="#">お気に入り店舗一覧</a>
 																		
 									<div class="dropdown-driver"></div>
@@ -87,7 +86,7 @@
 								
 								<div class="dropdown-menu" aria-labelledby="navbarDropdownGeneral">
 									<a class="dropdown-item nagoyameshi-dropdown-item" href="#">基本情報</a>
-									<a class="dropdown-item nagoyameshi-dropdown-item" href="#">会員一覧</a>
+									<a class="dropdown-item nagoyameshi-dropdown-item" th:href="@{/admin/users}">会員一覧</a>
 									<a class="dropdown-item nagoyameshi-dropdown-item" th:href="@{/admin/stores}">店舗情報一覧</a>
 									<a class="dropdown-item nagoyameshi-dropdown-item" href="#">カテゴリ一覧</a>
 									<a class="dropdown-item nagoyameshi-dropdown-item" href="#">売上管理</a>

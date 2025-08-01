@@ -1,5 +1,5 @@
 package com.example.nagoyameshi.security;
-
+ 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -18,7 +18,9 @@ public class WebSecurityConfig {
 		System.out.println(http);
 		http
 			.authorizeHttpRequests((requests) -> requests
-					.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**").permitAll()
+					.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/**", "/signup/**", "/stores", "/stores/{id}").permitAll()
+					.requestMatchers("/subscription/register", "/subscription/create").hasRole("GENERAL")	// 無料会員のみ
+					.requestMatchers("/subscription/edit", "/subscription/update", "/subscription/cancel", "/subscription/delete").hasRole("SUBSCRIBER")  // 有料会員のみ
 					.requestMatchers("/admin/**").hasRole("ADMIN")	// 管理者のみアクセス
 					.anyRequest().authenticated()	// 上記以外はログイン必須
 			)

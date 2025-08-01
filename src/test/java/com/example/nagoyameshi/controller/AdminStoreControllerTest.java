@@ -1,4 +1,4 @@
-package com.example.nagoyameshi.controller;
+package com.example.nagoyameshi.controller; 
 
 import static org.assertj.core.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -233,5 +234,171 @@ public class AdminStoreControllerTest {
 				assertThat(store.getPhoneNumber()).isEqualTo("000-000-000");
 				assertThat(store.getHolidays()).isEqualTo("月");
 				assertThat(store.getCapacity()).isEqualTo(30);
+	}
+	
+	@Test
+	public void 未ログインの場合は管理者用の店舗編集ページからログインページにリダイレクト() throws Exception {
+		mockMvc.perform(get("/admin/stores/1/edit"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(redirectedUrl("http://localhost/login"));
+	}
+	
+	@Test
+	@WithUserDetails("taro.tanaka@example.com")
+	public void 管理者以外でログイン済の場合は店舗編集ページが表示されず403エラー() throws Exception {
+		mockMvc.perform(get("/admin/stores/1/edit"))
+		 		.andExpect(status().isForbidden());
+	}
+	
+	@Test
+	@WithUserDetails("saburo.sato@example.com")
+	public void 管理者としてログイン済の場合は管理者用の店舗編集ページが正しく表示される() throws Exception {
+		mockMvc.perform(get("/admin/stores/1/edit"))
+		  		.andExpect(status().isOk())
+		  		.andExpect(view().name("admin/stores/edit"));
+	}
+	
+	@Test
+	@Transactional
+	public void 未ログインの場合は店舗を更新せずログインページにリダイレクト() throws Exception {
+		// テスト用の画像ファイルデータを準備
+		Path filePath = Paths.get("src/main/resource/static/storage/store01.jpg");
+		String fileName = filePath.getFileName().toString();
+		String fileType = Files.probeContentType(filePath);
+		byte[] fileBytes = Files.readAllBytes(filePath);
+		
+		MockMultipartFile imageFile = new MockMultipartFile(
+			"imageFile",	// フォームのname属性の値
+			fileName,		// ファイル名
+			fileType,		// ファイル形式
+			fileBytes		// ファイルのバイト配列
+		);
+		
+		mockMvc.perform(MockMvcRequestBuilders.multipart("/admin/stores/1/update").file(imageFile)
+				.with(csrf())
+				.param("name", "テスト店舗名")
+				.param("description", "店舗説明")
+				.param("startTime", "09:00")
+				.param("endTime", "19:00")
+				.param("priceMin", "1000")
+				.param("priceMax", "2500")
+				.param("address", "テスト住所")
+				.param("phoneNumber", "000-000-000")
+				.param("holidays", "月")
+				.param("capacity", "30"))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(redirectedUrl("http://localhost/login"));
+		}
+	
+	@Test
+	@WithUserDetails("taro.tanaka@example.com")
+	@Transactional
+	public void 一般ユーザーとしてログイン済の場合は店舗を更新せずに403エラー表示() throws Exception {
+		// テスト後の画像ファイルデータを準備
+		Path filePath = Paths.get("src/main/resource/static/storage/store01.jpg");
+		String fileName = filePath.getFileName().toString();
+		String fileType = Files.probeContentType(filePath);
+		byte[] fileBytes = Files.readAllBytes(filePath);
+				
+		MockMultipartFile imageFile = new MockMultipartFile(
+			"imageFile",	// フォームのname属性の値
+			fileName,		// ファイル名
+			fileType,		// ファイル形式
+			fileBytes		// ファイルのバイト配列
+		);
+		
+		mockMvc.perform(MockMvcRequestBuilders.multipart("/admin/stores/1/update").file(imageFile)
+				.with(csrf())
+				.param("name", "テスト店舗名")
+				.param("description", "テスト説明")
+				.param("startTime", "09:00")
+				.param("endTime", "19:00")
+				.param("priceMin", "1000")
+				.param("priceMax", "2500")
+				.param("address", "テスト住所")
+				.param("phoneNumber", "000-000-000")
+				.param("holidays", "月")
+				.param("capacity", "30"))
+				.andExpect(status().isForbidden());
+		}
+	
+	@Test
+	@WithUserDetails("saburo.sato@example.com")
+	@Transactional
+	public void 管理者としてログイン済の場合は店舗更新後店舗詳細ページにリダイレクト() throws Exception {
+		// テスト後の画像ファイルデータを準備
+		Path filePath = Paths.get("src/main/resource/static/storage/store01.jpg");
+		String fileName = filePath.getFileName().toString();
+		String fileType = Files.probeContentType(filePath);
+		byte[] fileBytes = Files.readAllBytes(filePath);
+		
+		MockMultipartFile imageFile = new MockMultipartFile(
+			"imageFile",	// フォームのname属性の値
+			fileName,		// ファイル名
+			fileType,		// ファイル形式
+			fileBytes		// ファイルのバイト配列
+		);
+		
+		mockMvc.perform(MockMvcRequestBuilders.multipart("/admin/stores/1/update").file(imageFile)
+				.with(csrf())
+				.param("name", "テスト店舗名")
+				.param("description", "テスト説明")
+				.param("startTime", "09:00")
+				.param("endTime", "19:00")
+				.param("priceMin", "1000")
+				.param("priceMax", "2500")
+				.param("address", "テスト住所")
+				.param("phoneNumber", "000-000-000")
+				.param("holidays", "月")
+				.param("capacity", "30"))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(redirectedUrl("/admin/stores"));
+		
+		Optional<Store> optionalStore = storeService.findStoreById(1);
+		assertThat(optionalStore).isPresent();
+		Store store = optionalStore.get();
+		assertThat(store.getName()).isEqualTo("テスト店舗");
+		assertThat(store.getDescription()).isEqualTo("テスト説明");
+		assertThat(store.getStartTime()).isEqualTo("09:00");
+		assertThat(store.getEndTime()).isEqualTo("19:00");
+		assertThat(store.getPriceMin()).isEqualTo(1000);
+		assertThat(store.getPriceMax()).isEqualTo(2500);
+		assertThat(store.getAddress()).isEqualTo("テスト住所");
+		assertThat(store.getPhoneNumber()).isEqualTo("000-000-000");
+		assertThat(store.getHolidays()).isEqualTo("月");
+		assertThat(store.getCapacity()).isEqualTo(30);
+	}
+	
+	@Test
+	public void 未ログインの場合は店舗を削除せずログインページにリダイレクト() throws Exception {
+		mockMvc.perform(get("/admin/stores"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(redirectedUrl("http://localhost/login"));
+		
+		Optional<Store> optionalStore = storeService.findStoreById(1);
+		assertThat(optionalStore).isPresent();
+	}
+	
+	@Test
+	@WithUserDetails("taro.tanaka@example.com")
+	@Transactional
+	public void 管理者以外でログイン済の場合は店舗を削除せず403エラー() throws Exception {
+		mockMvc.perform(post("/admin/stores/1/delete").with(csrf()))
+				.andExpect(status().isForbidden());
+		
+		Optional<Store> optionalStore = storeService.findStoreById(1);
+		assertThat(optionalStore).isPresent();
+	}
+	
+	@Test
+	@WithUserDetails("saburo.sato@example.com")
+	@Transactional
+	public void 管理者としてログイン済の場合は削除後店舗一覧ページにリダイレクト() throws Exception {
+		mockMvc.perform(post("/admin/stores/1/delete").with(csrf()))
+		 		.andExpect(status().is3xxRedirection())
+		 		.andExpect(redirectedUrl("/admin/stores"));
+		
+		Optional<Store> optionalStore = storeService.findStoreById(1);
+		assertThat(optionalStore).isEmpty();
 	}
 }
