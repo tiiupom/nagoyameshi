@@ -37,7 +37,7 @@ public class AdminUserControllerTest {
 	public void 管理者としてログイン済の場合は管理者用の会員一覧ページを表示() throws Exception {
 		mockMvc.perform(get("/admin/users"))
 				.andExpect(status().isOk())
-				.andExpect(view().name("amin/users/index"));
+				.andExpect(view().name("/admin/users/index"));
 	}
 	
 	@Test
