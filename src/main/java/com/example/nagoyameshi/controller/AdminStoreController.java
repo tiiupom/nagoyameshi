@@ -126,7 +126,18 @@ public class AdminStoreController {
 		}
 		
 		Store store = optionalStore.get();
-		StoreEditForm storeEditForm = new StoreEditForm(store.getName(), null, store.getCategory(), store.getDescription(), store.getStartTime(), store.getEndTime(), store.getPriceMin(), store.getPriceMax(), store.getAddress(), store.getPhoneNumber(), store.getCapacity());
+		StoreEditForm storeEditForm = new StoreEditForm(store.getName(),
+														null, 
+														store.getCategory(),
+														store.getDescription(),
+														store.getStartTime(),
+														store.getEndTime(),
+														null,
+														store.getPriceMin(),
+														store.getPriceMax(),
+														store.getAddress(),
+														store.getPhoneNumber(),
+														store.getCapacity());
 		
 		model.addAttribute("store", store);
 		model.addAttribute("storeEditForm", storeEditForm);

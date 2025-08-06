@@ -1,6 +1,7 @@
 package com.example.nagoyameshi.form;
  
 import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,6 +32,8 @@ public class StoreEditForm {
 	
 	@NotNull(message = "閉店時間を選択してください")
 	private LocalTime endTime;
+	
+	private List<Integer> holidayIds;
 	
 	@NotNull(message = "最低価格を選択してください")
 	private Integer priceMin;

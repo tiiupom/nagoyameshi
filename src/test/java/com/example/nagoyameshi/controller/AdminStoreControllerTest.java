@@ -1,4 +1,4 @@
-package com.example.nagoyameshi.controller; 
+package com.example.nagoyameshi.controller;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
@@ -232,7 +232,6 @@ public class AdminStoreControllerTest {
 				assertThat(store.getPriceMax()).isEqualTo(2500);
 				assertThat(store.getAddress()).isEqualTo("テスト住所");
 				assertThat(store.getPhoneNumber()).isEqualTo("000-000-000");
-				assertThat(store.getHolidays()).isEqualTo("月");
 				assertThat(store.getCapacity()).isEqualTo(30);
 	}
 	
@@ -365,7 +364,6 @@ public class AdminStoreControllerTest {
 		assertThat(store.getPriceMax()).isEqualTo(2500);
 		assertThat(store.getAddress()).isEqualTo("テスト住所");
 		assertThat(store.getPhoneNumber()).isEqualTo("000-000-000");
-		assertThat(store.getHolidays()).isEqualTo("月");
 		assertThat(store.getCapacity()).isEqualTo(30);
 	}
 	
