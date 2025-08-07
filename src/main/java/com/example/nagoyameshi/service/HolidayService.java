@@ -3,9 +3,12 @@ package com.example.nagoyameshi.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.example.nagoyameshi.entity.Holiday;
 import com.example.nagoyameshi.repository.HolidayRepository;
 
+@Service
 public class HolidayService {
 	private final HolidayRepository holidayRepository;
 	

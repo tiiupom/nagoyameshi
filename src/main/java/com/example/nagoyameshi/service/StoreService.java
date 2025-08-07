@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -22,9 +23,11 @@ import com.example.nagoyameshi.repository.StoreRepository;
 @Service
 public class StoreService {
 	private final StoreRepository storeRepository;
+	private final HolidayStoreService holidayStoreService;
 	
-	public StoreService(StoreRepository storeRepository) {
+	public StoreService(StoreRepository storeRepository,HolidayStoreService holidayStoreService) {
 		this.storeRepository = storeRepository;
+		this.holidayStoreService = holidayStoreService;
 	}
 	 
 	// 全ての民宿をページングされた状態で取得
@@ -95,7 +98,10 @@ public class StoreService {
 		Store store = new Store();
 		MultipartFile imageFile = storeRegisterForm.getImageFile();
 		Category category = storeRegisterForm.getCategory();
+		List<Integer> holidayIds = storeRegisterForm.getHolidayIds();
+		
 		//System.out.println(store);
+		
 		if (!imageFile.isEmpty()) {
 			String imageName = imageFile.getOriginalFilename();
 			String hashedImageName = generateNewFileName(imageName);
@@ -119,12 +125,19 @@ public class StoreService {
 		//if (category != null) {
 			//CategoryService.
 		//}
+		
+		if (holidayIds != null) {
+			holidayStoreService.createHolidayStore(holidayIds, store);
+		}
 	}
 	
 	@Transactional
 	public void updateStore(StoreEditForm storeEditForm, Store store) {
 		MultipartFile imageFile = storeEditForm.getImageFile();
+		List<Integer> holidayIds = storeEditForm.getHolidayIds();
+		
 		//System.out.println(store);
+		
 		if (!imageFile.isEmpty()) {
 			String imageName = imageFile.getOriginalFilename();
 			String hashedImageName = generateNewFileName(imageName);
@@ -145,6 +158,8 @@ public class StoreService {
 		store.setCapacity(storeEditForm.getCapacity());
 		//System.out.println(store);
 		storeRepository.save(store);
+		
+		holidayStoreService.syncHolidayStore(holidayIds, store);
 	}
 	
 	@Transactional
