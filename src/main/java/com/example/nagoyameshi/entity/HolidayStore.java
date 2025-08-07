@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "holidays_store")
+@Table(name = "holiday_store")
 @Data
 public class HolidayStore {
 	@Id
@@ -23,11 +23,11 @@ public class HolidayStore {
 	
 	@ManyToOne
 	@JoinColumn(name = "store_id")
-	private Store storeId;
+	private Store store;
 	
 	@ManyToOne
 	@JoinColumn(name = "holiday_id")
-	private Holiday holidayId;
+	private Holiday holiday;
 	
 	@Column(name = "created_at", insertable = false, updatable = false)
 	private Timestamp createdAt;

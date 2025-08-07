@@ -31,8 +31,6 @@ public class StoreRegisterForm {
 	@NotNull(message = "閉店時間を選択してください")
 	private LocalTime endTime;
 	
-	private List<Integer> holidayIds;
-	
 	@NotNull(message = "最低価格を選択してください")
 	private Integer priceMin;
 	
@@ -47,4 +45,6 @@ public class StoreRegisterForm {
 	
 	@Min(value = 1, message = "最大利用人数は1人以上に設定してください。")
 	private Integer capacity;
+	
+	private List<Integer> holidayIds;
 }

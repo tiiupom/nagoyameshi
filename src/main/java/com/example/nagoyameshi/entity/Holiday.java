@@ -17,7 +17,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "holidays")
 @Data
-@ToString(exclude = "holidaysStore")
+@ToString(exclude = "holidayStore")
 public class Holiday {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
