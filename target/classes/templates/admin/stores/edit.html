@@ -174,7 +174,24 @@
                                  </div>
 								
 								<!-- 定休日　入力フォーム -->
-								
+								<div class="form-group row mb-3">
+									<div vlass="col-md-4">
+										<label for="holysays" class="col-form-label text-md-left fw-bold">定休日</label>
+										
+										<div class="col-md-8 d-flex flex-wrap">
+											<div class="form-check d-flex align-items-center me-3" th:each="holiday, stat : ${holidays}">
+												<input type="checkbox" class="form-check-input"
+												th:id="${'holiday' + stat.index}"
+												name="holidayIds[]"
+												th:value="${holiday.id}"
+												th:checked="${storeEditForm.holidayIds != null ? #lists.contains(StoreEditForm.holidayIds, holiday.id) : false}"/>
+											<label class="form-check-label" th:for="${'holiday' + stat.index}">
+												<span class="badge bg-secondary ms-1" th:text="${holiday.day}"></span>
+											</label>
+											</div>
+										</div>
+									</div>
+								</div>
 								
 								<!-- 最大利用人数　入力フォーム -->
 								<div class="form-group row mb-3">
