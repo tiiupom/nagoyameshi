@@ -144,7 +144,7 @@ public class AdminStoreControllerTest {
 	@Test
 	@WithUserDetails("taro.tanaka@example.com")
 	@Transactional
-	public void 一般ユーザーとしてログイン済の場合は店舗登録せずに403エラー表示() throws Exception {
+	public void 管理者以外でログイン済の場合は店舗登録せずに403エラー表示() throws Exception {
 		// テスト前のレコード数を取得
 				long countBefore = storeService.countStores();
 				
@@ -292,7 +292,7 @@ public class AdminStoreControllerTest {
 	@Test
 	@WithUserDetails("taro.tanaka@example.com")
 	@Transactional
-	public void 一般ユーザーとしてログイン済の場合は店舗を更新せずに403エラー表示() throws Exception {
+	public void 管理者以外でログイン済の場合は店舗を更新せずに403エラー表示() throws Exception {
 		// テスト後の画像ファイルデータを準備
 		Path filePath = Paths.get("src/main/resource/static/storage/store01.jpg");
 		String fileName = filePath.getFileName().toString();
