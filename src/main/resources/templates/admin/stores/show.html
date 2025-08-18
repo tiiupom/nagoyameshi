@@ -113,8 +113,13 @@
 										 <span class="fw-bold">定休日</span>
 									 </div>
 									 
-									 <div class="col">
-										 <span th:text="${store.holidays}"></span>
+									 <div class="col d-flex">
+										 <div th:unless="${store.holidayStore.isEmpty()}">
+											 <span th:each="holidayStore, stat : ${store.holidayStore}" th:if="${stat.first}" th:text="${holidayStore.holiday.day}"></span><span th:each="holidayStore, stat : ${store.holidayStore}" th:unless="${stat.first}" th:text="${'、' + holidayStore.hoiday.day}"></span>
+										 </div>
+										 <div th:if="${store.holidayStore.isEmpty()}">
+											 <span>年中無休</span>
+										 </div>
 									 </div>
 								 </div>
 								 
