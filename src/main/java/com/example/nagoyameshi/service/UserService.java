@@ -133,10 +133,14 @@ public class UserService {
 	public void refreshAuthenticationByRole(String newRole) {
 		Authentication currentAuthentication = SecurityContextHolder.getContext().getAuthentication();
 		
+		// 新しい認証情報を作成
 		List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
 		simpleGrantedAuthorities.add(new SimpleGrantedAuthority(newRole));
 		Authentication newAuthentication = new UsernamePasswordAuthenticationToken(currentAuthentication.getPrincipal(), currentAuthentication.getCredentials(), simpleGrantedAuthorities);
 		
+		// 認証情報を更新
 		SecurityContextHolder.getContext().setAuthentication(newAuthentication);
 	}
+	
+	
 }

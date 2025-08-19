@@ -47,4 +47,18 @@ public class StoreControllerTest {
     			.andExpect(status().isOk())
     			.andExpect(view().name("stores/show"));
     }
+    
+    @Test
+    @WithUserDetails("saburo.sato@example.com")
+    public void 管理者としてログイン済みの場合は会員用の店舗一覧ページが表示されず403エラー() throws Exception {
+    	mockMvc.perform(get("/stores"))
+    			.andExpect(status().isForbidden());
+    }
+    
+    @Test
+    @WithUserDetails("saburo.sato@example.com")
+    public void 管理者としてログイン済みの場合は会員用の店舗詳細ページが表示されず403エラー() throws Exception {
+    	mockMvc.perform(get("/stores/1"))
+    			.andExpect(status().isForbidden());
+    }
 }

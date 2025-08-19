@@ -50,7 +50,13 @@ INSERT IGNORE INTO holidays_store (id, store_id, holiday_id) VALUES
 INSERT IGNORE INTO reservations (id, store_id, user_id, reserved_datetime, number_of_people) VALUES (1, 1, 1, '2025-03-01 12:00:00', 3);
 
 /* reviewsテーブル */
-INSERT IGNORE INTO reviews (id, content, score, store_id, user_id) VALUES (1, 'ちょっとリッチに和食コースで利用しました。畳の個室でゆっくりと食事を楽しめます。', 3, 1, 4);
+INSERT IGNORE INTO reviews (id, content, score, store_id, user_id) VALUES
+(1, 'ちょっとリッチに和食コースで利用しました。畳の個室でゆっくりと食事を楽しめます。', 4, 1, 1),
+(2, 'ちょっとリッチに和食コースで利用しました。畳の個室でゆっくりと食事を楽しめます。', 3, 2, 5),
+(3, 'ちょっとリッチに和食コースで利用しました。畳の個室でゆっくりと食事を楽しめます。', 3, 3, 4),
+(4, 'ちょっとリッチに和食コースで利用しました。畳の個室でゆっくりと食事を楽しめます。', 2, 4, 1),
+(5, 'ちょっとリッチに和食コースで利用しました。畳の個室でゆっくりと食事を楽しめます。', 5, 1, 5),
+(6, 'ちょっとリッチに和食コースで利用しました。畳の個室でゆっくりと食事を楽しめます。', 3, 5, 4);
 
 /* companiesテーブル */
 INSERT IGNORE INTO companies (id, name, address, representative, establishment_date, capital, business, number_of_employees) VALUES

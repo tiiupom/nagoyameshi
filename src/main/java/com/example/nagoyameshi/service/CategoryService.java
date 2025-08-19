@@ -18,5 +18,10 @@ public class CategoryService {
 	// 全てのカテゴリをリスト形式で取得
 	public List<Category> findAllCategories() {
         return categoryRepository.findAll();
-    } 
+    }
+	
+	// 指定したカテゴリ名を持つ最初のカテゴリを取得
+	public Category findFirstCategoryByName(String name) {
+		return categoryRepository.findFirstByName(name);
+	}
 }
