@@ -45,24 +45,32 @@ public class StoreController {
 		if (keyword != null && !keyword.isEmpty()) {
 			if (order != null && order.equals("PriceMinAsc")) {
 				storePage = storeService.findStoresByNamelikeOrAddressLikeOrCategoryNameLikeOrderByPriceMinAsc(keyword, keyword, keyword, pageable);
+			} else if (order != null && order.equals("ratingDesc")) {
+				storePage = storeService.findStoreByNameLikeOrAddressLikeOrCategoryNameLikeOrderByAverageScoreDesc(keyword, keyword, keyword, pageable);
 			} else {
 				storePage = storeService.findStoresByNameLikeOrAddressLikeOrCategoryNameLikeOrderByCreatedAtDesc(keyword, keyword, keyword, pageable);
 			}
 		} else if (categoryId != null) {
 			if (order != null && order.equals("priceMinAsc")) {
 				storePage = storeService.findStoresByCategoryIdOrderByPriceMinAsc(categoryId, pageable);
+			} else if (order != null && order.equals("ratingDesc")) {
+				storePage = storeService.findStoreByCategoryIdOrderByAverageScoreDesc(categoryId, pageable);
 			} else {
 				storePage = storeService.findStoresByCategoryIdOrderByCreatedAtDesc(categoryId, pageable);
 			}
 		} else if(priceMin != null) {
 			if (order != null && order.equals("PriceMinAsc")) {
 				storePage = storeService.findStoresByPriceMinThanEqualOrderByPriceMinAsc(priceMin, pageable);
+            } else if (order != null && order.equals("ratingDesc")) {
+                storePage = storeService.findStoresByPriceMinThanEqualOrderByAverageScoreDesc(priceMin, pageable);                
 			} else {
 				storePage = storeService.findStoresByPriceMinThanEqualOrderByPriceMinAsc(priceMin, pageable);
 			}
 		} else {
 			if (order != null && order.equals("PriceMinAsc")) {
 				storePage = storeService.findAllStoresByOrderByPriceMinAsc(pageable);
+			} else if (order != null&& order.equals("ratingDesc")) {
+				storePage = storeService.findAllStoresByOrderByAverageScoreDesc(pageable);
 			} else {
 				storePage = storeService.findAllStoresByOrderByCreatedAtDesc(pageable);
 			}

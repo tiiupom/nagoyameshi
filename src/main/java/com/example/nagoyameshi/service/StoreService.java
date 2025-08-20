@@ -86,18 +86,6 @@ public class StoreService {
     	return storeRepository.findByCategoryIdOrderByPriceMinAsc(categoryId, pageable);
     }
     
-    // 指定された最低価格以下の店舗を作成日時が新しい順に並べ替え、ページングされた状態で取得
-    public Page<Store> findStoresByPriceMinThanEqualOrderByCreatedAtDesc(Integer PriceMin, Pageable pageable) {
-    	return storeRepository.findByPriceMinThanEqualOrderByCreatedAtDesc(PriceMin, pageable);
-    }
-    
-    // 指定された最低価格以下の店舗を最低価格が安い順に並べ替え、ページングされた状態で取得
-    public Page<Store> findStoresByPriceMinThanEqualOrderByPriceMinAsc(Integer PriceMin, Pageable pageable) {
-    	return storeRepository.findByPriceMinThanEqualOrderByPriceMinAsc(PriceMin, pageable);
-    }
-    
-    
-    
 	// すべての店舗を平均評価が高い順に並べ替え、ページングされた状態で取得する
 	public Page<Store> findAllStoresByOrderByAverageScoreDesc(Pageable pageable) {
 		return storeRepository.findAllByOrderByAverageScoreDesc(pageable);
@@ -122,6 +110,21 @@ public class StoreService {
 	public Page<Store> findStoreByCategoryIdOrderByAverageScoreDesc(Integer categoryId, Pageable pageable) {
 		return storeRepository.findByCategoryIdOrderByAverageScoreDesc(categoryId, pageable);
 	}
+	
+    // 指定された最低価格以下の店舗を作成日時が新しい順に並べ替え、ページングされた状態で取得
+    public Page<Store> findStoresByPriceMinThanEqualOrderByCreatedAtDesc(Integer PriceMin, Pageable pageable) {
+    	return storeRepository.findByPriceMinThanEqualOrderByCreatedAtDesc(PriceMin, pageable);
+    }
+    
+    // 指定された最低価格以下の店舗を最低価格が安い順に並べ替え、ページングされた状態で取得
+    public Page<Store> findStoresByPriceMinThanEqualOrderByPriceMinAsc(Integer PriceMin, Pageable pageable) {
+    	return storeRepository.findByPriceMinThanEqualOrderByPriceMinAsc(PriceMin, pageable);
+    }
+    
+    // 指定された最低価格以下の店舗を平均評価が高い順に並べ替え、ページングされた状態で取得
+    public Page<Store> findStoresByPriceMinThanEqualOrderByAverageScoreDesc(Integer price, Pageable pageable) {
+    	return storeRepository.findByPriceMinThanEqualOrderByAverageScoreDesc(price, pageable);
+    }
 	
 	/* 送信された画像ファイルをstorageフォルダに保存
 	 *  UUIDを使って生成したファイル名を返す
