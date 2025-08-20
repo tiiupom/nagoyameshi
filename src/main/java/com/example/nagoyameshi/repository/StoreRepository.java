@@ -1,5 +1,7 @@
 package com.example.nagoyameshi.repository;
  
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,7 +30,14 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
            "ORDER BY AVG(rev.score) DESC")
     public Page<Store> findAllByOrderByAverageScoreDesc(Pageable pageable);    
 	
-	// 指定されたキーワードを店舗名または住所またはカテゴリ名に含む店舗を作成日時が新しい順に並べ替え、ページングされた状態で表示
+	// 全ての店舗を予約数が多い順に並べ替え、ページングされた状態で取得
+    @Query("SELECT r FROM Store r " +
+    		"LEFT JOIN r.reservations res " +
+    		"GROUP BY r.id " +
+    		"ORDER BY COUNT(res) DESC")
+    public Page<Store> findAllByOrderByReservationCountDesc(Pageable pageable);
+    
+    // 指定されたキーワードを店舗名または住所またはカテゴリ名に含む店舗を作成日時が新しい順に並べ替え、ページングされた状態で表示
 	@Query("SELECT DISTINCT r FROM Store r " +
 			"LEFT JOIN r.categoriesStores cr " +
 			"WHERE r.name LIKE %:name% " +
@@ -65,7 +74,21 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
 																							@Param("category") String categoryNameKeyword,
 																							Pageable pageable);
 
-	// 指定されたidのカテゴリが設定された店舗を作成日時が新しい順に並べ替え、ページングされた状態で取得する
+    // 指定されたキーワードを店舗または住所またはカテゴリ名に含む店舗を予約数が多い順に並べ替え、ページングされた状態で取得
+    @Query("SELECT r FROM Store r " +
+    		"LEFT JOIN r.categoriesStores cr " +
+    		"LEFT JOIN r.reservations res " +
+    		"WHERE r.name LIKE %:name% " +
+    		"OR r.address LIKE %:address% " +
+    		"OR cr.category.name LIKE %:categoryName% " +
+    		"GROUP BY r.id " +
+    		"ORDER BY COUNT(DISTINCT res.id) DESC")
+    public Page<Store> findByNameLikeOrAddressLikeOrCategoryNameLikeOrderByReservationCountDesc(@Param("name") String nameKeyword,
+    																							@Param("address") String addressKeyword,
+    																							@Param("categoryName") String categoryNameKeyword,
+    																							Pageable pageable);
+    
+    // 指定されたidのカテゴリが設定された店舗を作成日時が新しい順に並べ替え、ページングされた状態で取得する
     @Query("SELECT r FROM Store r " +
            "INNER JOIN r.categoriesStores cr " +
            "WHERE cr.category.id = :categoryId " +
@@ -88,6 +111,15 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
            "ORDER BY AVG(rev.score) DESC")
     public Page<Store> findByCategoryIdOrderByAverageScoreDesc(@Param("categoryId") Integer categoryId, Pageable pageable);    
 
+    // 指定されたidのカテゴリが設定された店舗を予約数が多い順に並べ替え、ページングされた状態で表示
+    @Query("SELECT r FROM Store r " +
+    		"INNER JOIN r.categoriesStores cr " +
+    		"LEFT JOIN r.reservations res " +
+    		"WHERE cr.category.id = :categoryId " +
+    		"GROUP BY r.id " +
+    		"ORDER BY COUNT(res) DESC")
+    public Page<Store> findByCategoryIdOrderByReservationCountDesc(@Param("categoryId") Integer categoryId, Pageable pageable);
+    
     public Page<Store> findByPriceMinThanEqualOrderByCreatedAtDesc(Integer priceMin, Pageable pageable);
     public Page<Store> findByPriceMinThanEqualOrderByPriceMinAsc(Integer priceMin, Pageable pageable);
   
@@ -98,4 +130,19 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
     		"GROUP BY r.id " +
     		"ORDER BY AVG(rev.score) DESC")
     public Page<Store> findByPriceMinThanEqualOrderByAverageScoreDesc(@Param("price") Integer price, Pageable pageable);
+    
+    // 指定された最低価格以下の店舗を予約数が多い順に並べ替え、ページングされた状態で取得
+    @Query("SELECT r FROM Store r " +
+    		"LEFT JOIN r.reservations res " +
+    		"WHERE r.lowestPrice <= :price " +
+    		"GROUP BY r.id " +
+    		"ORDER BY COUNT(res) DESC")
+    public Page<Store> findByPriceMinThanEqualOrderByReservationCountDesc(@Param("price") Integer price, Pageable pageable);
+    
+    // 指定された店舗の定休日のday_indexフィールドの値をリストで取得
+    @Query("SELECT rh.dayIndex FROM Holiday rh " +
+    		"INNER JOIN rh.holidayStore rhr " +
+    		"INNER JOIN rhr.store r " +
+    		"WHERE r.id = :storeId")
+    public List<Integer> findDayIndexesByStoreId(@Param("storeId") Integer storeId);
 }
