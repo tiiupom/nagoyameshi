@@ -1,6 +1,6 @@
 package com.example.nagoyameshi.entity;
 
-import com.stripe.param.SubscriptionItemUsageRecordCreateParams.Timestamp;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

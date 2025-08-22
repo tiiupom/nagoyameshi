@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.nagoyameshi.entity.Category;
 import com.example.nagoyameshi.entity.Store;
 import com.example.nagoyameshi.form.StoreEditForm;
 import com.example.nagoyameshi.form.StoreRegisterForm;
@@ -162,7 +161,7 @@ public class StoreService {
 	public void createStore(StoreRegisterForm storeRegisterForm) {
 		Store store = new Store();
 		MultipartFile imageFile = storeRegisterForm.getImageFile();
-		Category category = storeRegisterForm.getCategory();
+		// Category category = storeRegisterForm.getCategory();
 		List<Integer> holidayIds = storeRegisterForm.getHolidayIds();
 		
 		//System.out.println(store);
@@ -192,7 +191,7 @@ public class StoreService {
 		//}
 		
 		if (holidayIds != null) {
-			holidayStoreService.createHolidayStore(holidayIds, store);
+			holidayStoreService.createHolidayStores(holidayIds, store);
 		}
 	}
 	
@@ -224,7 +223,7 @@ public class StoreService {
 		//System.out.println(store);
 		storeRepository.save(store);
 		
-		holidayStoreService.syncHolidayStore(holidayIds, store);
+		holidayStoreService.syncHolidayStores(holidayIds, store);
 	}
 	
 	@Transactional

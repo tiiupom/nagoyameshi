@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -27,11 +28,11 @@ public class Review {
 	private Integer score;
 	
 	@ManyToOne
-	@Column(name = "store_id")
+	@JoinColumn(name = "store_id")
 	private Store store;
 	
 	@ManyToOne
-	@Column(name = "user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
 	
 	@Column(name = "created_at", insertable = false, updatable = false)

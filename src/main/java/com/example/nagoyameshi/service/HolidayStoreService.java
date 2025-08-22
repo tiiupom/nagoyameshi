@@ -38,7 +38,7 @@ public class HolidayStoreService {
 	 		　新しくRegularHolidayRestaurantエンティティの
 	 		　インスタンスを生成し、各フィールドに値をセットしたあと保存する　*/
 	@Transactional
-	public void createHolidayStore(List<Integer> holidayIds, Store store) {
+	public void createHolidayStores(List<Integer> holidayIds, Store store) {
 		for (Integer holidayId : holidayIds) {
 			if (holidayId != null) {
 				Optional<Holiday> optionalHoliday = holidayService.findHolidayByID(holidayId);
@@ -63,13 +63,13 @@ public class HolidayStoreService {
 	
 	// フォームから送信された定休日のidリストをもとに、holidays_storeテーブルのデータを同期
 	@Transactional
-	public void syncHolidayStore(List<Integer> newHolidayIds,Store store) {
+	public void syncHolidayStores(List<Integer> newHolidayIds,Store store) {
 		List<HolidayStore> currentHolidayStores = holidayStoreRepository.findByStore(store);
 		
 		if (newHolidayIds == null) {
 			// newHolidayIdsがnullの場合は全てのエンティティを削除
-			for (HolidayStore curreHolidayStore : currentHolidayStores) {
-				holidayStoreRepository.delete(curreHolidayStore);
+			for (HolidayStore currentHolidayStore : currentHolidayStores) {
+				holidayStoreRepository.delete(currentHolidayStore);
 			}
 		} else {
 			// 既存のエンティティが新しいリストに存在しない場合は削除

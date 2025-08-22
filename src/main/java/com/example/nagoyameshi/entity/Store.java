@@ -23,7 +23,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "stores")
 @Data
-@ToString(exclude = {"holidayStore", "reviews"})
+@ToString(exclude = {"holidayStores", "reviews"})
 public class Store {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,7 +72,7 @@ public class Store {
 	
 	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	@OrderBy("id ASC")
-	private List<HolidayStore> holidayStore;
+	private List<HolidayStore> holidayStores;
 	
 	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Review> reviews;
