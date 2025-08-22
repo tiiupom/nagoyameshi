@@ -51,10 +51,10 @@ public class HolidayStoreService {
 					// 重複するエンティティが存在しない場合は新たにエンティティを作成
 					if (optionalCurrentHolidayStore.isEmpty()) {
 						HolidayStore holidayStore = new HolidayStore();
-	                       holidayStore.setStore(store);
-	                       holidayStore.setHoliday(holiday);
-	                       
-	                       holidayStoreRepository.save(holidayStore);
+						holidayStore.setStore(store);
+						holidayStore.setHoliday(holiday);
+						
+						holidayStoreRepository.save(holidayStore);
 					}
 				}
 			}

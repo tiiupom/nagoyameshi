@@ -40,7 +40,7 @@ INSERT IGNORE INTO holidays (id, day, day_index) VALUES
 (8, '不定休', null);
 
 /* holidays_storeテーブル */
-INSERT IGNORE INTO holidays_store (id, store_id, holiday_id) VALUES
+INSERT IGNORE INTO holiday_store (id, store_id, holiday_id) VALUES
 (1, 1, 1),
 (2, 1, 3),
 (3, 3, 8),
