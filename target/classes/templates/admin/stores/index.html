@@ -16,10 +16,40 @@
 				<div class="container pt-4 pb-5 nagoyameshi-container">
 					<div class="row justify-content-center">
 						 <div class="col-xxl-9 col-xl-10 col-lg-11">
+							 <ol class="breadcrumb mb-0">
+								<li class="breadcrumb-item"><a th:href="@{/admin}">管理ページ</a></li>
+								<li class="breadcrumb-item active" aria-current="page">店舗情報一覧</li>
+							</ol>
 							 
 							 <h1 class="mb-5 text-center">店舗情報一覧</h1>
 							 
 							<div class="d-flex justify-content-between align-items-end flex-wrap">
+								
+								<div class="col container">
+									<div class="row justify-content-center">
+										<div class="col-xxl-9 col-xl-10 col-lg-11">
+											<div class="row row-cols-md-3 row-cols-2 g-3 mb-5">
+												<div class="col">
+													<div class="card bg-light">
+														<div class="card-body text-center">
+															<h5 class="card-title">店舗数</h5>
+															 <p class="card-text" th:text="${totalStores + '件'}"></p>
+														</div>
+													</div>
+												</div>
+												<div class="col">
+													<div class="card bg-light">
+														<div class="card-body text-center">
+															<h5 class="card-title">総予約数</h5>
+															 <p class="card-text" th:text="${totalReservations + '件'}"></p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
 								<form method="get" th:action="@{/admin/stores}" class="mb-3">
 									<div class="input-group">
 										<!-- input要素にth:value属性を使い、コントローラから渡された変数keywordの値を初期値として設定 -->
