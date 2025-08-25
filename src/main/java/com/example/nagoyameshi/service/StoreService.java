@@ -40,8 +40,8 @@ public class StoreService {
 		return storeRepository.findByNameLike("%" + keyword + "%", pageable);
 	}
 	
-	// 指定したidを持つ民宿を取得
-	// Optional nullを持つ可能性のある（nullかもしれない）オブジェクトをより安全・便利に扱うためのクラス
+	/* 指定したidを持つ民宿を取得
+	 * Optional nullを持つ可能性のある（nullかもしれない）オブジェクトをより安全・便利に扱うためのクラス */
 	public Optional<Store> findStoreById(Integer id) {
 		return storeRepository.findById(id);
 	}
@@ -66,6 +66,26 @@ public class StoreService {
         return storeRepository.findAllByOrderBypriceMinAsc(pageable);
     }
     
+	// すべての店舗を平均評価が高い順に並べ替え、ページングされた状態で取得する
+	public Page<Store> findAllStoresByOrderByAverageScoreDesc(Pageable pageable) {
+		return storeRepository.findAllByOrderByAverageScoreDesc(pageable);
+    }
+	
+	// すべての店舗を予約数が多い順に並べ替え、ページングされた状態で取得
+	public Page<Store> findAllStoresByOrderByReservationCountDesc(Pageable pageable) {
+		return storeRepository.findAllByOrderByReservationCountDesc(pageable);
+	}
+	
+	// 指定されたキーワードを店舗名に含む店舗をページングされた状態で取得
+	public Page<Store> findStoreByNameLikeOrAddressLike(String nameKeyword, String addressKeyword, Pageable pageable) {
+		return storeRepository.findByNameLikeOrAddressLike("%" + nameKeyword + "%", "%" + addressKeyword + "%", pageable);
+	}
+	
+	// 指定されたカテゴリを含む店舗をページングされた状態で取得
+	public Page<Store> findStoreByCategoryLike(String category, Pageable pageable) {
+		return storeRepository.findByCategoryLike(category, pageable);
+	}
+    
     // 指定されたキーワードを店舗名または住所またはカテゴリ名に含む店舗を作成日時が新しい順に並べ替え、ページングされた状態で取得
     public Page<Store> findStoresByNameLikeOrAddressLikeOrCategoryNameLikeOrderByCreatedAtDesc(String nameKeyword, String addressKeyword, String categoryNameKeyword, Pageable pageable){
     	return storeRepository.findByNameLikeOrAddressLikeOrCategoryNameLikeOrderByCreatedAtDesc(nameKeyword, addressKeyword, categoryNameKeyword, pageable);
@@ -75,6 +95,16 @@ public class StoreService {
     public Page<Store> findStoresByNamelikeOrAddressLikeOrCategoryNameLikeOrderByPriceMinAsc(String nameKeyword, String addressKeyword, String categoryNameKeyword, Pageable pageable) {
     	return storeRepository.findByNameLikeOrAddressLikeOrCategoryNameLikeOrderByPriceMinAsc(nameKeyword, addressKeyword, categoryNameKeyword, pageable);
     }
+    
+	// 指定されたキーワードを店舗名または住所またはカテゴリ名に含む店舗を平均評価が高い順に並べ替え、ページングされた状態で取得
+	public Page<Store> findStoreByNameLikeOrAddressLikeOrCategoryNameLikeOrderByAverageScoreDesc(String nameKeyword, String addressKeyword, String categoryNameKeyword, Pageable pageable) {
+    	return storeRepository.findByNameLikeOrAddressLikeOrCategoryNameLikeOrderByAverageScoreDesc(nameKeyword, addressKeyword, categoryNameKeyword, pageable);
+    }
+	
+	// 指定されたキーワードを店舗名または住所またはカテゴリ名に含む店舗を予約数が多い順に並べ替え、ページングされた状態で取得
+	public Page<Store>findStoresByNameLikeOrAddressLikeOrCategoryNameLikeOrderByReservationCountDesc(String namekeyword, String addressKeyword, String categoryNameKeyword, Pageable pageable) {
+		return storeRepository.findByNameLikeOrAddressLikeOrCategoryNameLikeOrderByReservationCountDesc(namekeyword, addressKeyword, categoryNameKeyword, pageable);
+	}
     
     // 指定されたidのカテゴリが設定された店舗を作成日時が新しい順に並べ替え、ページングされた状態で取得
     public Page<Store> findStoresByCategoryIdOrderByCreatedAtDesc(Integer categoryId, Pageable pageable) {
@@ -86,29 +116,14 @@ public class StoreService {
     	return storeRepository.findByCategoryIdOrderByPriceMinAsc(categoryId, pageable);
     }
     
-	// すべての店舗を平均評価が高い順に並べ替え、ページングされた状態で取得する
-	public Page<Store> findAllStoresByOrderByAverageScoreDesc(Pageable pageable) {
-		return storeRepository.findAllByOrderByAverageScoreDesc(pageable);
-    }
-	
-	// 指定されたキーワードを店舗名に含む店舗をページングされた状態で取得
-	public Page<Store> findStoreByNameLikeOrAddressLike(String nameKeyword, String addressKeyword, Pageable pageable) {
-		return storeRepository.findByNameLikeOrAddressLike("%" + nameKeyword + "%", "%" + addressKeyword + "%", pageable);
-	}
-	
-	// 指定されたキーワードを店舗名または住所またはカテゴリ名に含む店舗を平均評価が高い順に並べ替え、ページングされた状態で取得する
-	public Page<Store> findStoreByNameLikeOrAddressLikeOrCategoryNameLikeOrderByAverageScoreDesc(String nameKeyword, String addressKeyword, String categoryNameKeyword, Pageable pageable) {
-    	return storeRepository.findByNameLikeOrAddressLikeOrCategoryNameLikeOrderByAverageScoreDesc(nameKeyword, addressKeyword, categoryNameKeyword, pageable);
-    }
-	
-	// 指定されたカテゴリを含む店舗をページングされた状態で取得
-	public Page<Store> findStoreByCategoryLike(String category, Pageable pageable) {
-		return storeRepository.findByCategoryLike(category, pageable);
-	}
-	
 	// 指定されたidのカテゴリが設定された店舗を平均評価が高い順に並べ替え、ページングされた状態で取得する
 	public Page<Store> findStoreByCategoryIdOrderByAverageScoreDesc(Integer categoryId, Pageable pageable) {
 		return storeRepository.findByCategoryIdOrderByAverageScoreDesc(categoryId, pageable);
+	}
+	
+	// 指定されたidのカテゴリが設定された店舗を予約数が多い順に並べ替え、ページングされた状態で取得
+	public Page<Store> findStoresByCategoryIdOrderByReservationCountDesc(Integer categoryId, Pageable pageable) {
+		return storeRepository.findByCategoryIdOrderByReservationCountDesc(categoryId, pageable);
 	}
 	
     // 指定された最低価格以下の店舗を作成日時が新しい順に並べ替え、ページングされた状態で取得
@@ -124,6 +139,16 @@ public class StoreService {
     // 指定された最低価格以下の店舗を平均評価が高い順に並べ替え、ページングされた状態で取得
     public Page<Store> findStoresByPriceMinThanEqualOrderByAverageScoreDesc(Integer price, Pageable pageable) {
     	return storeRepository.findByPriceMinThanEqualOrderByAverageScoreDesc(price, pageable);
+    }
+    
+    // 指定された最低価格以下の店舗を予約数が多い順に並べ替え、ページングされた状態で取得
+    public Page<Store> findStoresByPriceMinThanEqualOrderByReservationCountDesc(Integer price, Pageable pageable) {
+    	return storeRepository.findByPriceMinThanEqualOrderByReservationCountDesc(price, pageable);
+    }
+    
+    // 指定された店舗の定休日のday_indexフィールドの値をリストで取得
+    public List<Integer> findDayIndexesByStoreId(Integer storeId) {
+    	return storeRepository.findDayIndexesByStoreId(storeId);
     }
 	
 	/* 送信された画像ファイルをstorageフォルダに保存

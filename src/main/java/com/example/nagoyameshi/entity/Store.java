@@ -77,6 +77,9 @@ public class Store {
 	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Review> reviews;
 	
+	@OneToMany(mappedBy = "reservation", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	private List<Reservation> reservations;
+	
 	// 平均評価を取得
 	@Transactional
 	public Double getAverageScore() {
