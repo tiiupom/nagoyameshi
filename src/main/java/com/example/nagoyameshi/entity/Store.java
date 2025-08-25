@@ -2,6 +2,7 @@ package com.example.nagoyameshi.entity;
  
 import java.sql.Timestamp;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -31,7 +32,7 @@ public class Store {
 	private Integer id;
 	 
 	@ManyToOne
-	@JoinColumn(name = "category")
+	@JoinColumn(name = "category_id")
 	private Category category;
 	
 	@Column(name = "name")
@@ -77,8 +78,8 @@ public class Store {
 	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Review> reviews;
 	
-	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-	private List<Reservation> reservations;
+	@OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
+    private List<Reservation> reservations = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Favorite> favorites;

@@ -17,11 +17,11 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
 	// 店舗名または住所で検索するフォーム
 	public Page<Store> findByNameLikeOrAddressLike(String nameKeyword, String addressKeyword, Pageable pageable);
 	// カテゴリで検索するフォーム
-	public Page<Store> findByCategoryLike(String category, Pageable pageable);
+	public Page<Store> findByCategoryIdLike(String category, Pageable pageable);
 	// すべての店舗を作成日が新しい順に並べ替えページングされた状態で表示
 	public Page<Store> findAllByOrderByCreatedAtDesc(Pageable pageable);
 	// すべての店舗を最低価格が低い順に並べ替えページングされた状態で表示
-	public Page<Store> findAllByOrderBypriceMinAsc(Pageable pageable);
+	public Page<Store> findAllByOrderByPriceMinAsc(Pageable pageable);
 	
 	// すべての店舗を平均評価が高い順に並べ替え、ページングされた状態で取得する
     @Query("SELECT r FROM Store r " +
@@ -39,10 +39,10 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
     
     // 指定されたキーワードを店舗名または住所またはカテゴリ名に含む店舗を作成日時が新しい順に並べ替え、ページングされた状態で表示
 	@Query("SELECT DISTINCT r FROM Store r " +
-			"LEFT JOIN r.categoriesStores cr " +
+			"LEFT JOIN r.category.name cr " +
 			"WHERE r.name LIKE %:name% " +
 			"OR r.address LIKE %:address% " +
-			"OR cr.category.name LIKE %:categoryName% " +
+			"OR r.category.name LIKE %:categoryName% " +
 			"ORDER BY r.createdAt DESC")
 	public Page<Store> findByNameLikeOrAddressLikeOrCategoryNameLikeOrderByCreatedAtDesc(@Param("name") String nameKeyword,
 																							  @Param("address") String addressKeyword,
@@ -51,22 +51,22 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
 	
 	// 指定されたキーワードを店舗名または住所またはカテゴリ名に含む店舗を最低価格が安い順に並べ替え、ページングされた状態で取得
 	@Query("SELECT DISTINCT r FROM Store r " +
-			"LEFT JOIN r.categoriesStores cr " +
 			"WHERE r.name LIKE %:name% " +
 			"OR r.address LIKE %:address% " +
-			"OR cr.category.name LIKE %:categoryName% " +
-			"ORDER BY r.PriceMin ASC")
+			"OR r.category.name LIKE %:categoryName% " +
+			"ORDER BY r.priceMin ASC")
 	public Page<Store> findByNameLikeOrAddressLikeOrCategoryNameLikeOrderByPriceMinAsc(@Param("name") String nameKeyword,
-																								@Param("address") String addressKeyword,
-																								@Param("categoryName") String categoryNameKeyword,
-	                                                                                            Pageable pageable);
-    // 指定されたキーワードを店舗名または住所またはカテゴリ名に含む店舗を平均評価が高い順に並べ替え、ページングされた状態で取得する
+																						@Param("address") String addressKeyword,
+																						@Param("categoryName") String categoryNameKeyword,
+																						Pageable pageable);
+	
+	// 指定されたキーワードを店舗名または住所またはカテゴリ名に含む店舗を平均評価が高い順に並べ替え、ページングされた状態で取得する
     @Query("SELECT r FROM Store r " +
            "LEFT JOIN r.category cr " +
            "LEFT JOIN r.reviews rev " +
            "WHERE r.name LIKE %:name% " +
            "OR r.address LIKE %:address% " +
-           "OR cr.category.name LIKE %:categoryName% " +
+           "OR r.category.name LIKE %:categoryName% " +
            "GROUP BY r.id " +
            "ORDER BY AVG(rev.score) DESC")
     public Page<Store> findByNameLikeOrAddressLikeOrCategoryNameLikeOrderByAverageScoreDesc(@Param("name") String nameKeyword,
@@ -76,11 +76,10 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
 
     // 指定されたキーワードを店舗または住所またはカテゴリ名に含む店舗を予約数が多い順に並べ替え、ページングされた状態で取得
     @Query("SELECT r FROM Store r " +
-    		"LEFT JOIN r.categoriesStores cr " +
     		"LEFT JOIN r.reservations res " +
-    		"WHERE r.name LIKE %:name% " +
-    		"OR r.address LIKE %:address% " +
-    		"OR cr.category.name LIKE %:categoryName% " +
+    		"WHERE r.name LIKE :name " +
+    		"OR r.address LIKE :address " +
+    		"OR r.category.name LIKE :categoryName " +
     		"GROUP BY r.id " +
     		"ORDER BY COUNT(DISTINCT res.id) DESC")
     public Page<Store> findByNameLikeOrAddressLikeOrCategoryNameLikeOrderByReservationCountDesc(@Param("name") String nameKeyword,
@@ -89,39 +88,36 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
     																							Pageable pageable);
     
     // 指定されたidのカテゴリが設定された店舗を作成日時が新しい順に並べ替え、ページングされた状態で取得する
-    @Query("SELECT r FROM Store r " +
-           "INNER JOIN r.categoriesStores cr " +
-           "WHERE cr.category.id = :categoryId " +
-           "ORDER BY r.createdAt DESC")
+    @Query("SELECT s FROM Store s " +
+    		"WHERE s.category.id = :categoryId " +
+    		"ORDER BY s.createdAt DESC")
     public Page<Store> findByCategoryIdOrderByCreatedAtDesc(@Param("categoryId") Integer categoryId, Pageable pageable);
 
     // 指定されたidのカテゴリが設定された店舗を最低価格が安い順に並べ替え、ページングされた状態で取得する
     @Query("SELECT r FROM Store r " +
-           "INNER JOIN r.categoriesStores cr " +
+           "INNER JOIN r.category.name cr " +
            "WHERE cr.category.id = :categoryId " +
            "ORDER BY r.priceMin ASC")
     public Page<Store> findByCategoryIdOrderByPriceMinAsc(@Param("categoryId") Integer categoryId, Pageable pageable);
 
     // 指定されたidのカテゴリが設定された店舗を平均評価が高い順に並べ替え、ページングされた状態で取得する
-    @Query("SELECT r FROM Store r " +
-           "INNER JOIN r.category cr " +
-           "LEFT JOIN r.reviews rev " +
-           "WHERE cr.category.id = :categoryId " +
-           "GROUP BY r.id " +
-           "ORDER BY AVG(rev.score) DESC")
+    @Query("SELECT s FROM Store s " +
+            "LEFT JOIN s.reviews r " +
+            "WHERE s.category.id = :categoryId " +
+            "GROUP BY s.id " +
+            "ORDER BY AVG(r.score) DESC")
     public Page<Store> findByCategoryIdOrderByAverageScoreDesc(@Param("categoryId") Integer categoryId, Pageable pageable);    
 
     // 指定されたidのカテゴリが設定された店舗を予約数が多い順に並べ替え、ページングされた状態で表示
-    @Query("SELECT r FROM Store r " +
-    		"INNER JOIN r.categoriesStores cr " +
-    		"LEFT JOIN r.reservations res " +
-    		"WHERE cr.category.id = :categoryId " +
-    		"GROUP BY r.id " +
-    		"ORDER BY COUNT(res) DESC")
+    @Query("SELECT s FROM Store s " +
+            "LEFT JOIN s.reservations r " +
+            "WHERE s.category.id = :categoryId " +
+            "GROUP BY s.id " +
+            "ORDER BY COUNT(r) DESC")
     public Page<Store> findByCategoryIdOrderByReservationCountDesc(@Param("categoryId") Integer categoryId, Pageable pageable);
     
-    public Page<Store> findByPriceMinThanEqualOrderByCreatedAtDesc(Integer priceMin, Pageable pageable);
-    public Page<Store> findByPriceMinThanEqualOrderByPriceMinAsc(Integer priceMin, Pageable pageable);
+    public Page<Store> findByPriceMinLessThanEqualOrderByCreatedAtDesc(Integer priceMin, Pageable pageable);
+    public Page<Store> findByPriceMinLessThanEqualOrderByPriceMinAsc(Integer priceMin, Pageable pageable);
   
     // 指定された最低価格以下の店舗を平均評価が高い順に並べ替え、ページングされた状態で取得
     @Query("SELECT r FROM Store r " +
@@ -129,7 +125,7 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
     		"WHERE r.priceMin <= :price " +
     		"GROUP BY r.id " +
     		"ORDER BY AVG(rev.score) DESC")
-    public Page<Store> findByPriceMinThanEqualOrderByAverageScoreDesc(@Param("price") Integer price, Pageable pageable);
+    public Page<Store> findByPriceMinLessThanEqualOrderByAverageScoreDesc(@Param("price") Integer price, Pageable pageable);
     
     // 指定された最低価格以下の店舗を予約数が多い順に並べ替え、ページングされた状態で取得
     @Query("SELECT r FROM Store r " +
@@ -137,12 +133,12 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
     		"WHERE r.lowestPrice <= :price " +
     		"GROUP BY r.id " +
     		"ORDER BY COUNT(res) DESC")
-    public Page<Store> findByPriceMinThanEqualOrderByReservationCountDesc(@Param("price") Integer price, Pageable pageable);
+    public Page<Store> findByPriceMinLessThanEqualOrderByReservationCountDesc(@Param("price") Integer price, Pageable pageable);
     
     // 指定された店舗の定休日のday_indexフィールドの値をリストで取得
     @Query("SELECT rh.dayIndex FROM Holiday rh " +
     		"INNER JOIN rh.holidayStore rhr " +
     		"INNER JOIN rhr.store r " +
     		"WHERE r.id = :storeId")
-    public List<Integer> findDayIndexesByStoreId(@Param("storeId") Integer storeId);
+    public List<Integer> findDayIndexByStoreId(@Param("storeId") Integer storeId);
 }

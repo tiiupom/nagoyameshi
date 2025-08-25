@@ -62,7 +62,7 @@ public class StoreService {
 
     // すべての店舗を最低価格が安い順に並べ替え、ページングされた状態で取得する
     public Page<Store> findAllStoresByOrderByPriceMinAsc(Pageable pageable) {
-        return storeRepository.findAllByOrderBypriceMinAsc(pageable);
+        return storeRepository.findAllByOrderByPriceMinAsc(pageable);
     }
     
 	// すべての店舗を平均評価が高い順に並べ替え、ページングされた状態で取得する
@@ -82,7 +82,7 @@ public class StoreService {
 	
 	// 指定されたカテゴリを含む店舗をページングされた状態で取得
 	public Page<Store> findStoreByCategoryLike(String category, Pageable pageable) {
-		return storeRepository.findByCategoryLike(category, pageable);
+		return storeRepository.findByCategoryIdLike(category, pageable);
 	}
     
     // 指定されたキーワードを店舗名または住所またはカテゴリ名に含む店舗を作成日時が新しい順に並べ替え、ページングされた状態で取得
@@ -126,28 +126,28 @@ public class StoreService {
 	}
 	
     // 指定された最低価格以下の店舗を作成日時が新しい順に並べ替え、ページングされた状態で取得
-    public Page<Store> findStoresByPriceMinThanEqualOrderByCreatedAtDesc(Integer PriceMin, Pageable pageable) {
-    	return storeRepository.findByPriceMinThanEqualOrderByCreatedAtDesc(PriceMin, pageable);
+    public Page<Store> findStoresByPriceMinLessThanEqualOrderByCreatedAtDesc(Integer PriceMin, Pageable pageable) {
+    	return storeRepository.findByPriceMinLessThanEqualOrderByCreatedAtDesc(PriceMin, pageable);
     }
     
     // 指定された最低価格以下の店舗を最低価格が安い順に並べ替え、ページングされた状態で取得
-    public Page<Store> findStoresByPriceMinThanEqualOrderByPriceMinAsc(Integer PriceMin, Pageable pageable) {
-    	return storeRepository.findByPriceMinThanEqualOrderByPriceMinAsc(PriceMin, pageable);
+    public Page<Store> findStoresByPriceMinLessThanEqualOrderByPriceMinAsc(Integer PriceMin, Pageable pageable) {
+    	return storeRepository.findByPriceMinLessThanEqualOrderByPriceMinAsc(PriceMin, pageable);
     }
     
     // 指定された最低価格以下の店舗を平均評価が高い順に並べ替え、ページングされた状態で取得
-    public Page<Store> findStoresByPriceMinThanEqualOrderByAverageScoreDesc(Integer price, Pageable pageable) {
-    	return storeRepository.findByPriceMinThanEqualOrderByAverageScoreDesc(price, pageable);
+    public Page<Store> findStoresByPriceMinLessThanEqualOrderByAverageScoreDesc(Integer price, Pageable pageable) {
+    	return storeRepository.findByPriceMinLessThanEqualOrderByAverageScoreDesc(price, pageable);
     }
     
     // 指定された最低価格以下の店舗を予約数が多い順に並べ替え、ページングされた状態で取得
-    public Page<Store> findStoresByPriceMinThanEqualOrderByReservationCountDesc(Integer price, Pageable pageable) {
-    	return storeRepository.findByPriceMinThanEqualOrderByReservationCountDesc(price, pageable);
+    public Page<Store> findStoresByPriceMinLessThanEqualOrderByReservationCountDesc(Integer price, Pageable pageable) {
+    	return storeRepository.findByPriceMinLessThanEqualOrderByReservationCountDesc(price, pageable);
     }
     
     // 指定された店舗の定休日のday_indexフィールドの値をリストで取得
     public List<Integer> findDayIndexesByStoreId(Integer storeId) {
-    	return storeRepository.findDayIndexesByStoreId(storeId);
+    	return storeRepository.findDayIndexByStoreId(storeId);
     }
 	
 	/* 送信された画像ファイルをstorageフォルダに保存

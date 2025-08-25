@@ -1,10 +1,7 @@
 package com.example.nagoyameshi.service;
  
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
-import com.example.nagoyameshi.entity.Category;
 import com.example.nagoyameshi.repository.CategoryRepository;
 
 @Service
@@ -15,13 +12,27 @@ public class CategoryService {
 		this.categoryRepository = categoryRepository;
 	}
 	
-	// 全てのカテゴリをリスト形式で取得
-	public List<Category> findAllCategories() {
-        return categoryRepository.findAll();
-    }
+	// すべてのカテゴリをページングされた状態で取得
 	
-	// 指定したカテゴリ名を持つ最初のカテゴリを取得
-	public Category findFirstCategoryByName(String name) {
-		return categoryRepository.findFirstByName(name);
-	}
+	
+	// 指定されたキーワードをカテゴリ名に含むカテゴリをページングされた状態で取得
+	
+	
+	// 指定したidを持つカテゴリを取得
+	
+	
+	// カテゴリのレコード数を取得
+	
+	
+	// idが最も大きいカテゴリを取得
+	
+	
+	// フォームから送信されたカテゴリ情報をデータベースに登録
+	
+	
+	// フォームから送信されたカテゴリ情報でデータベースを更新
+	
+	
+	// 指定したカテゴリをデータベースから削除
+	
 }
