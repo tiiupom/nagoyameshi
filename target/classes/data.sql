@@ -152,3 +152,12 @@ INSERT IGNORE INTO terms (id, content) VALUES
 <h2>第15条（準拠法・裁判管轄）</h2>
 <ol><li>本規約の解釈にあたっては、日本法を準拠法とします。</li>
 <li>本サービスに関して紛争が生じた場合には、当社の本店所在地を管轄する裁判所を専属的合意管轄とします。</li></ol>');
+
+/* favoritesテーブル */
+INSERT IGNORE INTO favorites (id, store_id, user_id) VALUES
+(1,5,2),
+(2,3,1),
+(3,6,2),
+(4,4,1),
+(5,5,2);
+

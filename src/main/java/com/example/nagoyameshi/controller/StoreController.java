@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.nagoyameshi.entity.Category;
+import com.example.nagoyameshi.entity.Favorite;
 import com.example.nagoyameshi.entity.Store;
+import com.example.nagoyameshi.entity.User;
+import com.example.nagoyameshi.security.UserDetailsImpl;
 import com.example.nagoyameshi.service.CategoryService;
+import com.example.nagoyameshi.service.FavoriteService;
 import com.example.nagoyameshi.service.StoreService;
 
 @Controller
@@ -26,10 +31,12 @@ import com.example.nagoyameshi.service.StoreService;
 public class StoreController {
 	private final StoreService storeService;
 	private final CategoryService categoryService;
+	private final FavoriteService favoriteService;
 	
-	public StoreController(StoreService storeService, CategoryService categoryService) {
+	public StoreController(StoreService storeService, CategoryService categoryService, FavoriteService favoriteService) {
 		this.storeService = storeService;
 		this.categoryService = categoryService;
+		this.favoriteService = favoriteService;
 	}
 	
 	@GetMapping
@@ -104,6 +111,7 @@ public class StoreController {
 	
 	@GetMapping("/{id}")
 	public String show(@PathVariable(name = "id") Integer id,
+			@AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
 						RedirectAttributes redirectAttributes,
 						Model model)
 	{
@@ -116,7 +124,21 @@ public class StoreController {
 		}
 		
 		Store store = optionalStore.get();
+		Favorite favorite = null;
+		boolean isFavorite = false;
+		
+		if (userDetailsImpl != null) {
+			User user = userDetailsImpl.getUser();
+			isFavorite = favoriteService.isFavorite(store, user);
+			
+			if (isFavorite) {
+				favorite = favoriteService.findFavoriteByStoreAndUser(store, user);
+			}
+		}
+		
 		model.addAttribute("store", store);
+		model.addAttribute("favorite", favorite);
+		model.addAttribute("isFavorite", isFavorite);
 		
 		return "stores/show";
 	}
