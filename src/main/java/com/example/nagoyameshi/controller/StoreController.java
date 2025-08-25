@@ -1,7 +1,6 @@
 package com.example.nagoyameshi.controller;
 
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -17,12 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.nagoyameshi.entity.Category;
 import com.example.nagoyameshi.entity.Favorite;
 import com.example.nagoyameshi.entity.Store;
 import com.example.nagoyameshi.entity.User;
 import com.example.nagoyameshi.security.UserDetailsImpl;
-import com.example.nagoyameshi.service.CategoryService;
 import com.example.nagoyameshi.service.FavoriteService;
 import com.example.nagoyameshi.service.StoreService;
 
@@ -30,12 +27,10 @@ import com.example.nagoyameshi.service.StoreService;
 @RequestMapping("/stores")
 public class StoreController {
 	private final StoreService storeService;
-	private final CategoryService categoryService;
 	private final FavoriteService favoriteService;
 	
-	public StoreController(StoreService storeService, CategoryService categoryService, FavoriteService favoriteService) {
+	public StoreController(StoreService storeService, FavoriteService favoriteService) {
 		this.storeService = storeService;
-		this.categoryService = categoryService;
 		this.favoriteService = favoriteService;
 	}
 	
@@ -89,18 +84,7 @@ public class StoreController {
 			}
 		}
 		
-		/*
-			storePage = storeService.findStoreByNameLikeOrAddressLike(keyword, keyword, pageable);
-		} else if (categoryId != null && !categoryId.isEmpty()) {
-			storePage = storeService.findStoreByCategoryLike(categoryId, pageable);
-		} else {
-			storePage = storeService.findAllStores(pageable);
-		}
-		*/
-		
-		List<Category> categories = categoryService.findAllCategories();
 		model.addAttribute("storePage", storePage);
-		model.addAttribute("categories", categories);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("category", categoryId);
 		model.addAttribute("priceMin", priceMin);

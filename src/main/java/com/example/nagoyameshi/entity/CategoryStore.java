@@ -1,38 +1,38 @@
 package com.example.nagoyameshi.entity;
-  
-import java.util.List;
 
-import jakarta.persistence.CascadeType;
+import java.sql.Timestamp;
+
+import org.springframework.data.annotation.Id;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.ToString;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "category_store")
 @Data
-@ToString(exclude = "categoryStores")
-public class Category {
+public class CategoryStore {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
+	@Column(name = "id")
 	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name = "store_id")
 	private Store store;
 	
-	@Column(name = "name")
-	private String name;
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
 	
-	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-	private List<CategoryStore> categoryStores;
+	@Column(name = "created_at", insertable = false, updatable = false)
+	private Timestamp createdAt;
+	
+	@Column(name = "updated_at", insertable = false, updatable = false)
+	private Timestamp updatedAt;
 }

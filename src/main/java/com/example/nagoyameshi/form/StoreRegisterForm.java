@@ -46,5 +46,7 @@ public class StoreRegisterForm {
 	@Min(value = 1, message = "最大利用人数は1人以上に設定してください。")
 	private Integer capacity;
 	
+	private List<Integer> categoryIds;
+	
 	private List<Integer> holidayIds;
 }

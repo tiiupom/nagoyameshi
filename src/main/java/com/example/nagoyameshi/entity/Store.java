@@ -12,8 +12,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
@@ -24,17 +22,13 @@ import lombok.ToString;
 @Entity
 @Table(name = "stores")
 @Data
-@ToString(exclude = {"holidayStores", "reviews"})
+@ToString(exclude = {"categoryStores", "holidayStores", "reviews"})
 public class Store {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	 
-	@ManyToOne
-	@JoinColumn(name = "category_id")
-	private Category category;
-	
 	@Column(name = "name")
 	private String name;
 	
@@ -70,6 +64,10 @@ public class Store {
 	
 	@Column(name = "updated_at", insertable = false, updatable = false)
 	private Timestamp updatedAt;
+	
+	@OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OrderBy("id ASC")
+	private List<CategoryStore> categoryStores;
 	
 	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	@OrderBy("id ASC")

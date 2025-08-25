@@ -19,7 +19,7 @@
 							 <nav class="mb-4" style="--bs-breadcrumb-driver: '>';" aria-label="breadcrumb">
 								 <ol class="breadcrumb mb-0">
 									 <li class="breadcrumb-item"><a th:href="@{/admin/stores}">店舗一覧</a></li>
-									 <li class="breadcrumb-item"><a th:href="@{/admin/stores/__${store.id}__}">民宿詳細</a></li>
+									 <li class="breadcrumb-item"><a th:href="@{/admin/stores/__${store.id}__}">店舗詳細</a></li>
 									 <li class="breadcrumb-item active" aria-current="page">店舗情報編集</li>
 								 </ol>
 							 </nav>
@@ -59,7 +59,8 @@
 										<select class="form-control" name="category">
 											<option value="">選択なし</option>
 											<div th:each="category : ${categories}" th:inline="text">
-												<option th:value="${category.id}" th:field="*{id}"></option>
+												<option th:value="${category.id}"
+														th:text="${category.name}"></option>
 											</div>
 										</select>
 									</div>

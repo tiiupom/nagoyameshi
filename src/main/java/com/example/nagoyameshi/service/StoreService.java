@@ -22,10 +22,14 @@ import com.example.nagoyameshi.repository.StoreRepository;
 @Service
 public class StoreService {
 	private final StoreRepository storeRepository;
+	private final CategoryStoreService categoryStoreService;
 	private final HolidayStoreService holidayStoreService;
 	
-	public StoreService(StoreRepository storeRepository,HolidayStoreService holidayStoreService) {
+	public StoreService(StoreRepository storeRepository,
+						CategoryStoreService categoryStoreService,
+						HolidayStoreService holidayStoreService) {
 		this.storeRepository = storeRepository;
+		this.categoryStoreService = categoryStoreService;
 		this.holidayStoreService = holidayStoreService;
 	}
 	 
@@ -161,7 +165,7 @@ public class StoreService {
 	public void createStore(StoreRegisterForm storeRegisterForm) {
 		Store store = new Store();
 		MultipartFile imageFile = storeRegisterForm.getImageFile();
-		// Category category = storeRegisterForm.getCategory();
+		List<Integer> categoryIds = storeRegisterForm.getCategoryIds();
 		List<Integer> holidayIds = storeRegisterForm.getHolidayIds();
 		
 		//System.out.println(store);
@@ -186,9 +190,9 @@ public class StoreService {
 		//System.out.println(store);
 		storeRepository.save(store);
 		
-		//if (category != null) {
-			//CategoryService.
-		//}
+		if (categoryIds != null) {
+			categoryStoreService.createCategoryStores(categoryIds, store);
+		}
 		
 		if (holidayIds != null) {
 			holidayStoreService.createHolidayStores(holidayIds, store);
@@ -198,6 +202,7 @@ public class StoreService {
 	@Transactional
 	public void updateStore(StoreEditForm storeEditForm, Store store) {
 		MultipartFile imageFile = storeEditForm.getImageFile();
+		List<Integer> categoryIds = storeEditForm.getCategoryIds();
 		List<Integer> holidayIds = storeEditForm.getHolidayIds();
 		
 		//System.out.println(store);
@@ -211,7 +216,6 @@ public class StoreService {
 		}
 		
 		store.setName(storeEditForm.getName());
-		store.setCategory(storeEditForm.getCategory());
 		store.setDescription(storeEditForm.getDescription());
 		store.setStartTime(storeEditForm.getStartTime());
 		store.setEndTime(storeEditForm.getEndTime());
@@ -223,6 +227,7 @@ public class StoreService {
 		//System.out.println(store);
 		storeRepository.save(store);
 		
+		categoryStoreService.syncCategoryStores(categoryIds, store);
 		holidayStoreService.syncHolidayStores(holidayIds, store);
 	}
 	
