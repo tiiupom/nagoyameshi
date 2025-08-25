@@ -1,0 +1,35 @@
+package com.example.nagoyameshi.entity;
+
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.ToString;
+
+@Entity
+@Table(name = "holidays")
+@Data
+@ToString(exclude = "holidayStore")
+public class Holiday {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Integer id;
+	
+	@Column(name = "day")
+	private String day;
+	
+	@Column(name = "day_index")
+	private Integer dayIndex;
+	
+	@OneToMany(mappedBy = "holidays", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	private List<HolidayStore> holidayStores;
+}

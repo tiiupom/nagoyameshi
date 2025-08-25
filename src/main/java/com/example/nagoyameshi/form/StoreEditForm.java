@@ -1,6 +1,7 @@
 package com.example.nagoyameshi.form;
  
 import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,7 +37,7 @@ public class StoreEditForm {
 	private Integer priceMin;
 	
 	@NotNull(message = "最高価格を選択してください")
-	private Integer priceMax;
+	private Integer PriceMax;
 	
 	@NotBlank(message = "住所を入力してください")
 	private String address;
@@ -46,4 +47,6 @@ public class StoreEditForm {
 	
 	@Min(value = 1, message = "最大利用人数は1人以上に設定してください。")
 	private Integer capacity;
+	
+	private List<Integer> holidayIds;
 }

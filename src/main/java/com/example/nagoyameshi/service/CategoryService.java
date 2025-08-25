@@ -25,6 +25,7 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 	
+<<<<<<< HEAD
 	// 全てのカテゴリをページングされた状態で取得
 	public Page<Category> findAllgetCategories(Pageable pageable) {
 		return categoryRepository.findAll(pageable);
@@ -65,5 +66,10 @@ public class CategoryService {
 	// 指定したカテゴリをデータベースから削除
 	public void deleteCategories(Category category) {
 		categoryRepository.delete(category);
+=======
+	// 指定したカテゴリ名を持つ最初のカテゴリを取得
+	public Category findFirstCategoryByName(String name) {
+		return categoryRepository.findFirstByName(name);
+>>>>>>> review
 	}
 }
