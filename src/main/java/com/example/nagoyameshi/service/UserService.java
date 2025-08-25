@@ -116,6 +116,11 @@ public class UserService {
 		return userRepository.findById(id);
 	}
 	
+	// 指定したロール名に紐づくユーザーのレコード数を取得
+	public long countUserByRole_Name(String roleName) {
+		return userRepository.countByRole_Name(roleName);
+	}
+	
 	@Transactional
 	public void saveStripeCustomerId(User user, String stripeCustomerId) {
 		user.setStripeCustomerId(stripeCustomerId);
@@ -133,10 +138,14 @@ public class UserService {
 	public void refreshAuthenticationByRole(String newRole) {
 		Authentication currentAuthentication = SecurityContextHolder.getContext().getAuthentication();
 		
+		// 新しい認証情報を作成
 		List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
 		simpleGrantedAuthorities.add(new SimpleGrantedAuthority(newRole));
 		Authentication newAuthentication = new UsernamePasswordAuthenticationToken(currentAuthentication.getPrincipal(), currentAuthentication.getCredentials(), simpleGrantedAuthorities);
 		
+		// 認証情報を更新
 		SecurityContextHolder.getContext().setAuthentication(newAuthentication);
 	}
+	
+	
 }

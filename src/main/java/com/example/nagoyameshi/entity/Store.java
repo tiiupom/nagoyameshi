@@ -2,30 +2,33 @@ package com.example.nagoyameshi.entity;
  
 import java.sql.Timestamp;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
+import jakarta.transaction.Transactional;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Table(name = "stores")
 @Data
+@ToString(exclude = {"categoryStores", "holidayStores", "reviews"})
 public class Store {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	 
-	@ManyToOne
-	@JoinColumn(name = "category")
-	private Category category;
-	
 	@Column(name = "name")
 	private String name;
 	
@@ -53,9 +56,6 @@ public class Store {
 	@Column(name = "phone_number")
 	private String phoneNumber;
 	
-	@Column(name = "holidays")
-	private String holidays;
-	
 	@Column(name = "capacity")
 	private Integer capacity;
 	
@@ -65,4 +65,31 @@ public class Store {
 	@Column(name = "updated_at", insertable = false, updatable = false)
 	private Timestamp updatedAt;
 	
+	@OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OrderBy("id ASC")
+	private List<CategoryStore> categoryStores;
+	
+	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OrderBy("id ASC")
+	private List<HolidayStore> holidayStores;
+	
+	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	private List<Review> reviews;
+	
+	@OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
+    private List<Reservation> reservations = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	private List<Favorite> favorites;
+	
+	// 平均評価を取得
+	@Transactional
+	public Double getAverageScore() {
+		Double averageScore = reviews.stream()
+									 .mapToInt(Review::getScore)
+									 .average()
+									 .orElse(0.0);
+		
+		return averageScore;
+	}
 }

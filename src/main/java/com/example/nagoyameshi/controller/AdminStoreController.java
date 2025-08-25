@@ -20,10 +20,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.nagoyameshi.entity.Category;
+import com.example.nagoyameshi.entity.Holiday;
 import com.example.nagoyameshi.entity.Store;
 import com.example.nagoyameshi.form.StoreEditForm;
 import com.example.nagoyameshi.form.StoreRegisterForm;
 import com.example.nagoyameshi.service.CategoryService;
+import com.example.nagoyameshi.service.CategoryStoreService;
+import com.example.nagoyameshi.service.HolidayService;
+import com.example.nagoyameshi.service.HolidayStoreService;
 import com.example.nagoyameshi.service.StoreService;
 
 /* @RequestParam リクエストパラメータの値を引数にバインドする
@@ -37,10 +41,21 @@ import com.example.nagoyameshi.service.StoreService;
 public class AdminStoreController {
 	private final StoreService storeService;
 	private final CategoryService categoryService;
+	private final CategoryStoreService categoryStoreService;
+	private final HolidayService holidayService;
+	private final HolidayStoreService holidayStoreService;
 	
-	public AdminStoreController(StoreService storeService, CategoryService categoryService) {
+	public AdminStoreController(StoreService storeService,
+			CategoryService categoryService,
+			CategoryStoreService categoryStoreService,
+			HolidayService holidayService,
+			HolidayStoreService holidayStoreService) 
+	{
 		this.storeService = storeService;
 		this.categoryService = categoryService;
+		this.categoryStoreService = categoryStoreService;
+		this.holidayService = holidayService;
+		this.holidayStoreService = holidayStoreService;
 	}
 	
 	@GetMapping
@@ -86,8 +101,10 @@ public class AdminStoreController {
 	@GetMapping("/register")
 	public String register(Model model) {
 		List<Category> categories = categoryService.findAllCategories();
+		List<Holiday> holidays = holidayService.findAllHolidays();
 		model.addAttribute("storeRegisterForm", new StoreRegisterForm());
 		model.addAttribute("categories", categories);
+		model.addAttribute("holidays", holidays);
 		
 		return "admin/stores/register";
 	}
@@ -103,8 +120,10 @@ public class AdminStoreController {
 	{
 		if (bindingResult.hasErrors()) {
 			List<Category> categories = categoryService.findAllCategories();
+			List<Holiday> holidays = holidayService.findAllHolidays();
 			model.addAttribute("storeRegisterForm", storeRegisterForm);
 			model.addAttribute("categories", categories);
+			model.addAttribute("holidays", holidays);
 			
 			return "admin/stores/register";
 		}
@@ -126,10 +145,26 @@ public class AdminStoreController {
 		}
 		
 		Store store = optionalStore.get();
-		StoreEditForm storeEditForm = new StoreEditForm(store.getName(), null, store.getCategory(), store.getDescription(), store.getStartTime(), store.getEndTime(), store.getPriceMin(), store.getPriceMax(), store.getAddress(), store.getPhoneNumber(), store.getCapacity());
-		
+		List<Integer> categoryIds = categoryStoreService.findCategoryIdsByStoreOrderByIdAsc(store);
+		List<Integer> holidayIds = holidayStoreService.findHolidayIdsByStore(store);
+		StoreEditForm storeEditForm = new StoreEditForm(store.getName(),
+														null,
+														store.getDescription(),
+														store.getStartTime(),
+														store.getEndTime(),
+														store.getPriceMin(),
+														store.getPriceMax(),
+														store.getAddress(),
+														store.getPhoneNumber(),
+														store.getCapacity(),
+														categoryIds,
+														holidayIds);
+		List<Category> categories = categoryService.findAllCategories();
+		List<Holiday> holidays = holidayService.findAllHolidays();
 		model.addAttribute("store", store);
 		model.addAttribute("storeEditForm", storeEditForm);
+		model.addAttribute("categories", categories);
+		model.addAttribute("holidays", holidays);
 		//System.out.println(store); ok
 		return "admin/stores/edit";
 	}
@@ -152,8 +187,12 @@ public class AdminStoreController {
 		Store store = optionalStore.get();
 		
 		if (bindingResult.hasErrors()) {
+			List<Category> categories = categoryService.findAllCategories();
+			List<Holiday> holidays = holidayService.findAllHolidays();
 			model.addAttribute("store", store);
 			model.addAttribute("storeEditForm", storeEditForm);
+			model.addAttribute("categories", categories);
+			model.addAttribute("holidays", holidays);
 			
 			return "admin/stores/edit";
 		}

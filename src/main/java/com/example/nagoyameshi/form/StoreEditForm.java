@@ -1,27 +1,25 @@
 package com.example.nagoyameshi.form;
  
 import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
-
-import com.example.nagoyameshi.entity.Category;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class StoreEditForm {
 	@NotBlank(message = "店舗名を入力してください")
 	private String name;
 	 
 	private MultipartFile imageFile;
-		
-	@NotBlank(message = "カテゴリーを選択してください")
-	private Category category;
 	
 	@NotBlank(message = "店舗説明を入力してください")
 	private String description;
@@ -36,7 +34,7 @@ public class StoreEditForm {
 	private Integer priceMin;
 	
 	@NotNull(message = "最高価格を選択してください")
-	private Integer priceMax;
+	private Integer PriceMax;
 	
 	@NotBlank(message = "住所を入力してください")
 	private String address;
@@ -46,4 +44,8 @@ public class StoreEditForm {
 	
 	@Min(value = 1, message = "最大利用人数は1人以上に設定してください。")
 	private Integer capacity;
+	
+	private List<Integer> categoryIds;
+	
+	private List<Integer> holidayIds;
 }
