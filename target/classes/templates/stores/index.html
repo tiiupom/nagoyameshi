@@ -24,40 +24,12 @@
 							 </nav>
 							 
 							<div class="col-xl-3 col-lg-4 col-md-12">
-								<form method="get" th:action="@{/houses}" class="w-100 mb-3">
+								<form method="get" th:action="@{/stores}" class="w-100 mb-3">
 									<div class="input-group">
-										<input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="民宿名・目的地">
+										<input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="民宿名・目的地・カテゴリー">
 										<button type="submit" class="btn text-white shadow-sm samuraitravel-btn">検索</button>
 									</div>
 								</form>
-								
-								<div class="card mb-3">
-									<div class="card-header">
-										カテゴリから探す
-									</div>
-									<div class="card-body">
-										<form method="get" th:action="@{/stores}" class="w-100">
-											<div class="form-group mb-3">
-												<select class="form-control form-select" name ="category">
-													<option value="" hidden>選択してください</option>
-													
-													<option value="和食" selected="${category == '和食'}">和食</option>
-													<option value="洋食" selected="${category == '洋食'}">洋食</option>
-													<option value="中華" selected="${category == '中華'}">中華</option>
-													<option value="魚介・海鮮料理" selected="${category == '魚介・海鮮料理'}">魚介・海鮮料理</option>
-													<option value="パスタ" selected="${category == 'パスタ'}">パスタ</option>
-													<option value="ピザ" selected="${category == 'ピザ'}">ピザ</option>
-													<option value="パン" selected="${category == 'パン'}">パン</option>
-													<option value="ラーメン" selected="${category == 'ラーメン'}">ラーメン</option>
-													<option value="そば・うどん" selected="${category == 'そば・うどん'}">そば・うどん</option>
-												</select>
-											</div>
-											<div class="form-group">
-												<button type="submit" class="btn text-white shadow-sm w-100 nagoyameshi-btn">検索</button>
-											</div>
-										</form>
-									</div>
-								</div>
 								
 								<div class="card mb-3">
 									<div class="card-header">

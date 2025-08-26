@@ -1,105 +1,129 @@
 <!DOCTYPE html> 
 <html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-     <head>
-         <div th:replace="~{fragment :: meta}"></div>
- 
-         <div th:replace="~{fragment :: styles}"></div>
-         
-         <title>NAGOYA MESHI</title>
-     </head>
-     
-     <body>
-		 <div class="nagoyameshi-wrapper">
-			 <div th:replace="~{fragment :: header}"></div>
-             
-		 	 <main>
-             <!-- トップページメイン画像 -->
-				  <div>
-                    <div class="swiper nagoyameshi-swiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img th:src="@{/images/main1.jpg}"></div>
-                            <div class="swiper-slide"><img th:src="@{/images/main2.jpg}"></div>
-                            <div class="swiper-slide"><img th:src="@{/images/main3.jpg}"></div>
-                            <div class="d-flex align-items-center nagoyameshi-overlay-background">
-                                <div class="container nagoyameshi-container nagoyameshi-overlay-text">
-                                    <h1 class="text-white nagoyameshi-catchphrase-heading">名古屋ならではの味を、<br>見つけよう</h1>
-                                    <p class="text-white nagoyameshi-catchphrase-paragraph">NAGOYAMESHIは、<br>名古屋市のB級グルメ専門のレビューサイトです。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                 <div class="container pt-4 pb-5 nagoyameshi-container">
-                     <div th:if="${param.loggedIn}" class="alert alert-info">
-                         ログインしました。
-                     </div>
-                 </div>
-                 
-                 <div class="container pt-4 pb-5 nagoyameshi-container"> 
-                     <div th:if="${param.loggedOut}" class="alert alert-info">
-                         ログアウトしました。
-                     </div>
-                 </div>
-                 
-                 <div class="container pt-4 pb-5 nagoyameshi-container">                     
-                     <div th:if="${successMessage}" class="alert alert-info">
-                         <span th:text="${successMessage}"></span>
-                     </div>
-                 </div>
-                 
-                 <div class="container pt-4 pb-5 nagoyameshi-container">                     
-                     <div th:if="${errorMessage}" class="alert alert-danger">
-                         <span th:text="${errorsMessage}"></span>
-                     </div>
-                 </div>
-                     
+	<head>
+		<div th:replace="~{fragment :: meta}"></div>
+		
+		<div th:replace="~{fragment :: styles}"></div>
+		
+		<title>NAGOYA MESHI</title>
+	</head>
+	
+	<body>
+		<div class="nagoyameshi-wrapper">
+			<div th:replace="~{fragment :: header}"></div>
+			
+			<main>
+				<!-- トップページメイン画像 -->
+				<div>
+					<div class="swiper nagoyameshi-swiper">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide"><img th:src="@{/images/main1.jpg}"></div>
+							<div class="swiper-slide"><img th:src="@{/images/main2.jpg}"></div>
+							<div class="swiper-slide"><img th:src="@{/images/main3.jpg}"></div>
+							<div class="d-flex align-items-center nagoyameshi-overlay-background">
+								<div class="container nagoyameshi-container nagoyameshi-overlay-text">
+									<h1 class="text-white nagoyameshi-catchphrase-heading">名古屋ならではの味を、<br>見つけよう</h1>
+									<p class="text-white nagoyameshi-catchphrase-paragraph">NAGOYAMESHIは、<br>名古屋市のB級グルメ専門のレビューサイトです。</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="container pt-4 pb-5 nagoyameshi-container">
+					<div th:if="${param.loggedIn}" class="alert alert-info">
+						ログインしました。
+					</div>
+				</div>
+				
+				<div class="container pt-4 pb-5 nagoyameshi-container">
+					<div th:if="${param.loggedOut}" class="alert alert-info">
+						ログアウトしました。
+					</div>
+				</div>
+				
+				<div class="container pt-4 pb-5 nagoyameshi-container">
+					<div th:if="${successMessage}" class="alert alert-info">
+						<span th:text="${successMessage}"></span>
+					</div>
+				</div>
+				
+				<div class="container pt-4 pb-5 nagoyameshi-container">
+					<div th:if="${errorMessage}" class="alert alert-danger">
+						<span th:text="${errorsMessage}"></span>
+					</div>
+				</div>
+				
+				<!-- 検索 -->
 					<div class="d-flex justify-content-center">
-                        <form method="get" th:action="@{/stores}" class="mb-5 nagoyameshi-search-form">
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="店舗名">
-                                <button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">検索</button>
-                            </div>
-                        </form>
-                    </div>
-                     
-                     <!-- レビュー高い順5件表示 -->
-                  <div class="container nagoyameshi-container">
-                    <h2 class="mb-3">評価が高いお店</h2>
-                    <div class="row row-cols-xl-6 row-cols-md-3 row-cols-2 g-3 mb-5">
-                        <div th:each="highlyRatedStore : ${highlyRatedStore}" class="col">
-                            <a th:href="@{/restaurants/__${highlyRatedStore.id}__}" class="link-dark nagoyameshi-card-link">
-                                <div class="card h-100">
-                                    <img th:unless="${highlyRatedStore.image == null}" th:src="@{/storage/__${highlyRatedStore.image}__}" class="card-img-top nagoyameshi-vertical-card-image" alt="店舗画像">
-                                    <img th:if="${highlyRatedStore.image == null}" th:src="@{/images/no_image.jpg}" class="card-img-top nagoyameshi-vertical-card-image" alt="画像なし">
-
-                                    <div class="card-body">
-                                        <h3 class="card-title" th:text="${highlyRatedStore.name}"></h3>
-                                        <div class="text-muted small mb-1">
-                                            <th:block th:unless="${highlyRatedStore.categoriesStores.isEmpty()}">
-                                                <th:block th:each="categoryStore, stat : ${highlyRatedStore.categoriesStores}">
-                                                    <div class="d-inline-block">
-                                                        <span th:if="${stat.first}" th:text="${categoryStore.category.name}"></span><span th:unless="${stat.first}" th:text="${' ' + categoryStore.category.name}"></span>
-                                                    </div>
-                                                </th:block>
-                                            </th:block>
-                                            <span th:if="${highlyRatedStore.categoriesStores.isEmpty()}">カテゴリ未設定</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>                    
-                 </div>
-             </main>
-             
-		 	 <div th:replace="~{fragment :: footer}"></div>
-		 </div>
-		 
-		 <div th:replace="~{fragment :: scripts}"></div>
-
-        <!-- Swiper -->
-        <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-        <script th:src="@{/js/carousel.js}"></script>
+						<form method="get" th:action="@{/stores}" class="mb-5 nagoyameshi-search-form">
+							<div class="input-group">
+								<input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="民宿名・目的地・カテゴリー">
+								<button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">検索</button>
+							</div>
+						</form>
+					</div>
+					
+					<div class="card mb-3">
+						<div class="card-header">
+							予算から探す
+						</div>
+						<div class="card-body">
+							<form method="get" th:action="@{/stores}" class="w-100">
+								<div class="form-group mb-3">
+									<select class="form-control form-select" name ="category">
+										<option value="" hidden>選択してください</option>
+										<th:block th:each="i : ${#numbers.sequence(0, 19)}">
+											<th:block th:with="optionPrice=${500 + (500 * i)}">
+												<option th:value="${optionPrice}" th:selected="${optionPrice == price}" th:text="${#numbers.formatInteger(optionPrice, 1, 'COMMA') + '円'}"></option>
+											</th:block>
+										</th:block>
+									</select>
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn text-white shadow-sm w-100 nagoyameshi-btn">検索</button>
+								</div>
+							</form>
+						</div>
+					</div>
+					
+					<!-- レビュー高い順5件表示 -->
+					<div class="container nagoyameshi-container">
+						<h2 class="mb-3">評価が高いお店</h2>
+						<div class="row row-cols-xl-6 row-cols-md-3 row-cols-2 g-3 mb-5">
+							<div th:each="highlyRatedStore : ${highlyRatedStore}" class="col">
+								<a th:href="@{/restaurants/__${highlyRatedStore.id}__}" class="link-dark nagoyameshi-card-link">
+									<div class="card h-100">
+										<img th:unless="${highlyRatedStore.image == null}" th:src="@{/storage/__${highlyRatedStore.image}__}" class="card-img-top nagoyameshi-vertical-card-image" alt="店舗画像">
+										<img th:if="${highlyRatedStore.image == null}" th:src="@{/images/no_image.jpg}" class="card-img-top nagoyameshi-vertical-card-image" alt="画像なし">
+										
+										<div class="card-body">
+											<h3 class="card-title" th:text="${highlyRatedStore.name}"></h3>
+											<div class="text-muted small mb-1">
+												<th:block th:unless="${highlyRatedStore.categoriesStores.isEmpty()}">
+													<th:block th:each="categoryStore, stat : ${highlyRatedStore.categoriesStores}">
+														<div class="d-inline-block">
+															<span th:if="${stat.first}" th:text="${categoryStore.category.name}"></span><span th:unless="${stat.first}" th:text="${' ' + categoryStore.category.name}"></span>
+														</div>
+													</th:block>
+												</th:block>
+											<span th:if="${highlyRatedStore.categoriesStores.isEmpty()}">カテゴリ未設定</span>
+											</div>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+			</main>
+			
+			<div th:replace="~{fragment :: footer}"></div>
+		</div>
+		
+		<div th:replace="~{fragment :: scripts}"></div>
+		
+		<!-- Swiper -->
+		<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+		<script th:src="@{/js/carousel.js}"></script>
 	</body>
  </html>
