@@ -16,8 +16,6 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
 	public Store findFirstByOrderByIdDesc();
 	// 店舗名または住所で検索するフォーム
 	public Page<Store> findByNameLikeOrAddressLike(String nameKeyword, String addressKeyword, Pageable pageable);
-	// カテゴリで検索するフォーム
-	public Page<Store> findByCategoryIdLike(String category, Pageable pageable);
 	// すべての店舗を作成日が新しい順に並べ替えページングされた状態で表示
 	public Page<Store> findAllByOrderByCreatedAtDesc(Pageable pageable);
 	// すべての店舗を最低価格が低い順に並べ替えページングされた状態で表示
@@ -63,7 +61,7 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
 	
 	// 指定されたキーワードを店舗名または住所またはカテゴリ名に含む店舗を平均評価が高い順に並べ替え、ページングされた状態で取得する
     @Query("SELECT s FROM Store s " +
-           "LEFT JOIN s.category cs " +
+           "LEFT JOIN s.categoryStores cs " +
            "LEFT JOIN s.reviews rev " +
            "WHERE s.name LIKE %:name% " +
            "OR s.address LIKE %:address% " +

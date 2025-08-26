@@ -17,7 +17,7 @@ public class TermService {
 
 	// idが最も大きい利用規約を取得
 	public Term findFirstTermByOrderByIdDesc() {
-		return termRepository.findFirstByOederByIdDesc();
+		return termRepository.findFirstByOrderByIdDesc();
 	}
 	
 	// フォームから送信された利用規約の内容でデータベースを更新

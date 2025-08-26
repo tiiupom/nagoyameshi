@@ -136,6 +136,7 @@ public class UserService {
 	
 	// 認証情報のロールを更新
 	public void refreshAuthenticationByRole(String newRole) {
+		// 現在の認証情報を取得
 		Authentication currentAuthentication = SecurityContextHolder.getContext().getAuthentication();
 		
 		// 新しい認証情報を作成

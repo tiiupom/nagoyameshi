@@ -24,7 +24,7 @@ import com.stripe.model.Subscription;
 @Controller
 @RequestMapping("/subscription")
 public class SubscriptionController {
-	@Value("${stripe.premium-pran-price-id}")
+	@Value("${stripe.premium-plan-price-id}")
 	private String premiumPranPriceId;
 	
 	private final UserService userService;

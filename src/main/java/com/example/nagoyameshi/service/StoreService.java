@@ -83,12 +83,7 @@ public class StoreService {
 	public Page<Store> findStoreByNameLikeOrAddressLike(String nameKeyword, String addressKeyword, Pageable pageable) {
 		return storeRepository.findByNameLikeOrAddressLike("%" + nameKeyword + "%", "%" + addressKeyword + "%", pageable);
 	}
-	
-	// 指定されたカテゴリを含む店舗をページングされた状態で取得
-	public Page<Store> findStoreByCategoryLike(String category, Pageable pageable) {
-		return storeRepository.findByCategoryIdLike(category, pageable);
-	}
-    
+	    
     // 指定されたキーワードを店舗名または住所またはカテゴリ名に含む店舗を作成日時が新しい順に並べ替え、ページングされた状態で取得
     public Page<Store> findStoresByNameLikeOrAddressLikeOrCategoryNameLikeOrderByCreatedAtDesc(String nameKeyword, String addressKeyword, String categoryNameKeyword, Pageable pageable){
     	return storeRepository.findByNameLikeOrAddressLikeOrCategoryNameLikeOrderByCreatedAtDesc(nameKeyword, addressKeyword, categoryNameKeyword, pageable);
