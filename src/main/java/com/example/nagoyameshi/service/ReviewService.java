@@ -30,7 +30,7 @@ public class ReviewService {
 	
 	// 指定した店舗の全てのレビューを作成日時が新しい順位並べ替え、ページングされた状態で取得
 	public Page<Review> findReviewsByStoreOrderByCreatedAtDesc(Store store, Pageable pageable) {
-		return reviewRepository.findByStoreOrderByCreateAtDesc(store, pageable);
+		return reviewRepository.findByStoreOrderByCreatedAtDesc(store, pageable);
 	}
 	
 	// レビューのレコード数を取得

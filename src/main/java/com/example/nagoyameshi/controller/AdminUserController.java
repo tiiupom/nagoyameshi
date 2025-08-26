@@ -40,8 +40,16 @@ public class AdminUserController {
 			userPage = userService.findAllUsers(pageable);
 		}
 		
+		// 管理者用の会員情報ページを表示（users/index.htmlファイル）
+		long totalGenerals = userService.countUserByRole_Name("ROLE_GENERAL");
+		long totalSubscribers = userService.countUserByRole_Name("ROLE_SUBSCRIBER");
+		long totalMembers = totalGenerals + totalSubscribers;
+		
 		model.addAttribute("userPage", userPage);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("totalGenerals", totalGenerals);
+		model.addAttribute("totalSubscribers", totalSubscribers);
+		model.addAttribute("totalMembers", totalMembers);
 		
 		return "admin/users/index";
 	}

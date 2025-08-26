@@ -28,6 +28,7 @@ import com.example.nagoyameshi.service.CategoryService;
 import com.example.nagoyameshi.service.CategoryStoreService;
 import com.example.nagoyameshi.service.HolidayService;
 import com.example.nagoyameshi.service.HolidayStoreService;
+import com.example.nagoyameshi.service.ReservationService;
 import com.example.nagoyameshi.service.StoreService;
 
 /* @RequestParam リクエストパラメータの値を引数にバインドする
@@ -44,18 +45,21 @@ public class AdminStoreController {
 	private final CategoryStoreService categoryStoreService;
 	private final HolidayService holidayService;
 	private final HolidayStoreService holidayStoreService;
+	private final ReservationService reservationService;
 	
 	public AdminStoreController(StoreService storeService,
 			CategoryService categoryService,
 			CategoryStoreService categoryStoreService,
 			HolidayService holidayService,
-			HolidayStoreService holidayStoreService) 
+			HolidayStoreService holidayStoreService,
+			ReservationService reservationService) 
 	{
 		this.storeService = storeService;
 		this.categoryService = categoryService;
 		this.categoryStoreService = categoryStoreService;
 		this.holidayService = holidayService;
 		this.holidayStoreService = holidayStoreService;
+		this.reservationService = reservationService;
 	}
 	
 	@GetMapping
@@ -73,8 +77,14 @@ public class AdminStoreController {
 			storePage = storeService.findAllStores(pageable);
 		}
 		
+		// 管理者用の店舗情報ページを表示（stores/index.htmlファイル）
+		long toralStores = storeService.countStores();
+		long totalReservations = reservationService.countReservations();
+		
 		model.addAttribute("storePage", storePage);
 		model.addAttribute("keyword", keyword);	// ビューにkeyword（文字列）を渡す
+		model.addAttribute("toralStores", toralStores);
+		model.addAttribute("totalReservations", totalReservations);
 		
 		return "admin/stores/index";
 	}
