@@ -92,7 +92,7 @@
 						<h2 class="mb-3">評価が高いお店</h2>
 						<div class="row row-cols-xl-6 row-cols-md-3 row-cols-2 g-3 mb-5">
 							<div th:each="highlyRatedStore : ${highlyRatedStore}" class="col">
-								<a th:href="@{/restaurants/__${highlyRatedStore.id}__}" class="link-dark nagoyameshi-card-link">
+								<a th:href="@{/stores/__${highlyRatedStore.id}__}" class="link-dark nagoyameshi-card-link">
 									<div class="card h-100">
 										<img th:unless="${highlyRatedStore.image == null}" th:src="@{/storage/__${highlyRatedStore.image}__}" class="card-img-top nagoyameshi-vertical-card-image" alt="店舗画像">
 										<img th:if="${highlyRatedStore.image == null}" th:src="@{/images/no_image.jpg}" class="card-img-top nagoyameshi-vertical-card-image" alt="画像なし">
@@ -100,14 +100,14 @@
 										<div class="card-body">
 											<h3 class="card-title" th:text="${highlyRatedStore.name}"></h3>
 											<div class="text-muted small mb-1">
-												<th:block th:unless="${highlyRatedStore.categoriesStores.isEmpty()}">
-													<th:block th:each="categoryStore, stat : ${highlyRatedStore.categoriesStores}">
+												<th:block th:unless="${highlyRatedStore.categoryStores.isEmpty()}">
+													<th:block th:each="categoryStore, stat : ${highlyRatedStore.categoryStores}">
 														<div class="d-inline-block">
 															<span th:if="${stat.first}" th:text="${categoryStore.category.name}"></span><span th:unless="${stat.first}" th:text="${' ' + categoryStore.category.name}"></span>
 														</div>
 													</th:block>
 												</th:block>
-											<span th:if="${highlyRatedStore.categoriesStores.isEmpty()}">カテゴリ未設定</span>
+											<span th:if="${highlyRatedStore.categoryStores.isEmpty()}">カテゴリ未設定</span>
 											</div>
 										</div>
 									</div>
