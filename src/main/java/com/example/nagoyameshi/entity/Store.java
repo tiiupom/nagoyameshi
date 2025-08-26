@@ -65,7 +65,7 @@ public class Store {
 	@Column(name = "updated_at", insertable = false, updatable = false)
 	private Timestamp updatedAt;
 	
-	@OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	@OrderBy("id ASC")
 	private List<CategoryStore> categoryStores;
 	
