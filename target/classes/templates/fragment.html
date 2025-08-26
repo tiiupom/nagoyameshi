@@ -26,13 +26,11 @@
 				 <nav class="navbar navbar-expand-md navbar-warning bg-warning nagoyameshi-navbar">
 					 <div class="container nagoyameshi-container">
 					 	<a class="navbar-brand" th:href="@{/}">
-							 <img class="nagoyameshi-logo" th:src="@{/images/logo2.png}">
+							 <img class="nagoyameshi-logo" th:src="@{/images/logo2.png}" alt="NAGOYAMESHI">
 					 	</a>
 					 
 					 	<ul class="navbar-nav ms-auto">
-							<li class="nav-item px-2">
-								<a class="nav-link" th:href="@{/stores}">店舗一覧</a>
-							</li>
+							 <!-- 未ログインであれば表示 -->
 							<li class="nav-item px-2" sec:authorize="isAnonymous()">
 								<a class="nav-link" th:href="@{/login}">ログイン</a>
 							</li>
@@ -48,7 +46,8 @@
 								
 								<div class="dropdown-menu" aria-labelledby="navbarDropdownGeneral">
 									<a class="dropdown-item nagoyameshi-dropdown-item" th:href="@{/user/info}">会員情報</a>
-																		
+									<a class="dropdown-item nagoyameshi-dropdown-item" th:href="@{/subscription/register}">有料プラン登録</a>
+									
 									<div class="dropdown-driver"></div>
 									
 									<a class="dropdown-item nagoyameshi-dropdown-item" th:href="@{/logout}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -67,7 +66,9 @@
 								<div class="dropdown-menu" aria-labelledby="navbarDropdownGeneral">
 									<a class="dropdown-item nagoyameshi-dropdown-item" th:href="@{/user/info}">会員情報</a>
 									<a class="dropdown-item nagoyameshi-dropdown-item" th:href="@{/reservations}">予約一覧</a>
-									<a class="dropdown-item nagoyameshi-dropdown-item" href="#">お気に入り店舗一覧</a>
+									<a class="dropdown-item nagoyameshi-dropdown-item" href="@{/favorites}">お気に入り店舗一覧</a>
+									<a class="dropdown-item nagoyameshi-dropdown-item" href="@{/subscription/edit}">お支払方法</a>
+									<a class="dropdown-item nagoyameshi-dropdown-item" href="@{/subscription/cancel}">有料プラン解約</a>
 																		
 									<div class="dropdown-driver"></div>
 									
@@ -85,11 +86,11 @@
 								</a>
 								
 								<div class="dropdown-menu" aria-labelledby="navbarDropdownGeneral">
-									<a class="dropdown-item nagoyameshi-dropdown-item" href="#">基本情報</a>
+									<a class="dropdown-item nagoyameshi-dropdown-item" href="@{/admin/company}">会社情報</a>
 									<a class="dropdown-item nagoyameshi-dropdown-item" th:href="@{/admin/users}">会員一覧</a>
 									<a class="dropdown-item nagoyameshi-dropdown-item" th:href="@{/admin/stores}">店舗情報一覧</a>
-									<a class="dropdown-item nagoyameshi-dropdown-item" href="#">カテゴリ一覧</a>
-									<a class="dropdown-item nagoyameshi-dropdown-item" href="#">売上管理</a>
+									<a class="dropdown-item nagoyameshi-dropdown-item" href="@{/admin/categories}">カテゴリ一覧</a>
+									<a class="dropdown-item nagoyameshi-dropdown-item" href="@{/admin/terms}">利用規約</a>
 																		
 									<div class="dropdown-driver"></div>
 									
@@ -105,13 +106,24 @@
              </header>
 		 </div>
 		 
+		 <!-- フッターの部品化 -->
 		 <div th:fragment="footer" th:remove="tag">
              <footer>
-                 <div class="d-flex justify-content-center align-items-center h-100">
-                     <p class="text-center text-muted small mb-0">&copy; NAGOYA MESHI All rights reserved.</p>
+                 <div class="d-flex justify-content-center align-items-center h-50">
+					 
+					 <!-- 管理者以外であれば表示する -->
+					 <div class="d-flex justify-content-center nagoyameshi-footer-link pb-4" sec:authorize="!hasRole('ROLE_ADMIN')">
+						 <a th:href="@{/company}" class="link-secondary me-5">会社概要</a>
+						 <a th:href="@{/terms}" class="link-secondary">利用規約</a>
+					 </div>
+					 
+					 <!-- 管理者であれば表示する -->
+					 <div class="d-flex justify-content-center nagoyameshi-footer-link pb-4" sec:authorize="hasRole('ROLE_ADMIN')">
+						 <a th:href="@{/admin/company}" class="link-secondary me-5">会社概要</a>
+						 <a th:href="@{/admin/terms}" class="link-secondary">利用規約</a>
+					 </div>
                  </div>
-                 
-                 
+                 	<p class="text-center text-muted small mb-3">&copy; NAGOYA MESHI All rights reserved.</p>             
              </footer>
          </div>
  

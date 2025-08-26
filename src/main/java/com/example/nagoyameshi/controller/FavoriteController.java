@@ -35,7 +35,7 @@ public class FavoriteController {
 	}
 	
 	// お気に入り一覧ページを表示
-	@GetMapping
+	@GetMapping("/favorites")
 	public String index(@PageableDefault(page = 0, size = 5, sort = "id", direction = Direction.ASC) Pageable pageable,
 						@AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
 						RedirectAttributes redirectAttributes,
