@@ -14,7 +14,7 @@ import com.example.nagoyameshi.entity.Store;
 public interface HolidayStoreRepository extends JpaRepository<HolidayStore, Integer> {
 	/* キーワードで定義できないため、@Queryアノテーションを使って定義
 	   指定した店舗のid(Holidaysエンティティのid）をリスト形式で取得するメソッド */
-	@Query("SELECT h.holiday.id FROM HolidayStore h WHERE h.store = :store")
+	@Query("SELECT hs.holiday.id FROM HolidayStore hs WHERE hs.store = :store")
 	public List<Integer> findHolidayIdsByStore(@Param("store") Store store);
 	
 	// 指定した店舗と定休日が紐づいたHolidayStoreエンティティを取得するメソッド

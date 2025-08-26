@@ -23,10 +23,10 @@ INSERT IGNORE INTO categories (id, name) VALUES (8, 'ラーメン');
 INSERT IGNORE INTO categories (id, name) VALUES (9, 'そば・うどん');
 
 /* storesテーブル */
-INSERT IGNORE INTO stores (id, category_id, name, image_name, description, start_time, end_time, price_min, price_max, address, phone_number, capacity) VALUES (1, 1, 'なごみ処　晴', 'wasyoku.jpg', '創業50年以上の老舗。コースでのご利用もいただけます。（要予約：4人以上）', '11:00:00', '19:00:00', 3000, 5000, '城木町XX-XX', '052-001-001', 50);
-INSERT IGNORE INTO stores (id, category_id, name, image_name, description, start_time, end_time, price_min, price_max, address, phone_number, capacity) VALUES (2, 2, 'NAGOYA WEST', 'yosyoku.jpg', '西洋風料理専門店です。おススメは赤牛のヒレステーキ。', '10:00:00', '22:00:00', 4000, 6000, '名古屋市瑞穂区XX-XX', '052-002-002', 30);
-INSERT IGNORE INTO stores (id, category_id, name, image_name, description, start_time, end_time, price_min, price_max, address, phone_number, capacity) VALUES (3, 3, '中華料理屋シェンロン','chuka.jpg', '本場で修行を重ねた店主が腕によりをかけ本場に近い味をお届けします。', '15:00:00', '23:00:00', 2500,5000, '名古屋市豊山町XX-XX', '052-003-003', 100);
-INSERT IGNORE INTO stores (id, category_id, name, image_name, description, start_time, end_time, price_min, price_max, address, phone_number, capacity) VALUES (4, 4, '魚劉-gyoryu-', 'kaisen.jpg', '初代直伝秘伝のタレで新鮮なお刺身をご堪能ください。', '10:00:00', '21:00:00', 3000, 5000, '港区XX-XX', '052-004-004', 15);
+INSERT IGNORE INTO stores (id, name, image_name, description, start_time, end_time, price_min, price_max, address, phone_number, capacity) VALUES (1, 'なごみ処　晴', 'wasyoku.jpg', '創業50年以上の老舗。コースでのご利用もいただけます。（要予約：4人以上）', '11:00:00', '19:00:00', 3000, 5000, '城木町XX-XX', '052-001-001', 50);
+INSERT IGNORE INTO stores (id, name, image_name, description, start_time, end_time, price_min, price_max, address, phone_number, capacity) VALUES (2, 'NAGOYA WEST', 'yosyoku.jpg', '西洋風料理専門店です。おススメは赤牛のヒレステーキ。', '10:00:00', '22:00:00', 4000, 6000, '名古屋市瑞穂区XX-XX', '052-002-002', 30);
+INSERT IGNORE INTO stores (id, name, image_name, description, start_time, end_time, price_min, price_max, address, phone_number, capacity) VALUES (3, '中華料理屋シェンロン','chuka.jpg', '本場で修行を重ねた店主が腕によりをかけ本場に近い味をお届けします。', '15:00:00', '23:00:00', 2500,5000, '名古屋市豊山町XX-XX', '052-003-003', 100);
+INSERT IGNORE INTO stores (id, name, image_name, description, start_time, end_time, price_min, price_max, address, phone_number, capacity) VALUES (4, '魚劉-gyoryu-', 'kaisen.jpg', '初代直伝秘伝のタレで新鮮なお刺身をご堪能ください。', '10:00:00', '21:00:00', 3000, 5000, '港区XX-XX', '052-004-004', 15);
 
 /* holidaysテーブル */
 INSERT IGNORE INTO holidays (id, day, day_index) VALUES
