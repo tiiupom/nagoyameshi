@@ -53,8 +53,8 @@
                             </ul>
 
                             <div class="mb-2">
-                                <img th:if="${store.image}" th:src="@{/storage/__${store.image}__}" class="w-100" alt="店舗画像">
-                                <img th:unless="${store.image}" th:src="@{/images/no_image.jpg}" class="w-100" alt="画像なし">
+                                <img th:if="${store.imageName}" th:src="@{/storage/__${store.imageName}__}" class="w-100" alt="店舗画像">
+                                <img th:unless="${store.imageName}" th:src="@{/images/no_image.jpg}" class="w-100" alt="画像なし">
                             </div>
 
                             <div class="container">

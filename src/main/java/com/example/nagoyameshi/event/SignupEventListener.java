@@ -36,7 +36,7 @@ public class SignupEventListener {
 	private void onSignupEvent(SignupEvent signupEvent) {
 		User user = signupEvent.getUser();
 		String token = UUID.randomUUID().toString();
-		verificationTokenService.cretate(user, token);
+		verificationTokenService.cretateVerificationToken(user, token);
 		
 		String senderAddress = "pocohco1013@gmail.com";
 		String recipientAddress = user.getEmail();
