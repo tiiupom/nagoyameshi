@@ -17,7 +17,7 @@ public class VerificationTokenService {
 	
 	// ランダムに生成されたトークン（文字列）をユーザーIDと共にverification_tokensテーブルに保持
 	@Transactional
-	public void cretate(User user, String token) {
+	public void cretateVerificationToken(User user, String token) {
 		VerificationToken verificationToken = new VerificationToken();
 		
 		verificationToken.setUser(user);
@@ -27,7 +27,7 @@ public class VerificationTokenService {
 	}
 	
 	// トークンの文字列で検索した結果を返す
-	public VerificationToken getVerificationToken(String token) {
+	public VerificationToken findVerificationTokenByToken(String token) {
 		return verificationTokenRepository.findByToken(token);
 	}
 }

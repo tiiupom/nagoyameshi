@@ -6,13 +6,12 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.nagoyameshi.entity.Category;
 import com.example.nagoyameshi.form.CategoryEditForm;
 import com.example.nagoyameshi.form.CategoryRegisterForm;
 import com.example.nagoyameshi.repository.CategoryRepository;
-
-import jakarta.transaction.Transactional;
 
 @Service
 public class CategoryService {
@@ -47,7 +46,7 @@ public class CategoryService {
 		return categoryRepository.findFirstByOrderByIdDesc();
 	}
 	
-	// 全てのカテゴリをリスト形式で取得
+	// すべてのカテゴリをリスト形式で取得する
 	public List<Category> findAllCategories() {
 		return categoryRepository.findAll();
 	}

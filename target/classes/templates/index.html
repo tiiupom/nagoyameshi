@@ -108,8 +108,8 @@
 							<div th:each="highlyRatedStore : ${highlyRatedStores}" class="col">
 								<a th:href="@{/stores/__${highlyRatedStore.id}__}" class="link-dark nagoyameshi-card-link">
 									<div class="card h-100">
-										<img th:unless="${highlyRatedStore.image == null}" th:src="@{/storage/__${highlyRatedStore.image}__}" class="card-img-top nagoyameshi-vertical-card-image" alt="店舗画像">
-										<img th:if="${highlyRatedStore.image == null}" th:src="@{/images/no_image.png}" class="card-img-top nagoyameshi-vertical-card-image" alt="画像なし">
+										<img th:unless="${highlyRatedStore.imageName == null}" th:src="@{/storage/__${highlyRatedStore.imageName}__}" class="card-img-top nagoyameshi-vertical-card-image" alt="店舗画像">
+										<img th:if="${highlyRatedStore.imageName == null}" th:src="@{/images/no_image.png}" class="card-img-top nagoyameshi-vertical-card-image" alt="画像なし">
 										
 										<div class="card-body">
 											<h3 class="card-title" th:text="${highlyRatedStore.name}"></h3>
