@@ -5,6 +5,9 @@
 		
 		<div th:replace="~{fragment :: styles}"></div>
 		
+		<!-- Swiper -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+		
 		<title>NAGOYA MESHI</title>
 	</head>
 	
@@ -30,72 +33,83 @@
 					</div>
 				</div>
 				
-				<div class="container pt-4 pb-5 nagoyameshi-container">
-					<div th:if="${param.loggedIn}" class="alert alert-info">
+				<div th:if="${param.loggedIn}" class="container nagoyameshi-container my-3">
+					<div class="alert alert-info">
 						ログインしました。
 					</div>
 				</div>
 				
-				<div class="container pt-4 pb-5 nagoyameshi-container">
-					<div th:if="${param.loggedOut}" class="alert alert-info">
+				<div th:if="${param.loggedOut}" class="container nagoyameshi-container my-3">
+					<div class="alert alert-info">
 						ログアウトしました。
 					</div>
 				</div>
 				
-				<div class="container pt-4 pb-5 nagoyameshi-container">
-					<div th:if="${successMessage}" class="alert alert-info">
+				<div th:if="${successMessage}" class="container nagoyameshi-container my-3">
+					<div class="alert alert-info">
 						<span th:text="${successMessage}"></span>
 					</div>
 				</div>
 				
-				<div class="container pt-4 pb-5 nagoyameshi-container">
-					<div th:if="${errorMessage}" class="alert alert-danger">
+				<div th:if="${errorMessage}" class="container nagoyameshi-container my-3">
+					<div class="alert alert-danger">
 						<span th:text="${errorsMessage}"></span>
 					</div>
 				</div>
 				
 				<!-- 検索 -->
-					<div class="d-flex justify-content-center">
-						<form method="get" th:action="@{/stores}" class="mb-5 nagoyameshi-search-form">
-							<div class="input-group">
-								<input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="民宿名・目的地・カテゴリー">
-								<button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">検索</button>
-							</div>
-						</form>
-					</div>
-					
-					<div class="card mb-3">
-						<div class="card-header">
-							予算から探す
-						</div>
+				<div class="card mb-3">
+					<div class="container nagoyameshi-container">
 						<div class="card-body">
-							<form method="get" th:action="@{/stores}" class="w-100">
-								<div class="form-group mb-3">
-									<select class="form-control form-select" name ="category">
-										<option value="" hidden>選択してください</option>
-										<th:block th:each="i : ${#numbers.sequence(0, 19)}">
-											<th:block th:with="optionPrice=${500 + (500 * i)}">
-												<option th:value="${optionPrice}" th:selected="${optionPrice == price}" th:text="${#numbers.formatInteger(optionPrice, 1, 'COMMA') + '円'}"></option>
-											</th:block>
-										</th:block>
-									</select>
+							<div class="row g-5">
+								<div class="col-md-6 px-5">
+									<h2 class="mb-3">キーワードから探す</h2>
+									<form method="get" th:action="@{/stores}">
+										<div class="d-flex gap-2">
+											<div class="flex-grow-1">
+												<input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="民宿名・目的地・カテゴリー" style="width: 100%;">
+											</div>
+											<div class="flex-shrink-0">
+												<button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">検索</button>
+											</div>
+										</div>
+									</form>
 								</div>
-								<div class="form-group">
-									<button type="submit" class="btn text-white shadow-sm w-100 nagoyameshi-btn">検索</button>
+						
+								<div class="col-md-6 px-5">
+									<h2 class="mb-3">予算から探す</h2>
+									<form method="get" th:action="@{/stores}">
+										<div class="d-flex gap-2 align-items-end">
+											<div class="flex-grow-1">
+												<select class="form-control form-select" name ="price" style="width: 100%;">
+													<option value="" hidden>選択してください</option>
+													<th:block th:each="i : ${#numbers.sequence(0, 19)}">
+														<th:block th:with="optionPrice=${500 + (500 * i)}">
+															<option th:value="${optionPrice}" th:selected="${optionPrice == price}" th:text="${#numbers.formatInteger(optionPrice, 1, 'COMMA') + '円'}"></option>
+														</th:block>
+													</th:block>
+												</select>
+											</div>
+											<div class="flex-shrink-0">
+												<button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">検索</button>
+											</div>
+										</div>
+									</form>
 								</div>
-							</form>
+							</div>
 						</div>
 					</div>
-					
+				</div>
+				
 					<!-- レビュー高い順5件表示 -->
 					<div class="container nagoyameshi-container">
 						<h2 class="mb-3">評価が高いお店</h2>
 						<div class="row row-cols-xl-6 row-cols-md-3 row-cols-2 g-3 mb-5">
-							<div th:each="highlyRatedStore : ${highlyRatedStore}" class="col">
+							<div th:each="highlyRatedStore : ${highlyRatedStores}" class="col">
 								<a th:href="@{/stores/__${highlyRatedStore.id}__}" class="link-dark nagoyameshi-card-link">
 									<div class="card h-100">
 										<img th:unless="${highlyRatedStore.image == null}" th:src="@{/storage/__${highlyRatedStore.image}__}" class="card-img-top nagoyameshi-vertical-card-image" alt="店舗画像">
-										<img th:if="${highlyRatedStore.image == null}" th:src="@{/images/no_image.jpg}" class="card-img-top nagoyameshi-vertical-card-image" alt="画像なし">
+										<img th:if="${highlyRatedStore.image == null}" th:src="@{/images/no_image.png}" class="card-img-top nagoyameshi-vertical-card-image" alt="画像なし">
 										
 										<div class="card-body">
 											<h3 class="card-title" th:text="${highlyRatedStore.name}"></h3>

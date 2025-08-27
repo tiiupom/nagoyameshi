@@ -2,7 +2,6 @@ package com.example.nagoyameshi.entity;
  
 import java.sql.Timestamp;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -15,7 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
-import jakarta.transaction.Transactional;
+import jakarta.persistence.Transient;
 import lombok.Data;
 import lombok.ToString;
 
@@ -76,14 +75,14 @@ public class Store {
 	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Review> reviews;
 	
-	@OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
-    private List<Reservation> reservations = new ArrayList<>();
+	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private List<Reservation> reservations;
 	
 	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Favorite> favorites;
 	
 	// 平均評価を取得
-	@Transactional
+	@Transient
 	public Double getAverageScore() {
 		Double averageScore = reviews.stream()
 									 .mapToInt(Review::getScore)
