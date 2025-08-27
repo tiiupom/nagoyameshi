@@ -25,7 +25,7 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
     @Query("SELECT s FROM Store s " +
            "LEFT JOIN s.reviews rev " +
            "GROUP BY s.id " +
-           "ORDER BY AVG(rev.score) DESC")
+           "ORDER BY AVG(rev.score) DESC NULLS LAST")
     public Page<Store> findAllByOrderByAverageScoreDesc(Pageable pageable);    
 	
 	// 全ての店舗を予約数が多い順に並べ替え、ページングされた状態で取得
