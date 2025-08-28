@@ -385,6 +385,10 @@ footer {
 	color:black;
 }
 
+.sale-card {
+	background-color: antiquewhite;
+}
+
 .nagoyameshi-subscription {
 	color: black;
 	background-color: orange;

@@ -25,7 +25,7 @@
 								 
 								 <div class="pb-3">
 									 <div class="row pb-2 shadow-sm text-center border">
-										 <a href="@{/admin/company}" class="p-3 nagoyameshi-info">基本情報設定</a>
+										 <a href="@{/admin/company}" class="p-3 nagoyameshi-info">会社概要</a>
 									 </div>
 								 </div>
 								 
@@ -43,13 +43,13 @@
 								 
 								 <div class="pb-3">
 									 <div class="row pb-2 shadow-sm text-center border">
-										 <a href="#" class="p-3 nagoyameshi-info">カテゴリ一覧</a>
+										 <a href="@{/admin/categories}" class="p-3 nagoyameshi-info">カテゴリ一覧</a>
 									 </div>
 								 </div>
 								 
-								 <div class="pb-3">
-									 <div class="row pb-2 shadow-sm text-center border">
-										 <h5 class="card-title">月間売上</h5>
+								 <div class="py-5">
+									 <div class="row py-4 shadow-sm text-center border sale-card">
+										 <div class="card-title nagoyameshi-info">月間売上</div>
 										 <p class="card-text" th:text="${#numbers.formatInteger(salesForThisMonth, 1, 'COMMA') + '円'}"></p>
 									 </div>
 								 </div>

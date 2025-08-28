@@ -58,15 +58,17 @@
 									</div>
 								</div>
 								
-								<form method="get" th:action="@{/admin/users}" class="mb-3">
-									<div class="input-group">
-										<!-- input要素にth:value属性を使い、コントローラから渡された変数keywordの値を初期値として設定 -->
-										<input type="text" class="from-control" name="keyword" th:value="${keyword}" placeholder="氏名またはフリガナ">
-										<button type="submit" class="btn text-white nagoyameshi-btn">検索</button>
-									</div>
-								</form>
+
                             </div>
-                            
+
+							<form method="get" th:action="@{/admin/users}" class="mb-3">
+								<div class="input-group pb-2">
+									<!-- input要素にth:value属性を使い、コントローラから渡された変数keywordの値を初期値として設定 -->
+									<input type="text" class="from-control" name="keyword" th:value="${keyword}" placeholder="氏名またはフリガナ">
+									<button type="submit" class="btn text-white nagoyameshi-btn">検索</button>
+								</div>
+							</form>
+								                            
                             <div th:if="${errorMessage}" class="alert alert-danger">
                                 <span th:text="${errorMessage}"></span>
                             </div>
