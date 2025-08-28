@@ -61,7 +61,7 @@
                                 <tbody>
                                     <tr th:each="reservation : ${reservationPage}">
                                         <td>
-                                            <a th:href="@{/restaurants/__${reservation.restaurant.id}__}" th:text="${reservation.restaurant.name}"></a>
+                                            <a th:href="@{/stores/__${reservation.store.id}__}" th:text="${reservation.store.name}"></a>
                                         </td>
                                         <td th:text="${#temporals.format(reservation.reservedDatetime, 'yyyy年M月d日 H時mm分')}"></td>
                                         <td th:text="${reservation.numberOfPeople + '名'}"></td>
@@ -72,7 +72,7 @@
                                                data-bs-toggle="modal"
                                                data-bs-target="#cancelReservationModal"
                                                th:data-reservation-id="${reservation.id}"
-                                               th:data-restaurant-name="${reservation.restaurant.name}">キャンセル</a>
+                                               th:data-store-name="${reservation.store.name}">キャンセル</a>
                                         </td>
                                     </tr>
                                 </tbody>

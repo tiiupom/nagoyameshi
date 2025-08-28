@@ -8,8 +8,8 @@ const removeMessage = document.getElementById('removeFavoriteModalLabel');
 document.getElementById('removeFavoriteModal').addEventListener('show.bs.modal', (event) => {
     let removeButton = event.relatedTarget;
     let favoriteId = removeButton.dataset.favoriteId;
-    let restaurantName = removeButton.dataset.restaurantName;
+    let storeName = removeButton.dataset.storeName;
 
     removeFavoriteForm.action = `/favorites/${favoriteId}/delete`;
-    removeMessage.textContent = `「${restaurantName}」のお気に入りを解除してもよろしいですか？`
+    removeMessage.textContent = `「${storeName}」のお気に入りを解除してもよろしいですか？`
 });

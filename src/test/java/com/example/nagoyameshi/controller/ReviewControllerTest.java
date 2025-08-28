@@ -241,7 +241,7 @@ public class ReviewControllerTest {
 	public void 有料会員としてログイン済みの場合は自身のレビュー更新後に店舗詳細ページにリダイレクト() throws Exception {
 		mockMvc.perform(post("/stores/2/reviews/1/update").with(csrf()).param("score", "5").param("content", "テスト感想"))
 				.andExpect(status().is3xxRedirection())
-				.andExpect(redirectedUrl("/restaurants/2"));
+				.andExpect(redirectedUrl("/stores/2"));
 		
 		Optional<Review> optionalReview = reviewService.findReviewById(1);
 		assertThat(optionalReview).isPresent();
@@ -256,7 +256,7 @@ public class ReviewControllerTest {
 	public void 有料会員としてログイン済みの場合は他人のレビューを更新せずに店舗詳細ページにリダイレクト() throws Exception {
 		mockMvc.perform(post("/stores/2/reviews/1/update").with(csrf()).param("score", "5").param("content", "テスト感想"))
 				.andExpect(status().is3xxRedirection())
-				.andExpect(redirectedUrl("/restaurants/2"));
+				.andExpect(redirectedUrl("/stores/2"));
 		
 		Optional<Review> optionalReview = reviewService.findReviewById(1);
 		assertThat(optionalReview).isPresent();
@@ -308,7 +308,7 @@ public class ReviewControllerTest {
 	public void 有料会員としてログイン済みの場合は自身のレビュー削除後に店舗詳細ページにリダイレクト() throws Exception {
 		mockMvc.perform(post("/stores/2/reviews/1/delete").with(csrf()))
 				.andExpect(status().is3xxRedirection())
-				.andExpect(redirectedUrl("/restaurants/2"));
+				.andExpect(redirectedUrl("/stores/2"));
 		
 		Optional<Review> optionalReview = reviewService.findReviewById(1);
 		assertThat(optionalReview).isPresent();
@@ -319,7 +319,7 @@ public class ReviewControllerTest {
 	public void 有料会員としてログイン済みの場合は他人のレビューを削除せずに店舗詳細ページにリダイレクト() throws Exception {
 		mockMvc.perform(post("/stores/2/reviews/1/delete").with(csrf()))
 				.andExpect(status().is3xxRedirection())
-				.andExpect(redirectedUrl("/restaurants/2"));
+				.andExpect(redirectedUrl("/stores/2"));
 
 		Optional<Review> optionalReview = reviewService.findReviewById(1);
 		assertThat(optionalReview).isPresent();

@@ -61,12 +61,12 @@
                                 <tbody>
                                     <tr th:each="favorite : ${favoritePage}">
                                         <td>
-                                            <a th:href="@{/restaurants/__${favorite.restaurant.id}__}" th:text="${favorite.restaurant.name}"></a>
+                                            <a th:href="@{/stores/__${favorite.store.id}__}" th:text="${favorite.store.name}"></a>
                                         </td>
-                                        <td th:text="${#strings.substring(favorite.restaurant.postalCode, 0, 3) + '-' + #strings.substring(favorite.restaurant.postalCode, 3)}"></td>
-                                        <td th:text="${favorite.restaurant.address}"></td>
+                                        <td th:text="${#strings.substring(favorite.store.postalCode, 0, 3) + '-' + #strings.substring(favorite.store.postalCode, 3)}"></td>
+                                        <td th:text="${favorite.store.address}"></td>
                                         <td>
-                                            <a href="#" class="link-secondary" data-bs-toggle="modal" data-bs-target="#removeFavoriteModal" th:data-favorite-id="${favorite.id}" th:data-restaurant-name="${favorite.restaurant.name}">解除</a>
+                                            <a href="#" class="link-secondary" data-bs-toggle="modal" data-bs-target="#removeFavoriteModal" th:data-favorite-id="${favorite.id}" th:data-store-name="${favorite.store.name}">解除</a>
                                         </td>
                                     </tr>
                                 </tbody>

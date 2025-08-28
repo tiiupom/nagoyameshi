@@ -22,6 +22,13 @@ INSERT IGNORE INTO categories (id, name) VALUES (7, 'パン');
 INSERT IGNORE INTO categories (id, name) VALUES (8, 'ラーメン');
 INSERT IGNORE INTO categories (id, name) VALUES (9, 'そば・うどん');
 
+/* category_storeテーブル */
+INSERT IGNORE INTO category_store (id, store_id, category_id) VALUES
+(1,1,1),
+(2,2,2),
+(3,3,3),
+(4,4,4);
+
 /* storesテーブル */
 INSERT IGNORE INTO stores (id, name, image_name, description, start_time, end_time, price_min, price_max, address, phone_number, capacity) VALUES (1, 'なごみ処　晴', 'wasyoku.jpg', '創業50年以上の老舗。コースでのご利用もいただけます。（要予約：4人以上）', '11:00:00', '19:00:00', 3000, 5000, '城木町XX-XX', '052-001-001', 50);
 INSERT IGNORE INTO stores (id, name, image_name, description, start_time, end_time, price_min, price_max, address, phone_number, capacity) VALUES (2, 'NAGOYA WEST', 'yosyoku.jpg', '西洋風料理専門店です。おススメは赤牛のヒレステーキ。', '10:00:00', '22:00:00', 4000, 6000, '名古屋市瑞穂区XX-XX', '052-002-002', 30);
@@ -64,7 +71,7 @@ INSERT IGNORE INTO companies (id, name, address, representative, establishment_d
 
 /* termsテーブル */
 INSERT IGNORE INTO terms (id, content) VALUES
-(1, '<p>この利用規約（以下、「本規約」といいます。）は、NAGOYAMESHI株式会社（以下、「当社」といいます。）がこのウェブサイト上で提供するサービス（以下、「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下、「ユーザー」といいます。）には、本規約に従って、本サービスをご利用いただきます。</p>');
+(1, '<p>この利用規約（以下、「本規約」といいます。）は、NAGOYAMESHI株式会社（以下、「当社」といいます。）がこのウェブサイト上で提供するサービス（以下、「本サービス」といいます。）の利用条件を定めるものです。<br>登録ユーザーの皆さま（以下、「ユーザー」といいます。）には、本規約に従って、本サービスをご利用いただきます。</p>');
 
 /* favoritesテーブル */
 INSERT IGNORE INTO favorites (id, store_id, user_id) VALUES
