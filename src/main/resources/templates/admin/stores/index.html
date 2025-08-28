@@ -22,33 +22,31 @@
 							</ol>
 							 
 							 <h1 class="mb-5 text-center">店舗情報一覧</h1>
-							 
 							
-								
-								<div class="col container">
-									<div class="row justify-content-center">
-										<div class="col-xxl-9 col-xl-10 col-lg-11">
-											<div class="row row-cols-md-3 row-cols-2 g-3">
-												<div class="col">
-													<div class="card bg-light">
-														<div class="card-body text-center">
-															<h5 class="card-title">店舗数</h5>
-															 <p class="card-text" th:text="${totalStores + '件'}"></p>
-														</div>
+							<div class="col container">
+								<div class="row justify-content-center">
+									<div class="col-xxl-9 col-xl-10 col-lg-11">
+										<div class="row row-cols-md-3 row-cols-2 g-3">
+											<div class="col">
+												<div class="card bg-light">
+													<div class="card-body text-center">
+														<h5 class="card-title">店舗数</h5>
+														 <p class="card-text" th:text="${totalStores + '件'}"></p>
 													</div>
 												</div>
-												<div class="col">
-													<div class="card bg-light">
-														<div class="card-body text-center">
-															<h5 class="card-title">総予約数</h5>
-															 <p class="card-text" th:text="${totalReservations + '件'}"></p>
-														</div>
+											</div>
+											<div class="col">
+												<div class="card bg-light">
+													<div class="card-body text-center">
+														<h5 class="card-title">総予約数</h5>
+														 <p class="card-text" th:text="${totalReservations + '件'}"></p>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
+							</div>
 								
 							<div class="d-flex justify-content-between align-items-end flex-wrap">
 								<form method="get" th:action="@{/admin/stores}" class="mb-3">
