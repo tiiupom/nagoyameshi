@@ -78,12 +78,12 @@ public class AdminStoreController {
 		}
 		
 		// 管理者用の店舗情報ページを表示（stores/index.htmlファイル）
-		long toralStores = storeService.countStores();
+		long totalStores = storeService.countStores();
 		long totalReservations = reservationService.countReservations();
 		
 		model.addAttribute("storePage", storePage);
 		model.addAttribute("keyword", keyword);	// ビューにkeyword（文字列）を渡す
-		model.addAttribute("toralStores", toralStores);
+		model.addAttribute("totalStores", totalStores);
 		model.addAttribute("totalReservations", totalReservations);
 		
 		return "admin/stores/index";

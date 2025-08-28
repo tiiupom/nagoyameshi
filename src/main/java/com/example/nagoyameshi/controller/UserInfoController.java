@@ -76,6 +76,6 @@ public class UserInfoController {
 		userService.updateUser(userEditForm, user);
 		redirectAttributes.addFlashAttribute("successMessage", "会員情報を編集しました");
 		
-		return "redirect:user/info";
+		return "redirect:/user/info";
 	}
 }

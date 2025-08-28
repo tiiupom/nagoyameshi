@@ -53,7 +53,7 @@
                                             </div>
 
                                             <div class="col">
-                                                <span th:text="${'〒' + #strings.substring(company.postalCode, 0, 3) + '-' + #strings.substring(company.postalCode, 3) + ' ' + company.address}"></span>
+                                                <span th:text="${company.address}"></span>
                                             </div>
                                         </div>
 
