@@ -86,11 +86,11 @@
 								</a>
 								
 								<div class="dropdown-menu" aria-labelledby="navbarDropdownGeneral">
-									<a class="dropdown-item nagoyameshi-dropdown-item" href="@{/admin/company}">会社情報</a>
+									<a class="dropdown-item nagoyameshi-dropdown-item" th:href="@{/admin/company}">会社情報</a>
 									<a class="dropdown-item nagoyameshi-dropdown-item" th:href="@{/admin/users}">会員一覧</a>
 									<a class="dropdown-item nagoyameshi-dropdown-item" th:href="@{/admin/stores}">店舗情報一覧</a>
-									<a class="dropdown-item nagoyameshi-dropdown-item" href="@{/admin/categories}">カテゴリ一覧</a>
-									<a class="dropdown-item nagoyameshi-dropdown-item" href="@{/admin/terms}">利用規約</a>
+									<a class="dropdown-item nagoyameshi-dropdown-item" th:href="@{/admin/categories}">カテゴリ一覧</a>
+									<a class="dropdown-item nagoyameshi-dropdown-item" th:href="@{/admin/terms}">利用規約</a>
 																		
 									<div class="dropdown-driver"></div>
 									
@@ -112,18 +112,18 @@
                  <div class="d-flex justify-content-center align-items-center h-50">
 					 
 					 <!-- 管理者以外であれば表示する -->
-					 <div class="d-flex justify-content-center nagoyameshi-footer-link pb-4" sec:authorize="!hasRole('ROLE_ADMIN')">
+					 <div class="d-flex justify-content-center nagoyameshi-footer-link pb-2" sec:authorize="!hasRole('ROLE_ADMIN')">
 						 <a th:href="@{/company}" class="link-secondary me-5">会社概要</a>
 						 <a th:href="@{/terms}" class="link-secondary">利用規約</a>
 					 </div>
 					 
 					 <!-- 管理者であれば表示する -->
-					 <div class="d-flex justify-content-center nagoyameshi-footer-link pb-4" sec:authorize="hasRole('ROLE_ADMIN')">
-						 <a th:href="@{/admin/company}" class="link-secondary me-5">会社概要</a>
+					 <div class="d-flex justify-content-center nagoyameshi-footer-link pb-2" sec:authorize="hasRole('ROLE_ADMIN')">
+						 <a th:href="@{/admin/company}" class="link-secondary">会社概要</a>
 						 <a th:href="@{/admin/terms}" class="link-secondary">利用規約</a>
 					 </div>
                  </div>
-                 	<p class="text-center text-muted small mb-3">&copy; NAGOYA MESHI All rights reserved.</p>             
+                 	<p class="text-center text-muted small mb-1">&copy; NAGOYA MESHI All rights reserved.</p>             
              </footer>
          </div>
  

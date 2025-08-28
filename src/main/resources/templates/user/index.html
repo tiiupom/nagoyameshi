@@ -28,19 +28,21 @@
 										 <a th:href="@{/user/info}" class="p-3 nagoyameshi-info">会員情報</a>
 									 </div>
 								 </div>
-								 
-								 <div class="pb-3">
-									 <div class="row pb-2 shadow-sm text-center border">
-										 <a href="@{/reservations}" class="p-3 nagoyameshi-info">予約一覧</a>
-									 </div>
+								  
+								 <!-- ログイン済の有料会員であれば表示 -->
+								 <div class="nav-item px-2 dropdown" sec:authorize="hasRole('ROLE_SUBSCRIBER')">
+								 	<div class="pb-3">
+									 	<div class="row pb-2 shadow-sm text-center border">
+											 <a href="@{///reservations}" class="p-3 nagoyameshi-info">予約一覧</a>
+									 	</div>
+								 	</div>
+								 	
+								 	<div class="pb-3">
+										 <div class="row pb-2 shadow-sm text-center border">
+										 <a href="@{///favorites}" class="p-3 nagoyameshi-info">お気に入り店舗一覧</a>
+									 	</div>
+								 	</div>
 								 </div>
-								 
-								 <div class="pb-3">
-									 <div class="row pb-2 shadow-sm text-center border">
-										 <a href="@{/favorites}" class="p-3 nagoyameshi-info">お気に入り店舗一覧</a>
-									 </div>
-								 </div>
-							 
 							 </div>
 						 </div>
 					 </div>

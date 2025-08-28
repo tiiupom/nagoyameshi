@@ -5,7 +5,7 @@ flatpickr('#reservationDate', {
   // その店舗の定休日を選択不可にする
   disable: [
     function (date) {
-      return storeHolidays.includes(date.getDay());
+      return holidayStores.includes(date.getDay());
     }
   ]
 });

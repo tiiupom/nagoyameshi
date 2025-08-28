@@ -27,7 +27,7 @@
 								<form method="get" th:action="@{/stores}" class="w-100 mb-3">
 									<div class="input-group">
 										<input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="民宿名・目的地・カテゴリー">
-										<button type="submit" class="btn text-white shadow-sm samuraitravel-btn">検索</button>
+										<button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">検索</button>
 									</div>
 								</form>
 								
@@ -38,7 +38,7 @@
                                 	<div class="card-body">
 										<form method="get" th:action="@{/stores}" class="w-100">
 											<div class="form-group mb-3">
-												<select class="form-control form-select" name ="category">
+												<select class="form-control form-select" name ="price">
 													<option value="" hidden>選択してください</option>
 													<th:block th:each="i : ${#numbers.sequence(0, 19)}">
                                                     	<th:block th:with="optionPrice=${500 + (500 * i)}">
@@ -62,11 +62,11 @@
 									</div>
 									
 									<div class="mb-3" th:each="store : ${storePage}">
-										<a href="#" class="link-dark nagoyameshi-card-link">
+										<a th:href="@{/stores/__${store.id}__}" class="link-dark nagoyameshi-card-link">
 											<div class="card h-100">
 												<div class="row g-0">
 													<div class="col-md-4">
-														<img th:if="${store.imageName}" th:src="${/storage/__${store.imageName}__}" class="card-img-top nagoyameshi-horizontal-card-image" alt="店舗画像">
+														<img th:if="${store.imageName}" th:src="@{/storage/__${store.imageName}__}" class="card-img-top nagoyameshi-horizontal-card-image" alt="店舗画像">
 														<img th:unless="${store.imageName}" th:src="@{/images/noImage.png}" class="card-img-top nagoyameshi-horizontal-card-image" alt="NO IMAGE">
 													</div>
 													<div class="col-md-8">
@@ -84,7 +84,7 @@
 															</p>
 															
 															<p class="card-text">
-																<span th:text="$${#numbers.formatInteger(store.priceMin, 1, 'COMMA') + '～' + #numbers.formatInteger(store.priceMax, 1, 'COMMA') + '円'}"></span>
+																<span th:text="${#numbers.formatInteger(store.priceMin, 1, 'COMMA') + '～' + #numbers.formatInteger(store.priceMax, 1, 'COMMA') + '円'}"></span>
 															</p>
 														</div>
 													</div>
@@ -102,7 +102,7 @@
 													<span th:if="${storePage.isFirst()}" class="page-link disabled">前</span>
 													<a th:unless="${storePage.isFirst()}" th:href="@{/stores(page = ${storePage.getNumber() - 1}, keyword = ${keyword})}" class="page-link nagoyameshi-page-link">前</a>
 												</li>
-												<li th:each="i : ${numbers.sequence(0, storePage.getTotalPages() - 1)}" class="page-item">
+												<li th:each="i : ${#numbers.sequence(0, storePage.getTotalPages() - 1)}" class="page-item">
 													<span th:if="${i == storePage.getNumber()}" class="page-link active nagoyameshi-active" th:text="${i + 1}"></span>
 													<a th:unless="${i == storePage.getNumber()}" th:href="@{/stores(page = ${i}, keyword = ${keyword})}" class="page-link nagoyameshi-page-link" th:text="${i + 1}"></a>
 												</li>

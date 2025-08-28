@@ -32,10 +32,10 @@ public class HolidayStoreService {
 	 * 拡張for文のブロック内においてその要素がnullでなければ処理を行う
 	 * 	１　要素（定休日のid）に一致するRegularHolidayエンティティを取得
 	 * 	２　RegularHolidayエンティティが存在すれば、以下の処理を行う
-	 * 		１　店舗（引数で受け取ったRestaurantエンティティ）と上記のRegularHolidayエンティティが
-	 		　紐づいたRegularHolidayRestaurantエンティティを取得
-	 		２　RegularHolidayRestaurantエンティティが存在しなければ、
-	 		　新しくRegularHolidayRestaurantエンティティの
+	 * 		１　店舗（引数で受け取ったStoreエンティティ）と上記のRegularHolidayエンティティが
+	 		　紐づいたRegularHolidayStoreエンティティを取得
+	 		２　RegularHolidayStoreエンティティが存在しなければ、
+	 		　新しくRegularHolidayStoreエンティティの
 	 		　インスタンスを生成し、各フィールドに値をセットしたあと保存する　*/
 	@Transactional
 	public void createHolidayStores(List<Integer> holidayIds, Store store) {
