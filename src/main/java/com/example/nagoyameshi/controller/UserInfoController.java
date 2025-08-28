@@ -40,7 +40,11 @@ public class UserInfoController {
 	@GetMapping("/edit")
 	public String edit(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, Model model) {
 		User user = userDetailsImpl.getUser();
-		UserEditForm userEditForm = new UserEditForm(user.getName(), user.getFurigana(), user.getPhoneNumber(), user.getEmail());
+		
+		UserEditForm userEditForm = new UserEditForm(user.getName(),
+													 user.getFurigana(),
+													 user.getPhoneNumber(),
+													 user.getEmail());
 				
 		model.addAttribute("userEditForm", userEditForm);
 		
@@ -72,6 +76,6 @@ public class UserInfoController {
 		userService.updateUser(userEditForm, user);
 		redirectAttributes.addFlashAttribute("successMessage", "会員情報を編集しました");
 		
-		return "redirect:user/info/index";
+		return "redirect:user/info";
 	}
 }

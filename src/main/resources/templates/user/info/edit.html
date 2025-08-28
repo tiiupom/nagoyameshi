@@ -26,7 +26,7 @@
 							 
 							 <h1 class="mb-4 text-center">会員情報編集</h1>
 							 
-							 <form method="post" th:action="@{/update}" th:object="${userEditForm}">
+							 <form method="post" th:action="@{user/info/update}" th:object="${userEditForm}">
 								 <!-- 氏名 -->
 								 <div class="form-group row mb-3">
 								 	 <div class="col-md-4">
@@ -71,8 +71,8 @@
 									 </div>
 								 </div>
 								 
-								 <div class="d-flex justify-content-center pt-5 mt-2">
-                                     <button type="submit" class="btn text-dark w-50 nagoyameshi-btn">登録</button>
+								 <div class="form-group d-flex justify-content-center">
+                                     <button type="submit" class="btn text-dark w-50 nagoyameshi-btn">更新</button>
                                  </div>
                                  
 							 </form>

@@ -146,12 +146,11 @@ a {
 
 footer {
 	width: 100%;
-	height: 30px;
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	background-color: antiquewhite;
-	line-height: 30px;
-	padding: 30px 25px;
+	padding: 10px 25px;
+	z-index: 1000;
 }
 
 .nagoyameshi-btn {

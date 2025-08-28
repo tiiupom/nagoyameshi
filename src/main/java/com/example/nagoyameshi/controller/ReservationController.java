@@ -85,10 +85,10 @@ public class ReservationController {
 		}
 		
 		Store store = optionalStore.get();
-		List<Integer> storeHolidays =storeService.findDayIndexesByStoreId(storeId);
+		List<Integer> holidayStores =storeService.findDayIndexesByStoreId(storeId);
 		
 		model.addAttribute("store", store);
-		model.addAttribute("storeHolidays", storeHolidays);
+		model.addAttribute("holidayStores", holidayStores);
 		model.addAttribute("reservationRegisterForm", new ReservationRegisterForm());
 		
 		return "reservations/register";
@@ -133,10 +133,10 @@ public class ReservationController {
 		Store store = optionalStore.get();
 		
 		if (bindingResult.hasErrors()) {
-			List<Integer> storeHolidays = storeService.findDayIndexesByStoreId(storeId);
+			List<Integer> holidayStores = storeService.findDayIndexesByStoreId(storeId);
 			
 			model.addAttribute("store", store);
-			model.addAttribute("storeHolidays", storeHolidays);
+			model.addAttribute("holidayStores", holidayStores);
 			model.addAttribute("reservationRegisterForm", reservationRegisterForm);
 			
 			return "reservations/register";

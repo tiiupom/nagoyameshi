@@ -19,7 +19,7 @@ public class WebSecurityConfig {
 		http
 			.authorizeHttpRequests((requests) -> requests
 					.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**").permitAll()
-					.requestMatchers("/stores/{storeId}/reviews/**", "/reservations/**", "/restaurants/{restaurantId}/reservations/**", "/favorites/**", "/restaurants/{restaurantId}/favorites/**").hasAnyRole("GENERAL","SUBSCRIBER") // 無料・有料会員のみ
+					.requestMatchers("/stores/{storeId}/reviews/**", "/reservations/**", "/stores/{storeId}/reservations/**", "/favorites/**", "/stores/{storeId}/favorites/**").hasAnyRole("GENERAL","SUBSCRIBER") // 無料・有料会員のみ
 					.requestMatchers("/stores/**", "/company", "/terms").hasAnyRole("ANONYMOUS", "GENERAL", "SUBSCRIBER") // 未ログインのユーザー、無料・有料会員のみ
 					.requestMatchers("/subscription/register", "/subscription/create").hasRole("GENERAL")	// 無料会員のみ
 					.requestMatchers("/subscription/edit", "/subscription/update", "/subscription/cancel", "/subscription/delete").hasRole("SUBSCRIBER")  // 有料会員のみ
