@@ -15,7 +15,6 @@
 		 	 <main>
 				  <div class="container pt-4 pb-5 nagoyameshi-container">
 					 <div class="row justify-content-center">
-						 <div class="col-xl-4 col-lg-5 col-md-8 col-sm-8">
 							 <nav class="mb-4" style="--bs-breadcrumb-driver: '>';" aria-label="breadcrumb">
 								 <ol class="breadcrumb mb-0">
 									 <li class="breadcrumb-item"><a th:href="@{/}">トップページ</a></li>
@@ -24,7 +23,7 @@
 							 </nav>
 							 
 							<div class="col-xl-3 col-lg-4 col-md-12">
-								<form method="get" th:action="@{/stores}" class="w-100 mb-3">
+								<form method="get" th:action="@{/stores}" class="mb-3">
 									<div class="input-group">
 										<input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="民宿名・目的地・カテゴリー">
 										<button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">検索</button>
@@ -36,7 +35,7 @@
                                     	予算から探す
                                 	</div>
                                 	<div class="card-body">
-										<form method="get" th:action="@{/stores}" class="w-100">
+										<form method="get" th:action="@{/stores}">
 											<div class="form-group mb-3">
 												<select class="form-control form-select" name ="price">
 													<option value="" hidden>選択してください</option>

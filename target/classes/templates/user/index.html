@@ -15,10 +15,13 @@
 		 	 <main>
 				  <div class="container pt-4 pb-5 nagoyameshi-container">
 					 <div class="row justify-content-center">
-						 <div class="col-xl-4 col-lg-5 col-md-8 col-sm-8">
-							 <nav class="mb-4" style="--bs-breadcrumb-driver: '>';" aria-label="breadcrumb">
-							 </nav>
-							 
+						 <nav class="mb-4" style="--bs-breadcrumb-driver: '>';" aria-label="breadcrumb">
+							 <ol class="breadcrumb mb-0">
+								 <li class="breadcrumb-item"><a th:href="@{/}">トップページに戻る</a></li>
+							 </ol>
+						 </nav>
+
+						<div class="col-xxl-6 col-xl-7 col-lg-8 col-md-10">							 
 							 <h1 class="mb-5 text-center">マイページ</h1>
 							 
 							 <div class="container mb-4">
@@ -28,20 +31,42 @@
 										 <a th:href="@{/user/info}" class="p-3 nagoyameshi-info">会員情報</a>
 									 </div>
 								 </div>
+								 
+								 <!-- ログイン済の無料会員であれば表示 -->
+								 <div class="nav-item" sec:authorize="hasRole('ROLE_GENERAL')">
+									 <div class="pb-3">
+									 	<div class="row pb-2 shadow-sm text-center border">
+											 <a th:href="@{/subscription/register}" class="p-3 nagoyameshi-info">有料プラン登録</a>
+									 	</div>
+								 	</div>
+								 </div>
 								  
 								 <!-- ログイン済の有料会員であれば表示 -->
-								 <div class="nav-item px-2 dropdown" sec:authorize="hasRole('ROLE_SUBSCRIBER')">
+								 <div class="nav-item" sec:authorize="hasRole('ROLE_SUBSCRIBER')">
 								 	<div class="pb-3">
 									 	<div class="row pb-2 shadow-sm text-center border">
-											 <a href="@{///reservations}" class="p-3 nagoyameshi-info">予約一覧</a>
+											 <a th:href="@{/reservations}" class="p-3 nagoyameshi-info">予約一覧</a>
 									 	</div>
 								 	</div>
 								 	
 								 	<div class="pb-3">
 										 <div class="row pb-2 shadow-sm text-center border">
-										 <a href="@{///favorites}" class="p-3 nagoyameshi-info">お気に入り店舗一覧</a>
+										 <a th:href="@{/favorites}" class="p-3 nagoyameshi-info">お気に入り店舗一覧</a>
 									 	</div>
 								 	</div>
+								 	
+								 	<div class="pb-3">
+										 <div class="row pb-2 shadow-sm text-center border">
+										 <a th:href="@{/subscription/edit}" class="p-3 nagoyameshi-info">お支払方法の変更</a>
+									 	</div>
+								 	</div>
+								 	
+								 	<div class="pb-3">
+										 <div class="row pb-2 shadow-sm text-center border">
+										 <a th:href="@{/subscription/cancel}" class="p-3 nagoyameshi-info">有料プラン解約</a>
+									 	</div>
+								 	</div>
+								 	
 								 </div>
 							 </div>
 						 </div>

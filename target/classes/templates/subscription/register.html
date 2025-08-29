@@ -14,14 +14,14 @@
             <main>
                 <div class="container pb-5 nagoyameshi-container">
                     <div class="row justify-content-center">
-                        <div class="col-xl-5 col-lg-6 col-md-8">
-                            <nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                                <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a th:href="@{/}">ホーム</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">有料プラン登録</li>
-                                </ol>
-                            </nav>
+                        <nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item"><a th:href="@{/user}">マイページ</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">有料プラン登録</li>
+                            </ol>
+                        </nav>
 
+                        <div class="col-xl-5 col-lg-6 col-md-8">
                             <h1 class="mb-3 text-center">有料プラン登録</h1>
 
                             <div th:if="${subscriptionMessage}" class="alert alert-info" role="alert">
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-            </main>
+			</main>
 
             <div th:replace="~{fragment :: footer}"></div>
         </div>

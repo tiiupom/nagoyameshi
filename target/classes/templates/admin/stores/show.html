@@ -15,15 +15,15 @@
 		 	 <main>
 				  <div class="container pt-4 pb-5 nagoyameshi-container">
 					 <div class="row justify-content-center">
-						 <div class="col-xl-4 col-lg-5 col-md-8 col-sm-8">
-							 <nav class="mb-4" style="--bs-breadcrumb-driver: '>';" aria-label="breadcrumb">
-								 <ol class="breadcrumb mb-0">
-									 <li class="breadcrumb-item"><a th:href="@{/admin}">管理者メニュー</a></li>
-									 <li class="breadcrumb-item"><a th:href="@{/admin/stores}">店舗情報一覧</a></li>
-									 <li class="breadcrumb-item active" aria-current="page">店舗詳細</li>
-								 </ol>
-							 </nav>
+						 <nav class="mb-4" style="--bs-breadcrumb-driver: '>';" aria-label="breadcrumb">
+							 <ol class="breadcrumb mb-0">
+								 <li class="breadcrumb-item"><a th:href="@{/admin}">管理者メニュー</a></li>
+								 <li class="breadcrumb-item"><a th:href="@{/admin/stores}">店舗情報一覧</a></li>
+								 <li class="breadcrumb-item active" aria-current="page">店舗詳細</li>
+							 </ol>
+						 </nav>
 							 
+						<div class="col-xxl-6 col-xl-7 col-lg-8 col-md-10">
 							 <h1 class="mb-4 text-center" th:text="${store.name}"></h1>
 							 
 							 <div class="d-flex justify-content-end align-items-end mb-3">
@@ -47,6 +47,21 @@
 									 <div class="col">
 										 <span th:text="${store.name}"></span>
 									 </div>
+								 </div>
+								 
+								 <div class="row pb-2 mb-2 border-bottom">
+									 <div class="col-4">
+										 <span class="fw-bold">カテゴリ</span>
+									</div>
+									
+									<div class="col d-flex">
+										<div th:unless="${store.categoryStores.isEmpty()}">
+											<span th:each="categoryStore, stat : ${store.categoryStores}" th:if="${stat.first}" th:text="${categoryStore.category.name}"></span><span th:each="categoryStore, stat : ${store.categoryStores}" th:unless="${stat.first}" th:text="${'、' + categoryStore.category.name}"></span>
+										</div>
+										<div th:if="${store.categoryStores.isEmpty()}">
+											<span>未設定</span>
+										</div>
+									</div>
 								 </div>
 								 
 								 <div class="row pb-2 mb-2 border-bottom">
@@ -123,21 +138,6 @@
 										 <span th:text="${store.capacity + '人'}"></span>
 									 </div>
 								 </div>
-								 
-								 <div class="row pb-2 mb-2 border-bottom">
-									 <div class="col-4">
-										 <span class="fw-bold">カテゴリ</span>
-									</div>
-									
-									<div class="col d-flex">
-										<div th:unless="${store.categoryStores.isEmpty()}">
-											<span th:each="categoryStore, stat : ${store.categoryStores}" th:if="${stat.first}" th:text="${categoryStore.category.name}"></span><span th:each="categoryStore, stat : ${store.categoryStores}" th:unless="${stat.first}" th:text="${'、' + categoryStore.category.name}"></span>
-										</div>
-										<div th:if="${store.categoryStores.isEmpty()}">
-											<span>未設定</span>
-										</div>
-									</div>
-								</div>
 							</div>
 						 </div>
 						 
