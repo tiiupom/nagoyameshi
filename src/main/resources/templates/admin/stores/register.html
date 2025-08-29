@@ -18,7 +18,8 @@
 						 <div class="col-xl-4 col-lg-5 col-md-8 col-sm-8">
 							 <nav class="mb-4" style="--bs-breadcrumb-driver: '>';" aria-label="breadcrumb">
 								 <ol class="breadcrumb mb-0">
-									 <li class="breadcrumb-item"><a th:href="@{/admin/stores}">店舗一覧</a></li>
+									 <li class="breadcrumb-item"><a th:href="@{/admin}">管理者メニュー</a></li>
+									 <li class="breadcrumb-item"><a th:href="@{/admin/stores}">店舗情報一覧</a></li>
 									 <li class="breadcrumb-item active" aria-current="page">店舗登録</li>
 								 </ol>
 							 </nav>
@@ -209,6 +210,11 @@
                                  </div>
                              </form>
                          </div>
+						
+						<div class="button-container">
+							<a th:href="@{/admin/stores}" class="back-button">戻る</a>
+						</div>
+						
                      </div>
                  </div>
 		 	 </main>

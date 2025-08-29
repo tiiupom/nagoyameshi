@@ -18,7 +18,7 @@
 						 <div class="col-xl-4 col-lg-5 col-md-8 col-sm-8">
 							 <nav class="mb-4" style="--bs-breadcrumb-driver: '>';" aria-label="breadcrumb">
 								 <ol class="breadcrumb mb-0">
-									 <li class="breadcrumb-item"><a th:href="@{/admin}">管理ページ</a></li>
+									 <li class="breadcrumb-item"><a th:href="@{/admin}">管理者メニュー</a></li>
 									 <li class="breadcrumb-item"><a th:href="@{/admin/users}">会員一覧</a></li>
 									 <li class="breadcrumb-item active" aria-current="page">会員詳細</li>
 								 </ol>
@@ -78,9 +78,12 @@
 									 </div>
 								 </div>
                             </div>
-								 
-								</div>
 						 </div>
+						 
+						 <div class="button-container">
+							 <a th:href="@{/admin/users}" class="back-button">戻る</a>
+						 </div>
+						 
 					 </div>
 				  </div>
 		 	 </main>

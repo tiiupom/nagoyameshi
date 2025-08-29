@@ -7,7 +7,6 @@
          
          <title>管理者メニュー</title>
      </head>
-     
       <body>
 		 <div class="nagoyameshi-wrapper">
 			 <div th:replace="~{fragment :: header}"></div>
@@ -15,45 +14,59 @@
 		 	 <main>
 				  <div class="container pt-4 pb-5 nagoyameshi-container">
 					 <div class="row justify-content-center">
-						 <div class="col-xl-4 col-lg-5 col-md-8 col-sm-8">
+						 <div class="col-xxl-9 col-xl-10 col-lg-11">
 							 <nav class="mb-4" style="--bs-breadcrumb-driver: '>';" aria-label="breadcrumb">
+								 <ol class="breadcrumb mb-0">
+									 <li class="breadcrumb-item"><a th:href="@{/}">トップページに戻る</a></li>
+								 </ol>
 							 </nav>
 							 
-							 <h1 class="mb-5 text-center">管理者メニュー</h1>
+							 <div class="col container">
+								 <div class="row justify-content-center">
+									<div class="col-xl-4 col-lg-5 col-md-8 col-sm-8">
+							 			<h1 class="mb-5 text-center">管理者メニュー</h1>
 							 
-							 <div class="container mb-4">
+							 			<div class="container mb-4">
 								 
-								 <div class="pb-3">
-									 <div class="row pb-2 shadow-sm text-center border">
-										 <a href="@{/admin/company}" class="p-3 nagoyameshi-info">会社概要</a>
-									 </div>
-								 </div>
+								 			<div class="pb-3">
+									 			<div class="row pb-2 shadow-sm text-center border">
+													 <a href="@{/admin/company}" class="p-3 nagoyameshi-info">会社概要</a>
+												 </div>
+								 			</div>
 								 
-								 <div class="pb-3">
-									 <div class="row pb-2 shadow-sm text-center border">
-										 <a th:href="@{/admin/users}" class="p-3 nagoyameshi-info">会員一覧</a>
-									 </div>
-								 </div>
+											 <div class="pb-3">
+												 <div class="row pb-2 shadow-sm text-center border">
+													 <a th:href="@{/admin/users}" class="p-3 nagoyameshi-info">会員一覧</a>
+												 </div>
+											 </div>
 								 
-								 <div class="pb-3">
-									 <div class="row pb-2 shadow-sm text-center border">
-										 <a th:href="@{/admin/stores}" class="p-3 nagoyameshi-info">店舗一覧</a>
-									 </div>
-								 </div>
+											 <div class="pb-3">
+												 <div class="row pb-2 shadow-sm text-center border">
+													 <a th:href="@{/admin/stores}" class="p-3 nagoyameshi-info">店舗情報一覧</a>
+												 </div>
+											 </div>
 								 
-								 <div class="pb-3">
-									 <div class="row pb-2 shadow-sm text-center border">
-										 <a href="@{/admin/categories}" class="p-3 nagoyameshi-info">カテゴリ一覧</a>
-									 </div>
-								 </div>
+											 <div class="pb-3">
+												 <div class="row pb-2 shadow-sm text-center border">
+													 <a href="@{/admin/categories}" class="p-3 nagoyameshi-info">カテゴリ一覧</a>
+												 </div>
+								 			</div>
 								 
-								 <div class="py-5">
-									 <div class="row py-4 shadow-sm text-center border sale-card">
-										 <div class="card-title nagoyameshi-info">月間売上</div>
-										 <p class="card-text" th:text="${#numbers.formatInteger(salesForThisMonth, 1, 'COMMA') + '円'}"></p>
-									 </div>
+											 <div class="pb-3">
+												 <div class="row pb-2 shadow-sm text-center border">
+													 <a href="@{/admin/terms}" class="p-3 nagoyameshi-info">利用規約</a>
+												 </div>
+											 </div>
+								 
+											 <div class="py-5">
+												 <div class="row py-4 shadow-sm text-center border sale-card">
+													 <div class="card-title nagoyameshi-info">月間売上</div>
+													 <p class="card-text" th:text="${#numbers.formatInteger(salesForThisMonth, 1, 'COMMA') + '円'}"></p>
+												 </div>
+											 </div>
+							 			</div>
+									</div>
 								 </div>
-							 
 							 </div>
 						 </div>
 					 </div>
@@ -61,7 +74,7 @@
 		 	 </main>
 		 	 
 		 	 <div th:replace="~{fragment :: footer}"></div>
-		 </div>
+		 	</div>
 		 
 		 <div th:replace="~{fragment :: scripts}"></div>
 	</body>
