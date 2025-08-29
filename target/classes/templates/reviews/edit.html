@@ -14,17 +14,17 @@
             <main>
                 <div class="container pt-4 pb-5 nagoyameshi-container">
 					 <div class="row justify-content-center">
-						 <div class="col-xl-4 col-lg-5 col-md-8 col-sm-8">
-							 <nav class="mb-4" style="--bs-breadcrumb-driver: '>';" aria-label="breadcrumb">
-								 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a th:href="@{/}">トップページ</a></li>
-                                    <li class="breadcrumb-item"><a th:href="@{/stores}">店舗一覧</a></li>
-                                    <li class="breadcrumb-item"><a th:href="@{/stores/__${store.id}__}">店舗詳細</a></li>
-                                    <li class="breadcrumb-item"><a th:href="@{/stores/__${store.id}__/reviews}">レビュー</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">レビュー編集</li>
-                                </ol>
-                            </nav>
+						 <nav class="mb-4" style="--bs-breadcrumb-driver: '>';" aria-label="breadcrumb">
+							 <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item"><a th:href="@{/}">トップページ</a></li>
+                                <li class="breadcrumb-item"><a th:href="@{/stores}">店舗一覧</a></li>
+                                <li class="breadcrumb-item"><a th:href="@{/stores/__${store.id}__}">店舗詳細</a></li>
+                                <li class="breadcrumb-item"><a th:href="@{/stores/__${store.id}__/reviews}">レビュー</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">レビュー編集</li>
+                            </ol>
+                        </nav>
 
+						<div class="col-xxl-6 col-xl-7 col-lg-8 col-md-10">
                             <h1 class="mb-2 text-center" th:text="${store.name}"></h1>
 
                             <p class="text-center">

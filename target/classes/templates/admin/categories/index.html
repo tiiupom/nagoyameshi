@@ -14,72 +14,70 @@
             <main>
                 <div class="container pt-4 pb-5 nagoyameshi-container">
 					<div class="row justify-content-center">
-						 <div class="col-xxl-9 col-xl-10 col-lg-11">
-							 <ol class="breadcrumb mb-0">
-								<li class="breadcrumb-item"><a th:href="@{/admin}">管理者メニュー</a></li>
-								<li class="breadcrumb-item active" aria-current="page">カテゴリ一覧</li>
-							</ol>
+						 <ol class="breadcrumb mb-0">
+							<li class="breadcrumb-item"><a th:href="@{/admin}">管理者メニュー</a></li>
+							<li class="breadcrumb-item active" aria-current="page">カテゴリ一覧</li>
+						</ol>
 
-                        	<!-- カテゴリの登録用モーダル -->
-                        	<div class="modal fade" id="createCategoryModal" tabindex="-1" aria-labelledby="createCategoryModalLabel">
-                            	<div class="modal-dialog">
- 	                               <div class="modal-content">
-    	                                <div class="modal-header">
-        	                                <h5 class="modal-title" id="createCategoryModalLabel">カテゴリの登録</h5>
-            	                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
-                	                    </div>
-                    	                <form method="post" th:action="@{/admin/categories/create}" th:object="${categoryRegisterForm}">
-                        	                <div class="modal-body">
-                            	                <input type="text" class="form-control" th:field="*{name}">
-                                	        </div>
-                                    	    <div class="modal-footer">
-                                        	    <button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">登録</button>
-                                        	</div>
-             	                       </form>
-              	                  </div>
-              	              </div>
-              	          </div>
-
+                      	<!-- カテゴリの登録用モーダル -->
+                       	<div class="modal fade" id="createCategoryModal" tabindex="-1" aria-labelledby="createCategoryModalLabel">
+                           	<div class="modal-dialog">
+	                               <div class="modal-content">
+   	                                <div class="modal-header">
+       	                                <h5 class="modal-title" id="createCategoryModalLabel">カテゴリの登録</h5>
+           	                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+               	                    </div>
+                   	                <form method="post" th:action="@{/admin/categories/create}" th:object="${categoryRegisterForm}">
+                       	                <div class="modal-body">
+                           	                <input type="text" class="form-control" th:field="*{name}">
+                               	        </div>
+                                   	    <div class="modal-footer">
+                                       	    <button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">登録</button>
+                                       	</div>
+            	                       </form>
+             	                  </div>
+             	              </div>
+             	          </div>
              	           <!-- カテゴリの編集用モーダル -->
-             	           <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel">
-	                            <div class="modal-dialog">
-    	                            <div class="modal-content">
-        	                            <div class="modal-header">
-            	                            <h5 class="modal-title" id="editCategoryModalLabel">カテゴリの編集</h5>
-                	                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
-                    	                </div>
-                        	            <form method="post" action="" name="editCategoryForm" th:object="${categoryEditForm}">
-                            	            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
-	
-    	                                    <div class="modal-body">
-        	                                    <input type="text" class="form-control" th:field="*{name}">
-            	                            </div>
-                	                        <div class="modal-footer">
-                    	                        <button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">更新</button>
-                        	                </div>
-                            	        </form>
-                                	</div>
-               	             </div>
-                	        </div>
+            	           <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel">
+                            <div class="modal-dialog">
+   	                            <div class="modal-content">
+       	                            <div class="modal-header">
+           	                            <h5 class="modal-title" id="editCategoryModalLabel">カテゴリの編集</h5>
+               	                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+                   	                </div>
+                       	            <form method="post" action="" name="editCategoryForm" th:object="${categoryEditForm}">
+                           	            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
 
-	                        <!-- カテゴリの削除用モーダル -->
-    	                    <div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel">
-        	                    <div class="modal-dialog">
-            	                    <div class="modal-content">
-                	                    <div class="modal-header">
-                    	                    <h5 class="modal-title" id="deleteCategoryModalLabel"></h5>
-                        	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
-                            	        </div>
-                                	    <div class="modal-footer">
-                                    	    <form method="post" action="" name="deleteCategoryForm">
-                                        	    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
-                                            	<button type="submit" class="btn text-white shadow-sm nagoyameshi-btn-danger">削除</button>
-	                                        </form>
-    	                                </div>
-        	                        </div>
-            	                </div>
-                	        </div>
-	
+   	                                    <div class="modal-body">
+       	                                    <input type="text" class="form-control" th:field="*{name}">
+           	                            </div>
+               	                        <div class="modal-footer">
+                   	                        <button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">更新</button>
+                       	                </div>
+                           	        </form>
+                               	</div>
+              	             </div>
+               	        </div>
+                        <!-- カテゴリの削除用モーダル -->
+   	                    <div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel">
+       	                    <div class="modal-dialog">
+           	                    <div class="modal-content">
+               	                    <div class="modal-header">
+                   	                    <h5 class="modal-title" id="deleteCategoryModalLabel"></h5>
+                       	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+                           	        </div>
+                               	    <div class="modal-footer">
+                                   	    <form method="post" action="" name="deleteCategoryForm">
+                                       	    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                                           	<button type="submit" class="btn text-white shadow-sm nagoyameshi-btn-danger">削除</button>
+                                        </form>
+   	                                </div>
+       	                        </div>
+           	                </div>
+               	        </div>
+
+						<div class="col-xxl-9 col-xl-10 col-lg-11">	
     	                    <div class="col container">
         	                    <div class="row justify-content-center">
             	                    <div class="col-xl-7 col-lg-8 col-md-9">

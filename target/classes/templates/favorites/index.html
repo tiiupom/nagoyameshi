@@ -31,14 +31,14 @@
                 </div>
                 <div class="container nagoyameshi-container pb-5">
                     <div class="row justify-content-center">
-                        <div class="col-xxl-7 col-xl-8 col-lg-9 col-md-11">
-                            <nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                                <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a th:href="@{/}">ホーム</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">お気に入り一覧</li>
-                                </ol>
-                            </nav>
+						<nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                             <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item"><a th:href="@{/user}">マイページ</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">お気に入り一覧</li>
+                            </ol>
+                        </nav>
 
+                        <div class="col-xxl-6 col-xl-7 col-lg-8 col-md-10">
                             <h1 class="mb-3 text-center">お気に入り一覧</h1>
 
                             <div th:if="${successMessage}" class="alert alert-info">
@@ -53,7 +53,6 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">店舗名</th>
-                                        <th scope="col">郵便番号</th>
                                         <th scope="col">住所</th>
                                         <th scope="col"></th>
                                     </tr>
@@ -63,7 +62,6 @@
                                         <td>
                                             <a th:href="@{/stores/__${favorite.store.id}__}" th:text="${favorite.store.name}"></a>
                                         </td>
-                                        <td th:text="${#strings.substring(favorite.store.postalCode, 0, 3) + '-' + #strings.substring(favorite.store.postalCode, 3)}"></td>
                                         <td th:text="${favorite.store.address}"></td>
                                         <td>
                                             <a href="#" class="link-secondary" data-bs-toggle="modal" data-bs-target="#removeFavoriteModal" th:data-favorite-id="${favorite.id}" th:data-store-name="${favorite.store.name}">解除</a>
@@ -91,8 +89,12 @@
                                     </ul>
                                 </nav>
                             </div>
-
                         </div>
+						
+						<div class="button-container">
+							<a th:href="@{/user}" class="back-button">戻る</a>
+						</div>
+						
                     </div>
                 </div>
             </main>
