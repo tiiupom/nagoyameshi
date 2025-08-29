@@ -134,6 +134,11 @@ public class UserService {
 		userRepository.save(user);
 	}
 	
+	@Transactional
+	public void deleteUser(User user) {
+		userRepository.delete(user);
+	}
+	
 	// 認証情報のロールを更新
 	public void refreshAuthenticationByRole(String newRole) {
 		// 現在の認証情報を取得

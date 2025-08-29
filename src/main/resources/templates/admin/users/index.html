@@ -17,7 +17,7 @@
 					<div class="row justify-content-center">
 						 <div class="col-xxl-9 col-xl-10 col-lg-11">
 							 <ol class="breadcrumb mb-0">
-								<li class="breadcrumb-item"><a th:href="@{/admin}">管理ページ</a></li>
+								<li class="breadcrumb-item"><a th:href="@{/admin}">管理者メニュー</a></li>
 								<li class="breadcrumb-item active" aria-current="page">会員一覧</li>
 							</ol>
 							 
@@ -89,11 +89,27 @@
 										<td th:text="${user.name}"></td>
 										<td th:text="${user.furigana}"></td>
 										<td><a th:href="@{/admin/users/__${user.id}__}">詳細</a></td>
-										<td><a href="#" class="nagoyameshi-link-danger" data-bs-toggle="modal" th:data-bs-target="${'#deleteStoreModal' + user.id}">削除</a></td>
+										<td><a href="#" class="nagoyameshi-link-danger" data-bs-toggle="modal" th:data-bs-target="${'#deleteUserModal' + user.id}">削除</a></td>
 										
+										<!-- 削除用モーダル -->
+										<div class="modal fade" th:id="${'deleteUserModal' + user.id}" tabindex="-1" th:aria-labelledby="${'deleteUserModalLabel' + user.id}">
+											<div class="modal-dialog">
+                                                 <div class="modal-content">
+                                                     <div class="modal-header">
+														 <h5 class="modal-title" th:id="${'deleteUserModal' + user.id}" th:text="${user.name + 'を削除してもよろしいですか？'}"></h5>
+														 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+                                                     </div>
+                                                     <div class="modal-footer">
+														 <form method="post" th:action="@{/admin/users/__${user.id}__/delete}">
+															 <button type="submit" class="btn text-white nagoyameshi-btn">削除</button>
+														 </form>
+                                                     </div>
+                                                 </div>
+											</div>
+										</div>
 									</tr>
 								</tbody>
-                            </table>
+							</table>
                             
                             <!-- ページネーション 
                             	a要素の中のth:href属性にkeywordパラメータを追加し、ページ移動時も検索結果が保持されるようにする -->
@@ -116,6 +132,11 @@
 								</nav>
 							</div>
 						</div>
+						
+						<div class="button-container">
+							<a th:href="@{/admin}" class="back-button">戻る</a>
+						</div>
+						
 					</div>
 				</div>
 		 	 </main>

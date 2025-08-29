@@ -5,7 +5,7 @@
  
          <div th:replace="~{fragment :: styles}"></div>
          
-         <title>店舗一覧</title>
+         <title>店舗情報一覧</title>
      </head>
      
      <body>
@@ -17,7 +17,7 @@
 					<div class="row justify-content-center">
 						 <div class="col-xxl-9 col-xl-10 col-lg-11">
 							 <ol class="breadcrumb mb-0">
-								<li class="breadcrumb-item"><a th:href="@{/admin}">管理ページ</a></li>
+								<li class="breadcrumb-item"><a th:href="@{/admin}">管理者メニュー</a></li>
 								<li class="breadcrumb-item active" aria-current="page">店舗情報一覧</li>
 							</ol>
 							 
@@ -126,9 +126,13 @@
 										</li>
 									</ul>
 								</nav>
-                            </div>
-                            
+							</div>
 						 </div>
+						 
+						<div class="button-container">
+							 <a th:href="@{/admin}" class="back-button">戻る</a>
+						</div>
+						 
 					</div>
 				</div>
 		 	 </main>

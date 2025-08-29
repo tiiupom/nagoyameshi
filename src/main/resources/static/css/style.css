@@ -166,6 +166,12 @@ footer {
 	opacity: 0.8;
 }
 
+.back-button {
+	display: block;
+	width: 25px;
+	margin: 0 auto;
+}
+
 .nagoyameshi-swiper {
   width: 100%;
   height: 480px;
