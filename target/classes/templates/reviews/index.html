@@ -87,7 +87,7 @@
                             </div>
 
                             <!-- 有料プランに登録していれば表示する -->
-                            <div th:if="${userRoleName.equals('ROLE_PAID_MEMBER') && reviewPage.getTotalPages() > 1}" class="d-flex justify-content-center">
+                            <div th:if="${userRoleName.equals('ROLE_SUBSCRIBER') && reviewPage.getTotalPages() > 1}" class="d-flex justify-content-center">
                                 <nav aria-label="レビューページ">
                                     <ul class="pagination">
                                         <li class="page-item">
@@ -107,12 +107,12 @@
                             </div>
 
                             <!-- 有料プランに登録しておらず、レビュー数が3件を超えていれば表示する -->
-                            <div th:if="${userRoleName.equals('ROLE_FREE_MEMBER') && reviewPage.getTotalElements() > 3}" class="text-center">
+                            <div th:if="${userRoleName.equals('ROLE_GENERAL') && reviewPage.getTotalElements() > 3}" class="text-center">
                                 <p>レビューを全件表示するには<a th:href="@{/subscription/register}">有料プランへの登録</a>が必要です。</p>
                             </div>
 
                             <!-- 有料プランに登録しており、レビューを投稿済みでなければ表示する -->
-                            <div th:if="${userRoleName.equals('ROLE_PAID_MEMBER') && !hasUserAlreadyReviewed}" class="text-center mt-3">
+                            <div th:if="${userRoleName.equals('ROLE_SUBSCRIBER') && !hasUserAlreadyReviewed}" class="text-center mt-3">
                                 <a th:href="@{/stores/__${store.id}__/reviews/register}" class="btn text-white shadow-sm w-50 nagoyameshi-btn">レビューを投稿する</a>
                             </div>
                         </div>
